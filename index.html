@@ -13,10 +13,15 @@
             --text-main: #0f172a;
             --text-muted: #64748b;
             --border-color: #cbd5e1;
-            --bos-bg: #f8fafc; --bos-color: #94a3b8;
-            --gunduz-bg: #fffbebf5; --gunduz-color: #d97706;
-            --gece-bg: #f0f9ff; --gece-color: #0284c7;
-            --izin-bg: #f1f5f9; --izin-color: #475569;
+
+            /* YENİ RENK PALETİ */
+            --bos-bg: #ffffff;        --bos-color: #94a3b8;      /* BOŞ: BEYAZ */
+            --gunduz-bg: #fef3c7;     --gunduz-color: #d97706;   /* GÜNDÜZ: SARI */
+            --gece-bg: #dbeafe;       --gece-color: #1d4ed8;     /* GECE: MAVİ */
+            --izin-bg: #dcfce7;       --izin-color: #16a34a;     /* 36s İZİN: AÇIK YEŞİL */
+            --izin24-bg: #ffedd5;     --izin24-color: #ea580c;   /* 24s İZİN: AÇIK TURUNCU */
+            --izin96-bg: #fee2e2;     --izin96-color: #dc2626;   /* 96s İZİN: AÇIK KIRMIZI */
+
             --ok: #059669; --warn: #dc2626; --info: #4f46e5;
             --w1: #4f46e5; --w2: #0891b2; --w3: #7c3aed; --w4: #db2777;
         }
@@ -28,31 +33,17 @@
             display: flex; flex-direction: column; align-items: center; user-select: none;
         }
         .container { width: 100%; max-width: 480px; }
-        .app-header { text-align: center; margin-top: 5px; margin-bottom: 15px; }
-        .app-header h1 { font-size: 20px; font-weight: 800; color: var(--text-main); margin: 0; }
-        .app-header .sub { font-size: 11px; color: var(--text-muted); font-weight: 700; margin-top: 3px; }
 
-        /* ===== GİRİŞ EKRANI ===== */
         #authScreen {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             width: 100%; max-width: 420px;
             padding: 30px 10px;
             min-height: 80vh;
         }
-        .auth-logo {
-            text-align: center; margin-bottom: 25px;
-        }
-        .auth-logo .logo-icon {
-            font-size: 60px; margin-bottom: 10px;
-        }
-        .auth-logo h1 {
-            font-size: 26px; font-weight: 800; color: var(--primary);
-            margin: 0;
-        }
-        .auth-logo .logo-sub {
-            font-size: 12px; color: var(--text-muted); font-weight: 700;
-            margin-top: 6px;
-        }
+        .auth-logo { text-align: center; margin-bottom: 25px; }
+        .auth-logo .logo-icon { font-size: 60px; margin-bottom: 10px; }
+        .auth-logo h1 { font-size: 26px; font-weight: 800; color: var(--primary); margin: 0; }
+        .auth-logo .logo-sub { font-size: 12px; color: var(--text-muted); font-weight: 700; margin-top: 6px; }
         .auth-card {
             background: var(--card-bg); border-radius: 20px; padding: 22px;
             width: 100%;
@@ -71,17 +62,13 @@
             color: var(--text-main); background: #f8fafc; outline: none;
             transition: border-color 0.2s;
             text-align: center;
-            letter-spacing: 0.5px;
         }
-        .auth-field input:focus {
-            border-color: var(--primary); background: white;
-        }
+        .auth-field input:focus { border-color: var(--primary); background: white; }
         .auth-btn {
             height: 52px; background: var(--primary); color: white;
             border: none; border-radius: 12px; font-size: 15px; font-weight: 800;
             cursor: pointer; margin-top: 4px;
             display: flex; align-items: center; justify-content: center; gap: 8px;
-            letter-spacing: 0.3px;
         }
         .auth-btn:active { background: var(--primary-active); transform: scale(0.98); }
         .auth-error {
@@ -95,7 +82,6 @@
         }
         .auth-hint b { color: var(--primary); }
 
-        /* ===== UYGULAMA EKRANI ===== */
         #appScreen { display: none; width: 100%; }
 
         .user-bar {
@@ -112,12 +98,8 @@
             color: white; display: flex; align-items: center; justify-content: center;
             font-weight: 800; font-size: 14px;
         }
-        .user-name {
-            font-size: 13px; font-weight: 800; color: var(--text-main);
-        }
-        .user-sub {
-            font-size: 9px; font-weight: 700; color: var(--text-muted);
-        }
+        .user-name { font-size: 13px; font-weight: 800; color: var(--text-main); }
+        .user-sub { font-size: 9px; font-weight: 700; color: var(--text-muted); }
         .btn-logout {
             background: #fee2e2; color: #ef4444; border: none;
             padding: 7px 12px; border-radius: 9px; font-size: 11px;
@@ -134,14 +116,11 @@
         .setup-card .sc-title {
             font-size: 10px; font-weight: 800; color: var(--text-muted);
             text-transform: uppercase; margin-bottom: 8px; text-align: center;
-            letter-spacing: 0.5px;
         }
         .setup-row {
             display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;
         }
-        .setup-field {
-            display: flex; flex-direction: column; gap: 3px;
-        }
+        .setup-field { display: flex; flex-direction: column; gap: 3px; }
         .setup-field label {
             font-size: 9px; font-weight: 700; color: var(--text-muted);
             text-transform: uppercase;
@@ -172,11 +151,8 @@
         .result-card .rc-title {
             font-size: 11px; font-weight: 800; color: var(--primary);
             text-transform: uppercase; margin-bottom: 8px; text-align: center;
-            letter-spacing: 0.5px;
         }
-        .result-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-        }
+        .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
         .result-item {
             background: white; border-radius: 10px; padding: 8px;
             text-align: center; border: 1px solid #c7d2fe;
@@ -185,12 +161,8 @@
             font-size: 8px; font-weight: 700; color: var(--text-muted);
             text-transform: uppercase; margin-bottom: 2px;
         }
-        .result-item .ri-val {
-            font-size: 15px; font-weight: 800; color: var(--primary);
-        }
-        .result-item .ri-desc {
-            font-size: 8px; font-weight: 600; color: var(--text-muted); margin-top: 1px;
-        }
+        .result-item .ri-val { font-size: 15px; font-weight: 800; color: var(--primary); }
+        .result-item .ri-desc { font-size: 8px; font-weight: 600; color: var(--text-muted); margin-top: 1px; }
         .result-dates {
             background: white; border-radius: 10px; padding: 8px;
             text-align: center; border: 1px solid #c7d2fe; margin-top: 6px;
@@ -199,12 +171,8 @@
             font-size: 8px; font-weight: 700; color: var(--text-muted);
             text-transform: uppercase; margin-bottom: 2px;
         }
-        .result-dates .rd-val {
-            font-size: 12px; font-weight: 800; color: var(--primary);
-        }
-        .result-dates .rd-sub {
-            font-size: 9px; font-weight: 600; color: var(--text-muted); margin-top: 2px;
-        }
+        .result-dates .rd-val { font-size: 12px; font-weight: 800; color: var(--primary); }
+        .result-dates .rd-sub { font-size: 9px; font-weight: 600; color: var(--text-muted); margin-top: 2px; }
 
         .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
         .stat-box {
@@ -223,16 +191,13 @@
         .target-card .tc-title {
             font-size: 10px; font-weight: 800; color: var(--text-muted);
             text-transform: uppercase; margin-bottom: 8px; text-align: center;
-            letter-spacing: 0.5px;
         }
         .progress-wrap { margin-top: 4px; }
         .progress-row {
             display: flex; justify-content: space-between; align-items: center;
             font-size: 11px; font-weight: 700; margin-bottom: 4px;
         }
-        .progress-bar {
-            height: 12px; background: #e2e8f0; border-radius: 6px; overflow: hidden;
-        }
+        .progress-bar { height: 12px; background: #e2e8f0; border-radius: 6px; overflow: hidden; }
         .progress-fill { height: 100%; border-radius: 6px; transition: width 0.3s ease; }
         .progress-fill.ok { background: linear-gradient(90deg, #10b981, #059669); }
         .progress-fill.over { background: linear-gradient(90deg, #f59e0b, #dc2626); }
@@ -248,15 +213,12 @@
             margin-bottom: 8px; padding: 0 4px 8px 4px; border-bottom: 1px solid #f1f5f9;
         }
         .calendar-header .ch-title { font-weight: 800; font-size: 14px; }
-        .calendar-nav {
-            display: flex; align-items: center; gap: 6px;
-        }
+        .calendar-nav { display: flex; align-items: center; gap: 6px; }
         .nav-btn {
             background: #f1f5f9; color: var(--primary); border: 1px solid #e2e8f0;
             width: 34px; height: 34px; border-radius: 9px;
             font-size: 16px; font-weight: 800; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            transition: all 0.15s ease;
         }
         .nav-btn:hover { background: #e0e7ff; }
         .nav-btn:active { transform: scale(0.92); }
@@ -301,18 +263,20 @@
             padding: 2px; transition: transform 0.08s ease; position: relative;
             display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
+            overflow: hidden;
         }
         .day-cell:active { transform: scale(0.92); }
         .day-cell.other-month { opacity: 0.45; }
-        .day-cell .day-number { font-size: 11px; font-weight: 800; display: block; opacity: 0.85; margin-bottom: 1px; }
-        .day-cell .shift-label { font-size: 9px; font-weight: 700; line-height: 1.1; }
-        .day-cell .shift-time { font-size: 7px; font-weight: 600; opacity: 0.7; line-height: 1; }
+        .day-cell .day-number { font-size: 11px; font-weight: 800; display: block; opacity: 0.85; margin-bottom: 1px; position: relative; z-index: 2; }
+        .day-cell .shift-label { font-size: 8px; font-weight: 700; line-height: 1.05; position: relative; z-index: 2; }
+        .day-cell .shift-time { font-size: 6px; font-weight: 600; opacity: 0.75; line-height: 1; position: relative; z-index: 2; }
 
         .day-cell.auto-calc::before {
             content: "⚙";
             position: absolute;
             top: 1px; right: 2px;
             font-size: 7px; opacity: 0.5;
+            z-index: 3;
         }
 
         .day-cell.w1 { box-shadow: inset 3px 0 0 0 var(--w1); }
@@ -320,15 +284,58 @@
         .day-cell.w3 { box-shadow: inset 3px 0 0 0 var(--w3); }
         .day-cell.w4 { box-shadow: inset 0 -3px 0 0 var(--w4); }
 
-        .shift-bos { background-color: var(--bos-bg); color: var(--bos-color); border: 1px dashed #cbd5e1; }
-        .shift-gunduz { background-color: var(--gunduz-bg); color: var(--gunduz-color); border: 1px solid #fcd34d; }
-        .shift-gece { background-color: var(--gece-bg); color: var(--gece-color); border: 1px solid #bae6fd; }
-        .shift-izin { background-color: var(--izin-bg); color: var(--izin-color); border: 1px solid #cbd5e1; }
+        /* YENİ RENKLER */
+        .shift-bos { 
+            background-color: var(--bos-bg); 
+            color: var(--bos-color); 
+            border: 1px solid #e2e8f0; 
+        }
+        .shift-gunduz { 
+            background-color: var(--gunduz-bg); 
+            color: var(--gunduz-color); 
+            border: 1px solid #fcd34d; 
+        }
+        .shift-gece { 
+            background-color: var(--gece-bg); 
+            color: var(--gece-color); 
+            border: 1px solid #93c5fd; 
+        }
+        .shift-izin { 
+            background-color: var(--izin-bg); 
+            color: var(--izin-color); 
+            border: 1px solid #86efac; 
+        }
+        .shift-izin24 { 
+            background-color: var(--izin24-bg); 
+            color: var(--izin24-color); 
+            border: 1px solid #fdba74; 
+        }
+        .shift-izin96 { 
+            background-color: var(--izin96-bg); 
+            color: var(--izin96-color); 
+            border: 1px solid #fca5a5; 
+        }
+
+        /* Yarı yarıya bölünmüş hücreler */
+        .day-cell.split-gunduz-izin96 {
+            background: linear-gradient(180deg, 
+                #fef3c7 0%, #fef3c7 50%, 
+                #fee2e2 50%, #fee2e2 100%);
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+        }
+        .day-cell.split-izin96-gece {
+            background: linear-gradient(180deg, 
+                #fee2e2 0%, #fee2e2 50%, 
+                #dbeafe 50%, #dbeafe 100%);
+            color: #1d4ed8;
+            border: 1px solid #93c5fd;
+        }
 
         .day-cell.today { box-shadow: inset 0 0 0 2px #ef4444; }
 
         .week-legend {
-            display: flex; justify-content: center; gap: 6px;
+            display: flex; justify-content: center; gap: 5px;
             margin-top: 8px; padding-top: 8px;
             border-top: 1px solid #f1f5f9; flex-wrap: wrap;
         }
@@ -345,7 +352,7 @@
 <body>
     <div class="container">
 
-        <!-- ==================== GİRİŞ EKRANI ==================== -->
+        <!-- GİRİŞ EKRANI -->
         <div id="authScreen">
             <div class="auth-logo">
                 <div class="logo-icon">📅</div>
@@ -356,23 +363,22 @@
             <div class="auth-card">
                 <div class="auth-form">
                     <div class="auth-field">
-                        <label>👤 Kullanıcı Adınız</label>
-                        <input type="text" id="usernameInput" placeholder="isminizi yazın" autocomplete="username" maxlength="20">
+                        <label>👤 İsim Soyisim</label>
+                        <input type="text" id="fullNameInput" placeholder="örn: Ali Veli" autocomplete="name" maxlength="40">
                     </div>
                     <div class="auth-error" id="authError"></div>
                     <button class="auth-btn" onclick="doLogin()">🚀 Giriş Yap / Devam Et</button>
                 </div>
 
                 <div class="auth-hint">
-                    🔒 Şifre gerekmez. Aynı ismi yazınca <b>kendi takviminize</b> dönersiniz.<br>
-                    Farklı isim yazarsanız <b>yeni bir takvim</b> oluşturulur.
+                    🔒 İsim ve soyisminizi <b>boşluklu</b> yazın (örn: Ali Veli).<br>
+                    Aynı isimle giriş yapınca <b>kendi takviminize</b> dönersiniz.
                 </div>
             </div>
         </div>
 
-        <!-- ==================== UYGULAMA EKRANI ==================== -->
+        <!-- UYGULAMA EKRANI -->
         <div id="appScreen">
-            <!-- Kullanıcı Barı -->
             <div class="user-bar">
                 <div class="user-info">
                     <div class="user-avatar" id="userAvatar">?</div>
@@ -384,7 +390,6 @@
                 <button class="btn-logout" onclick="doLogout()">🚪 Çıkış</button>
             </div>
 
-            <!-- Otomatik Ayar Paneli -->
             <div class="setup-card">
                 <div class="sc-title">⚙️ Otomatik Takvim Oluştur</div>
                 <div class="setup-row">
@@ -403,7 +408,7 @@
                 <div class="setup-row">
                     <div class="setup-field">
                         <label>Kaç Döngü</label>
-                        <input type="number" id="cycleCount" value="1" min="1" max="5">
+                        <input type="number" id="cycleCount" value="1" min="1" max="12">
                     </div>
                     <div class="setup-field">
                         <label>Toplam Vardiya</label>
@@ -414,9 +419,11 @@
                     <button class="btn" onclick="generateAutoCalendar()">🚀 Otomatik Oluştur</button>
                     <button class="btn btn-warn" onclick="clearAllData()">🗑️ Tümünü Temizle</button>
                 </div>
+                <div style="text-align:center;font-size:9px;color:var(--text-muted);font-weight:600;margin-top:6px;">
+                    ✅ Mevcut çizelgeniz silinmez, sadece yeni günler eklenir
+                </div>
             </div>
 
-            <!-- Sonuç Kartı -->
             <div class="result-card" id="resultCard" style="display:none;">
                 <div class="rc-title">📊 Döngü Sonucu</div>
                 <div class="result-grid">
@@ -438,7 +445,7 @@
                     <div class="result-item">
                         <div class="ri-lbl">Toplam İzin</div>
                         <div class="ri-val" id="res-izin">-</div>
-                        <div class="ri-desc">24s + 96s</div>
+                        <div class="ri-desc">36s + 24s + 96s</div>
                     </div>
                 </div>
                 <div class="result-dates">
@@ -448,7 +455,6 @@
                 </div>
             </div>
 
-            <!-- Dashboard -->
             <div class="dashboard">
                 <div class="stat-box">
                     <div class="title">Toplam Çalışma</div>
@@ -460,7 +466,6 @@
                 </div>
             </div>
 
-            <!-- Hedef paneli -->
             <div class="target-card">
                 <div class="tc-title">🎯 Aylık Hedef (160 Saat Standart)</div>
                 <div class="progress-wrap">
@@ -478,7 +483,6 @@
                 </div>
             </div>
 
-            <!-- Takvim -->
             <div class="calendar-card">
                 <div class="calendar-header">
                     <div class="ch-title" id="calTitle">-</div>
@@ -491,15 +495,18 @@
                 </div>
                 <div id="calendarContainer"></div>
                 <div class="week-legend">
-                    <div class="wl-item"><div class="wl-dot" style="background: #0284c7;"></div>Gece (20-08)</div>
-                    <div class="wl-item"><div class="wl-dot" style="background: #d97706;"></div>Gündüz (08-20)</div>
-                    <div class="wl-item"><div class="wl-dot" style="background: #cbd5e1;"></div>İzin</div>
+                    <div class="wl-item"><div class="wl-dot" style="background: #fef3c7; border:1px solid #fcd34d;"></div>Gündüz</div>
+                    <div class="wl-item"><div class="wl-dot" style="background: #dbeafe; border:1px solid #93c5fd;"></div>Gece</div>
+                    <div class="wl-item"><div class="wl-dot" style="background: #dcfce7; border:1px solid #86efac;"></div>İzin (36s)</div>
+                    <div class="wl-item"><div class="wl-dot" style="background: #ffedd5; border:1px solid #fdba74;"></div>İzin24</div>
+                    <div class="wl-item"><div class="wl-dot" style="background: #fee2e2; border:1px solid #fca5a5;"></div>İzin96</div>
+                    <div class="wl-item"><div class="wl-dot" style="background: #ffffff; border:1px solid #e2e8f0;"></div>Boş</div>
                 </div>
             </div>
 
             <div class="hint">
-                💡 <b>Otomatik Oluştur</b> → 7 Gece + 24s izin + 6 Gündüz + 96s izin<br>
-                📅 <b>Gün hücresi</b> → manuel değiştir
+                ☀️ <b>Sarı:</b> Gündüz (08-20) &nbsp;|&nbsp; 🌙 <b>Mavi:</b> Gece (20-08)<br>
+                🟢 <b>Yeşil:</b> 36s izin &nbsp;|&nbsp; 🟠 <b>Turuncu:</b> 24s &nbsp;|&nbsp; 🔴 <b>Kırmızı:</b> 96s
             </div>
         </div>
     </div>
@@ -511,21 +518,23 @@
             { id: "bos", label: "-", class: "shift-bos", time: "" },
             { id: "gunduz", label: "Gündüz", class: "shift-gunduz", time: "08-20" },
             { id: "gece", label: "Gece", class: "shift-gece", time: "20-08" },
-            { id: "izin", label: "İzin", class: "shift-izin", time: "" }
+            { id: "izin", label: "İzin", class: "shift-izin", time: "36s" },
+            { id: "izin24", label: "İzin24", class: "shift-izin24", time: "24s" },
+            { id: "izin96", label: "İzin96", class: "shift-izin96", time: "96s" }
         ];
 
         const WEEK_CLASSES = ["w1", "w2", "w3", "w4"];
         const STANDARD_HOURS = 160;
         const SHIFT_HOURS = 12;
 
-        // ===== ÇOK KULLANICILI SİSTEM (şifresiz) =====
-        const USERS_KEY = "vardiya_users_v3";
-        const SESSION_KEY = "vardiya_session_v3";
-        const DATA_KEY_PREFIX = "vardiya_data_v3_";
+        const USERS_KEY = "vardiya_users_v11";
+        const SESSION_KEY = "vardiya_session_v11";
+        const DATA_KEY_PREFIX = "vardiya_data_v11_";
 
         let currentUser = null;
         let memoryData = {};
         let autoCalcData = {};
+        let splitData = {};
         let baseDate = new Date();
         let selectedWeekMonday = null;
 
@@ -546,48 +555,53 @@
             setTimeout(() => { el.style.display = "none"; }, 3500);
         }
 
-        // ===== GİRİŞ / DEVAM ET =====
         function doLogin() {
-            let username = document.getElementById("usernameInput").value.trim();
+            let fullName = document.getElementById("fullNameInput").value.trim();
 
-            if (!username) {
-                showError("⚠️ Lütfen bir kullanıcı adı girin!");
+            if (!fullName) {
+                showError("⚠️ Lütfen isim ve soyisminizi girin!");
                 return;
             }
-            if (username.length < 2) {
-                showError("⚠️ Kullanıcı adı en az 2 karakter olmalı!");
+            let parts = fullName.split(/\s+/).filter(p => p.length > 0);
+            if (parts.length < 2) {
+                showError("⚠️ Lütfen isim VE soyisim girin (örn: Ali Veli)!");
+                return;
+            }
+            if (fullName.length < 4) {
+                showError("⚠️ İsim çok kısa!");
                 return;
             }
 
-            let normalized = username.toLowerCase()
+            let normalized = fullName.toLowerCase()
                 .replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ş/g, "s")
                 .replace(/ı/g, "i").replace(/ö/g, "o").replace(/ç/g, "c")
-                .replace(/\s+/g, "_");
+                .replace(/\s+/g, " ")
+                .trim();
 
             let users = getUsers();
             let isNew = !users[normalized];
 
             if (isNew) {
                 users[normalized] = {
-                    displayName: username,
-                    username: normalized,
+                    displayName: fullName,
+                    normalized: normalized,
                     createdAt: new Date().toISOString()
                 };
                 saveUsers(users);
             }
 
             currentUser = {
-                username: normalized,
+                normalized: normalized,
                 displayName: users[normalized].displayName
             };
             localStorage.setItem(SESSION_KEY, JSON.stringify(currentUser));
 
-            document.getElementById("usernameInput").value = "";
+            document.getElementById("fullNameInput").value = "";
             enterApp(isNew);
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            let inp = document.getElementById("usernameInput");
+            let inp = document.getElementById("fullNameInput");
             if (inp) {
                 inp.addEventListener("keydown", function(e) {
                     if (e.key === "Enter") doLogin();
@@ -601,6 +615,7 @@
             localStorage.removeItem(SESSION_KEY);
             memoryData = {};
             autoCalcData = {};
+            splitData = {};
             document.getElementById("resultCard").style.display = "none";
             document.getElementById("appScreen").style.display = "none";
             document.getElementById("authScreen").style.display = "flex";
@@ -611,7 +626,7 @@
             document.getElementById("appScreen").style.display = "block";
 
             document.getElementById("userNameDisplay").innerText = currentUser.displayName;
-            document.getElementById("userSubDisplay").innerText = "@" + currentUser.username;
+            document.getElementById("userSubDisplay").innerText = "@" + currentUser.normalized;
             document.getElementById("userAvatar").innerText = currentUser.displayName.charAt(0).toUpperCase();
 
             loadUserData();
@@ -619,7 +634,6 @@
             let today = new Date();
             document.getElementById("startDate").value = today.toISOString().split('T')[0];
 
-            // Bugünün haftasını seç
             baseDate = new Date();
             selectedWeekMonday = getMonday(new Date());
             renderAll();
@@ -631,9 +645,8 @@
             }
         }
 
-        // ===== KULLANICI VERİSİ =====
         function getUserDataKey() {
-            return DATA_KEY_PREFIX + currentUser.username;
+            return DATA_KEY_PREFIX + currentUser.normalized.replace(/\s+/g, "_");
         }
 
         function loadUserData() {
@@ -642,9 +655,11 @@
                 let data = raw ? JSON.parse(raw) : {};
                 memoryData = data.memoryData || {};
                 autoCalcData = data.autoCalcData || {};
+                splitData = data.splitData || {};
             } catch(e) {
                 memoryData = {};
                 autoCalcData = {};
+                splitData = {};
             }
         }
 
@@ -653,12 +668,12 @@
             let data = {
                 memoryData: memoryData,
                 autoCalcData: autoCalcData,
+                splitData: splitData,
                 updatedAt: new Date().toISOString()
             };
             localStorage.setItem(getUserDataKey(), JSON.stringify(data));
         }
 
-        // ===== TAKVİM MANTIĞI =====
         function changeMonth(direction) {
             baseDate.setMonth(baseDate.getMonth() + direction);
             let y = baseDate.getFullYear();
@@ -690,6 +705,10 @@
             return `${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
         }
 
+        // ===== DOĞRU DÖNGÜ =====
+        // Normal aralar: 36s izin (açık yeşil)
+        // Gece→Gündüz (7. geceden sonra): 24s izin (açık turuncu)
+        // Gündüz→Gece (6. gündüzden sonra): 96s izin (açık kırmızı)
         function generateAutoCalendar() {
             const startDateStr = document.getElementById("startDate").value;
             const firstShift = parseInt(document.getElementById("firstShift").value);
@@ -699,9 +718,6 @@
                 alert("Lütfen başlangıç tarihi seçin!");
                 return;
             }
-
-            memoryData = {};
-            autoCalcData = {};
 
             let startDate = new Date(startDateStr + "T00:00:00");
             let currentDate = new Date(startDate);
@@ -713,6 +729,7 @@
 
             for (let c = 0; c < cycleCount; c++) {
                 if (firstIsGece) {
+                    // === 7 GECE (her biri arası 36s izin) ===
                     for (let i = 0; i < 7; i++) {
                         let key = dateKey(currentDate);
                         memoryData[key] = 2;
@@ -721,61 +738,115 @@
                         totalShifts++;
                         calendarDays++;
 
-                        let izinKey = dateKey(currentDate);
-                        memoryData[izinKey] = 3;
-                        autoCalcData[izinKey] = true;
-                        currentDate.setDate(currentDate.getDate() + 1);
-                        calendarDays++;
-                        totalIzinHours += 24;
+                        if (i < 6) {
+                            let izinKey = dateKey(currentDate);
+                            memoryData[izinKey] = 3;
+                            autoCalcData[izinKey] = true;
+                            currentDate.setDate(currentDate.getDate() + 1);
+                            calendarDays++;
+                            totalIzinHours += 36;
+                        }
                     }
+
+                    // === GECE → GÜNDÜZ: 24s İZİN ===
+                    let izin24Key = dateKey(currentDate);
+                    memoryData[izin24Key] = 4;
+                    autoCalcData[izin24Key] = true;
+                    currentDate.setDate(currentDate.getDate() + 1);
+                    calendarDays++;
+                    totalIzinHours += 24;
+
+                    // === 6 GÜNDÜZ (sonuncusu yarı yarıya) ===
                     for (let i = 0; i < 6; i++) {
                         let key = dateKey(currentDate);
-                        memoryData[key] = 1;
-                        autoCalcData[key] = true;
+                        
+                        if (i === 5) {
+                            memoryData[key] = 1;
+                            autoCalcData[key] = true;
+                            splitData[key] = "gunduz-izin96";
+                        } else {
+                            memoryData[key] = 1;
+                            autoCalcData[key] = true;
+                        }
+                        
                         currentDate.setDate(currentDate.getDate() + 1);
                         totalShifts++;
                         calendarDays++;
 
-                        let izinKey = dateKey(currentDate);
-                        memoryData[izinKey] = 3;
-                        autoCalcData[izinKey] = true;
-                        currentDate.setDate(currentDate.getDate() + 1);
-                        calendarDays++;
-                        totalIzinHours += 24;
+                        if (i < 5) {
+                            let izinKey = dateKey(currentDate);
+                            memoryData[izinKey] = 3;
+                            autoCalcData[izinKey] = true;
+                            currentDate.setDate(currentDate.getDate() + 1);
+                            calendarDays++;
+                            totalIzinHours += 36;
+                        }
                     }
+
+                    // === GÜNDÜZ → GECE: 96s İZİN ===
                     for (let i = 0; i < 4; i++) {
                         let izinKey = dateKey(currentDate);
-                        memoryData[izinKey] = 3;
-                        autoCalcData[izinKey] = true;
+                        
+                        if (i === 3) {
+                            memoryData[izinKey] = 6;
+                            autoCalcData[izinKey] = true;
+                            splitData[izinKey] = "izin96-gece";
+                        } else {
+                            memoryData[izinKey] = 6;
+                            autoCalcData[izinKey] = true;
+                        }
+                        
                         currentDate.setDate(currentDate.getDate() + 1);
                         calendarDays++;
                     }
-                    totalIzinHours += 96 - 24;
+                    totalIzinHours += 96;
                 } else {
+                    // === 6 GÜNDÜZ ===
                     for (let i = 0; i < 6; i++) {
                         let key = dateKey(currentDate);
-                        memoryData[key] = 1;
-                        autoCalcData[key] = true;
+                        
+                        if (i === 5) {
+                            memoryData[key] = 1;
+                            autoCalcData[key] = true;
+                            splitData[key] = "gunduz-izin96";
+                        } else {
+                            memoryData[key] = 1;
+                            autoCalcData[key] = true;
+                        }
+                        
                         currentDate.setDate(currentDate.getDate() + 1);
                         totalShifts++;
                         calendarDays++;
 
-                        let izinKey = dateKey(currentDate);
-                        memoryData[izinKey] = 3;
-                        autoCalcData[izinKey] = true;
-                        currentDate.setDate(currentDate.getDate() + 1);
-                        calendarDays++;
-                        totalIzinHours += 24;
+                        if (i < 5) {
+                            let izinKey = dateKey(currentDate);
+                            memoryData[izinKey] = 3;
+                            autoCalcData[izinKey] = true;
+                            currentDate.setDate(currentDate.getDate() + 1);
+                            calendarDays++;
+                            totalIzinHours += 36;
+                        }
                     }
+
+                    // === 96s İZİN ===
                     for (let i = 0; i < 4; i++) {
                         let izinKey = dateKey(currentDate);
-                        memoryData[izinKey] = 3;
-                        autoCalcData[izinKey] = true;
+                        
+                        if (i === 3) {
+                            memoryData[izinKey] = 6;
+                            autoCalcData[izinKey] = true;
+                            splitData[izinKey] = "izin96-gece";
+                        } else {
+                            memoryData[izinKey] = 6;
+                            autoCalcData[izinKey] = true;
+                        }
+                        
                         currentDate.setDate(currentDate.getDate() + 1);
                         calendarDays++;
                     }
-                    totalIzinHours += 96 - 24;
+                    totalIzinHours += 96;
 
+                    // === 7 GECE ===
                     for (let i = 0; i < 7; i++) {
                         let key = dateKey(currentDate);
                         memoryData[key] = 2;
@@ -784,23 +855,50 @@
                         totalShifts++;
                         calendarDays++;
 
-                        let izinKey = dateKey(currentDate);
-                        memoryData[izinKey] = 3;
-                        autoCalcData[izinKey] = true;
-                        currentDate.setDate(currentDate.getDate() + 1);
-                        calendarDays++;
-                        totalIzinHours += 24;
+                        if (i < 6) {
+                            let izinKey = dateKey(currentDate);
+                            memoryData[izinKey] = 3;
+                            autoCalcData[izinKey] = true;
+                            currentDate.setDate(currentDate.getDate() + 1);
+                            calendarDays++;
+                            totalIzinHours += 36;
+                        }
                     }
+
+                    // === 24s İZİN ===
+                    let izin24Key = dateKey(currentDate);
+                    memoryData[izin24Key] = 4;
+                    autoCalcData[izin24Key] = true;
+                    currentDate.setDate(currentDate.getDate() + 1);
+                    calendarDays++;
+                    totalIzinHours += 24;
                 }
             }
 
             showResult(startDate, totalShifts, totalIzinHours, calendarDays);
 
-            baseDate = new Date(new Date(startDateStr + "T00:00:00").getFullYear(), new Date(startDateStr + "T00:00:00").getMonth(), 1);
-            selectedWeekMonday = getMonday(new Date(startDateStr + "T00:00:00"));
+            // ⭐ SON VARDİYANIN OLDUĞU AYA ATLA
+            let lastDate = new Date(currentDate);
+            lastDate.setDate(lastDate.getDate() - 1); // son gün
+            baseDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), 1);
+            selectedWeekMonday = getMonday(lastDate);
 
             renderAll();
             saveUserData();
+
+            // Kullanıcıya bilgi ver
+            let lastMonthName = monthNames[lastDate.getMonth()];
+            let lastMonthYear = lastDate.getFullYear();
+            let firstMonthName = monthNames[startDate.getMonth()];
+            let firstMonthYear = startDate.getFullYear();
+
+            setTimeout(() => {
+                if (firstMonthYear === lastMonthYear && firstMonthName === lastMonthName) {
+                    alert(`✅ Takvim oluşturuldu!\n\n📅 ${firstMonthName} ${firstMonthYear}\n📊 ${totalShifts} vardiya / ${calendarDays} gün\n\nTakvim son aya atladı: ${lastMonthName} ${lastMonthYear}`);
+                } else {
+                    alert(`✅ Takvim oluşturuldu!\n\n📅 ${firstMonthName} ${firstMonthYear} → ${lastMonthName} ${lastMonthYear}\n📊 ${totalShifts} vardiya / ${calendarDays} gün\n\n▶ butonuyla aylar arası geçiş yapabilirsiniz.`);
+                }
+            }, 400);
         }
 
         function showResult(startDate, totalShifts, totalIzinHours, calendarDays) {
@@ -832,6 +930,7 @@
             if (confirm("Tüm veriler silinecek. Emin misiniz?")) {
                 memoryData = {};
                 autoCalcData = {};
+                splitData = {};
                 document.getElementById("resultCard").style.display = "none";
                 renderAll();
                 saveUserData();
@@ -867,14 +966,24 @@
             for (let d = 1; d <= daysInMonth; d++) {
                 let key = `${year}_${month}_${d}`;
                 let val = memoryData[key] || 0;
-                if (val === 1 || val === 2) vardiyaCount++;
-                if (val === 3) izinCount++;
+                let split = splitData[key];
+                
+                if (split === "gunduz-izin96") {
+                    vardiyaCount += 0.5;
+                    izinCount += 0.5;
+                } else if (split === "izin96-gece") {
+                    vardiyaCount += 0.5;
+                    izinCount += 0.5;
+                } else {
+                    if (val === 1 || val === 2) vardiyaCount++;
+                    if (val === 3 || val === 4 || val === 6) izinCount++;
+                }
             }
 
             let totalHours = vardiyaCount * SHIFT_HOURS;
 
-            document.getElementById("stat-hours").innerText = totalHours + " saat";
-            document.getElementById("stat-izin").innerText = izinCount + " gün";
+            document.getElementById("stat-hours").innerText = Math.round(totalHours) + " saat";
+            document.getElementById("stat-izin").innerText = Math.round(izinCount) + " gün";
 
             let percent = Math.min((totalHours / STANDARD_HOURS) * 100, 100);
             let fill = document.getElementById("progress-fill");
@@ -889,14 +998,14 @@
             let overtimeLabel = document.getElementById("overtime-label");
 
             if (diff > 0) {
-                remainingLabel.innerText = `Kalan: ${diff} saat`;
+                remainingLabel.innerText = `Kalan: ${Math.round(diff)} saat`;
                 remainingLabel.style.color = "var(--info)";
                 overtimeLabel.innerText = `Fazla mesai: 0 saat`;
                 overtimeLabel.style.color = "var(--text-muted)";
             } else if (diff < 0) {
                 remainingLabel.innerText = `Standart aşıldı`;
                 remainingLabel.style.color = "var(--warn)";
-                overtimeLabel.innerText = `Fazla mesai: ${Math.abs(diff)} saat`;
+                overtimeLabel.innerText = `Fazla mesai: ${Math.round(Math.abs(diff))} saat`;
                 overtimeLabel.style.color = "var(--warn)";
             } else {
                 remainingLabel.innerText = `✅ Standart tamam!`;
@@ -905,7 +1014,7 @@
                 overtimeLabel.style.color = "var(--text-muted)";
             }
 
-            document.getElementById("total-hours-label").innerText = `${totalHours} / ${STANDARD_HOURS} saat`;
+            document.getElementById("total-hours-label").innerText = `${Math.round(totalHours)} / ${STANDARD_HOURS} saat`;
         }
 
         function renderCalendar(year, month) {
@@ -977,16 +1086,33 @@
                     let shift = shifts[shiftIdx] || shifts[0];
                     let isToday = (key === todayKey);
                     let isAuto = autoCalcData[key] === true;
+                    let split = splitData[key];
 
                     let classes = "day-cell " + shift.class;
                     if (isOtherMonth) classes += " other-month";
                     if (isToday) classes += " today";
                     if (isAuto) classes += " auto-calc";
-                    if (!isOtherMonth) classes += " " + WEEK_CLASSES[getWeekIndexForDay(cellDay)];
+                    
+                    let label = shift.label;
+                    let timeText = shift.time;
+                    
+                    if (split === "gunduz-izin96") {
+                        classes = "day-cell split-gunduz-izin96";
+                        label = "Gündüz+İzin";
+                        timeText = "08-20 → 96s";
+                    } else if (split === "izin96-gece") {
+                        classes = "day-cell split-izin96-gece";
+                        label = "İzin+Gece";
+                        timeText = "96s → 20-08";
+                    } else {
+                        if (!isOtherMonth) classes += " " + WEEK_CLASSES[getWeekIndexForDay(cellDay)];
+                    }
+                    
+                    if (isToday) classes += " today";
 
                     let cell = document.createElement("div");
                     cell.className = classes;
-                    cell.innerHTML = `<span class="day-number">${cellDay}</span><div class="shift-label">${shift.label}</div>${shift.time ? `<div class="shift-time">${shift.time}</div>` : ''}`;
+                    cell.innerHTML = `<span class="day-number">${cellDay}</span><div class="shift-label">${label}</div>${timeText ? `<div class="shift-time">${timeText}</div>` : ''}`;
                     cell.onclick = (function(y, m, d) {
                         return function() {
                             changeShift(y, m, d);
@@ -1029,6 +1155,7 @@
             let key = year + "_" + month + "_" + day;
             memoryData[key] = ((memoryData[key] || 0) + 1) % shifts.length;
             delete autoCalcData[key];
+            delete splitData[key];
             renderAll();
             saveUserData();
         }
@@ -1042,6 +1169,7 @@
                     let key = `${year}_${month}_${d}`;
                     delete memoryData[key];
                     delete autoCalcData[key];
+                    delete splitData[key];
                 }
                 renderAll();
                 saveUserData();
@@ -1064,8 +1192,8 @@
                 try {
                     currentUser = JSON.parse(session);
                     let users = getUsers();
-                    if (users[currentUser.username]) {
-                        currentUser.displayName = users[currentUser.username].displayName;
+                    if (users[currentUser.normalized]) {
+                        currentUser.displayName = users[currentUser.normalized].displayName;
                         enterApp(false);
                         return;
                     }
