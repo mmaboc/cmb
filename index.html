@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="theme-color" content="#0f172a">
-    <title>Vardiya Çetveli • Başlangıç Seçimli</title>
+    <title>Vardiya Çetveli • Çoklu Kullanıcı</title>
     <style>
         * {
             box-sizing: border-box;
@@ -22,13 +22,211 @@
             -webkit-text-size-adjust: 100%;
         }
 
+        /* ============ GİRİŞ EKRANI ============ */
+        .auth-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem;
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .auth-screen.hidden { display: none; }
+
+        .auth-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem 1.6rem 1.8rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-logo .logo-icon {
+            font-size: 3rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .auth-logo h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 0.3rem;
+            letter-spacing: -0.5px;
+        }
+
+        .auth-logo p {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .auth-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.4rem;
+            background: #f1f5f9;
+            padding: 0.35rem;
+            border-radius: 14px;
+            margin-bottom: 1.3rem;
+        }
+
+        .auth-tabs button {
+            border: none;
+            background: transparent;
+            padding: 0.75rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #64748b;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.18s;
+        }
+
+        .auth-tabs button.active {
+            background: white;
+            color: #0f172a;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .auth-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .auth-field label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .auth-field input {
+            padding: 0.9rem 1rem;
+            border: 2px solid #e2edf9;
+            border-radius: 14px;
+            font-size: 1rem;
+            background: #f8fbff;
+            color: #0b2b4b;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.15s;
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            font-family: inherit;
+        }
+
+        .auth-field input:focus {
+            border-color: #10b981;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+        }
+
+        .auth-submit {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 0.3rem;
+            transition: all 0.15s;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+
+        .auth-submit:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .auth-error {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+            padding: 0.7rem 1rem;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-align: center;
+            display: none;
+        }
+
+        .auth-error.show { display: block; }
+
+        .auth-success {
+            background: #ecfdf5;
+            color: #059669;
+            border: 1px solid #bbf7d0;
+            padding: 0.7rem 1rem;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-align: center;
+            display: none;
+        }
+
+        .auth-success.show { display: block; }
+
+        .auth-hint {
+            text-align: center;
+            font-size: 0.72rem;
+            color: #94a3b8;
+            margin-top: 1rem;
+            line-height: 1.5;
+        }
+
+        /* ============ UYGULAMA ============ */
+        .app-screen {
+            display: none;
+        }
+
+        .app-screen.active {
+            display: block;
+        }
+
         .container {
             max-width: 700px;
             margin: 0 auto;
             padding: 0.8rem 0.7rem 3rem;
         }
 
-        .app-header { text-align: center; padding: 0.8rem 0 1rem; }
+        .app-header {
+            text-align: center;
+            padding: 0.8rem 0 1rem;
+            position: relative;
+        }
+
         .app-header h1 {
             font-size: 1.3rem;
             font-weight: 800;
@@ -37,7 +235,80 @@
             letter-spacing: -0.3px;
         }
 
-        .badges { display: flex; justify-content: center; gap: 0.4rem; flex-wrap: wrap; }
+        .user-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border-radius: 16px;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid #e2edf9;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+            margin-bottom: 0.9rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.05rem;
+        }
+
+        .user-name {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #0b2b4b;
+            line-height: 1.2;
+        }
+
+        .user-role {
+            font-size: 0.68rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 0.5rem 0.85rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.15s;
+        }
+
+        .logout-btn:active {
+            background: #fee2e2;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
 
         .badge {
             display: inline-block;
@@ -92,7 +363,6 @@
             box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
         }
 
-        /* Başlangıç vardiyası seçimi */
         .start-phase {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -119,20 +389,9 @@
             line-height: 1.2;
         }
 
-        .start-phase button .phase-icon {
-            font-size: 1.5rem;
-            line-height: 1;
-        }
-
-        .start-phase button .phase-label {
-            font-size: 0.82rem;
-        }
-
-        .start-phase button .phase-time {
-            font-size: 0.68rem;
-            font-weight: 600;
-            color: #94a3b8;
-        }
+        .start-phase button .phase-icon { font-size: 1.5rem; line-height: 1; }
+        .start-phase button .phase-label { font-size: 0.82rem; }
+        .start-phase button .phase-time { font-size: 0.68rem; font-weight: 600; color: #94a3b8; }
 
         .start-phase button.active.gece-active {
             background: linear-gradient(135deg, #1e293b, #0f172a);
@@ -140,9 +399,7 @@
             border-color: #0f172a;
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
         }
-        .start-phase button.active.gece-active .phase-time {
-            color: #cbd5e1;
-        }
+        .start-phase button.active.gece-active .phase-time { color: #cbd5e1; }
 
         .start-phase button.active.gunduz-active {
             background: linear-gradient(135deg, #fef3c7, #fde68a);
@@ -150,9 +407,7 @@
             border-color: #fbbf24;
             box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
         }
-        .start-phase button.active.gunduz-active .phase-time {
-            color: #92400e;
-        }
+        .start-phase button.active.gunduz-active .phase-time { color: #92400e; }
 
         .save-info {
             margin-top: 0.7rem;
@@ -419,7 +674,6 @@
         .modal-overlay.active { display: flex; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         .modal {
             background: white;
@@ -545,13 +799,6 @@
         }
         .info-box strong { font-weight: 800; }
         .info-box .hl { background: #e0f2fe; padding: 0.1rem 0.4rem; border-radius: 6px; font-weight: 700; }
-        .info-box .tip {
-            display: block;
-            margin-top: 0.5rem;
-            padding-top: 0.5rem;
-            border-top: 1px dashed #bae6fd;
-            color: #0e7490;
-        }
 
         @media (min-width: 600px) {
             .container { padding: 1.5rem 1rem 4rem; }
@@ -588,6 +835,50 @@
     </style>
 </head>
 <body>
+
+<!-- ============ GİRİŞ EKRANI ============ -->
+<div class="auth-screen" id="authScreen">
+    <div class="auth-card">
+        <div class="auth-logo">
+            <span class="logo-icon">🌗</span>
+            <h1>Vardiya Çetveli</h1>
+            <p>1+1 Sistem • 7 Gece / 6 Gündüz</p>
+        </div>
+
+        <div class="auth-tabs">
+            <button class="active" id="tabLogin">🔑 Giriş Yap</button>
+            <button id="tabRegister">✨ Kayıt Ol</button>
+        </div>
+
+        <form class="auth-form" id="authForm" autocomplete="off">
+            <div class="auth-field">
+                <label for="authUsername">Kullanıcı Adı</label>
+                <input type="text" id="authUsername" placeholder="kullanici_adi" autocomplete="username" required>
+            </div>
+            <div class="auth-field">
+                <label for="authPassword">Şifre</label>
+                <input type="password" id="authPassword" placeholder="••••••••" autocomplete="current-password" required>
+            </div>
+            <div class="auth-field" id="confirmField" style="display: none;">
+                <label for="authConfirm">Şifre Tekrar</label>
+                <input type="password" id="authConfirm" placeholder="••••••••" autocomplete="new-password">
+            </div>
+
+            <div class="auth-error" id="authError"></div>
+            <div class="auth-success" id="authSuccess"></div>
+
+            <button type="submit" class="auth-submit" id="authSubmitBtn">Giriş Yap</button>
+        </form>
+
+        <div class="auth-hint">
+            💡 Her kullanıcı kendi vardiya çetvelini görür.<br>
+            Veriler tarayıcınızda güvenle saklanır.
+        </div>
+    </div>
+</div>
+
+<!-- ============ UYGULAMA ============ -->
+<div class="app-screen" id="appScreen">
 <div class="container">
 
     <div class="app-header">
@@ -597,6 +888,17 @@
             <span class="badge gece">🌙 7 GECE</span>
             <span class="badge gunduz">☀️ 6 GÜNDÜZ</span>
         </div>
+    </div>
+
+    <div class="user-bar">
+        <div class="user-info">
+            <div class="user-avatar" id="userAvatar">U</div>
+            <div class="user-details">
+                <div class="user-name" id="userName">—</div>
+                <div class="user-role">Aktif Kullanıcı</div>
+            </div>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Çıkış Yap</button>
     </div>
 
     <div class="panel">
@@ -671,13 +973,12 @@
     <div class="info-box">
         <strong>📌 Kullanım:</strong><br>
         • Başlangıç tarihini seçin ve <strong>hangi vardiyayla başladığınızı</strong> belirtin.<br>
-        • <strong>🌙 Gece seçilirse:</strong> Seçilen tarih <em>1. gece</em> kabul edilir → 7 gece → 24s izin → 6 gündüz → 96s izin → döngü.<br>
-        • <strong>☀️ Gündüz seçilirse:</strong> Seçilen tarih <em>1. gündüz</em> kabul edilir → 6 gündüz → 96s izin → 7 gece → 24s izin → döngü.<br>
-        • Ay başı (1. gündüz) 📌 turuncu çerçeve ile gösterilir.<br>
-        • Herhangi bir güne tıklayarak manuel düzenleyebilirsiniz (✎).
-        <span class="tip">💡 156 saat kontrolü, her 1. gündüzden itibaren 28 günlük pencere içinde hesaplanır.</span>
+        • <strong>🌙 Gece seçilirse:</strong> Seçilen tarih <em>1. gece</em> kabul edilir.<br>
+        • <strong>☀️ Gündüz seçilirse:</strong> Seçilen tarih <em>1. gündüz</em> kabul edilir.<br>
+        • Herhangi bir güne tıklayarak manuel düzenleyebilirsiniz (✎ işareti görünür).
     </div>
 
+</div>
 </div>
 
 <!-- MODAL -->
@@ -730,50 +1031,37 @@
         const MS_PER_DAY = 86400000;
         const WORK_HOURS_PER_DAY = 12;
         const MONTHLY_LIMIT = 156;
-
-        // DÖNGÜ (28 gün) - Gece başlangıcı için:
-        // 0: 1. gece
-        // 1: izin
-        // 2: 2. gece
-        // 3: izin
-        // 4: 3. gece
-        // 5: izin
-        // 6: 4. gece
-        // 7: izin
-        // 8: 5. gece
-        // 9: izin
-        // 10: 6. gece
-        // 11: izin
-        // 12: 7. gece
-        // 13: 24s izin
-        // 14: 1. gündüz
-        // 15: izin
-        // 16: 2. gündüz
-        // 17: izin
-        // 18: 3. gündüz
-        // 19: izin
-        // 20: 4. gündüz
-        // 21: izin
-        // 22: 5. gündüz
-        // 23: izin
-        // 24: 6. gündüz
-        // 25: 96s izin
-        // 26: 96s izin
-        // 27: 96s izin (20:00'de 1. gece başlar → "gece" gösterilir)
-
-        // DÖNGÜ - Gündüz başlangıcı için (offset 14):
-        // 0: 1. gündüz (gece döngüsünün 14. gününe denk gelir)
-        // ...
-
         const CYCLE_DAYS = 28;
         const GUNDUZ_START_OFFSET = 14;
 
+        const USERS_KEY = 'vardiya_users_v1';
+        const SESSION_KEY = 'vardiya_session_v1';
+
+        // ---- Durum ----
+        let currentUser = null;       // { username, createdAt }
         let currentYear, currentMonth;
         let startDate = null;
         let startPhase = 'gece';
         let phaseOffset = 0;
         let manualOverrides = {};
         let selectedDate = null;
+
+        // ---- DOM ----
+        const authScreen = document.getElementById('authScreen');
+        const appScreen = document.getElementById('appScreen');
+        const authForm = document.getElementById('authForm');
+        const authUsername = document.getElementById('authUsername');
+        const authPassword = document.getElementById('authPassword');
+        const authConfirm = document.getElementById('authConfirm');
+        const confirmField = document.getElementById('confirmField');
+        const authError = document.getElementById('authError');
+        const authSuccess = document.getElementById('authSuccess');
+        const authSubmitBtn = document.getElementById('authSubmitBtn');
+        const tabLogin = document.getElementById('tabLogin');
+        const tabRegister = document.getElementById('tabRegister');
+        const userAvatar = document.getElementById('userAvatar');
+        const userName = document.getElementById('userName');
+        const logoutBtn = document.getElementById('logoutBtn');
 
         const calendarGrid = document.getElementById('calendarGrid');
         const monthLabel = document.getElementById('monthLabel');
@@ -795,6 +1083,255 @@
         const btnAuto = document.getElementById('btnAuto');
         const btnClear = document.getElementById('btnClear');
 
+        let authMode = 'login'; // 'login' | 'register'
+
+        // ---- Kullanıcı depolama ----
+        function getUsers() {
+            try {
+                const raw = localStorage.getItem(USERS_KEY);
+                return raw ? JSON.parse(raw) : {};
+            } catch(e) { return {}; }
+        }
+
+        function saveUsers(users) {
+            try {
+                localStorage.setItem(USERS_KEY, JSON.stringify(users));
+            } catch(e) {}
+        }
+
+        // Basit hash (gerçek uygulamada sunucu tarafı olmalı, ama demo için yeterli)
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const chr = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + chr;
+                hash |= 0;
+            }
+            return 'h' + Math.abs(hash).toString(36) + '_' + str.length;
+        }
+
+        // Kullanıcıya özel veri anahtarı
+        function userDataKey(username, suffix) {
+            return `vardiya_data_${username}_${suffix}`;
+        }
+
+        // ---- Oturum ----
+        function saveSession(username) {
+            try {
+                localStorage.setItem(SESSION_KEY, JSON.stringify({ username, ts: Date.now() }));
+            } catch(e) {}
+        }
+
+        function loadSession() {
+            try {
+                const raw = localStorage.getItem(SESSION_KEY);
+                if (!raw) return null;
+                const data = JSON.parse(raw);
+                if (!data.username) return null;
+                // 30 gün geçerli
+                if (Date.now() - data.ts > 30 * 86400000) {
+                    localStorage.removeItem(SESSION_KEY);
+                    return null;
+                }
+                return data.username;
+            } catch(e) { return null; }
+        }
+
+        function clearSession() {
+            try { localStorage.removeItem(SESSION_KEY); } catch(e) {}
+        }
+
+        // ---- Auth UI ----
+        function setAuthMode(mode) {
+            authMode = mode;
+            if (mode === 'login') {
+                tabLogin.classList.add('active');
+                tabRegister.classList.remove('active');
+                confirmField.style.display = 'none';
+                authSubmitBtn.textContent = 'Giriş Yap';
+                authPassword.setAttribute('autocomplete', 'current-password');
+            } else {
+                tabRegister.classList.add('active');
+                tabLogin.classList.remove('active');
+                confirmField.style.display = 'flex';
+                authSubmitBtn.textContent = 'Kayıt Ol';
+                authPassword.setAttribute('autocomplete', 'new-password');
+            }
+            hideAuthMessages();
+        }
+
+        function showAuthError(msg) {
+            authError.textContent = msg;
+            authError.classList.add('show');
+            authSuccess.classList.remove('show');
+        }
+
+        function showAuthSuccess(msg) {
+            authSuccess.textContent = msg;
+            authSuccess.classList.add('show');
+            authError.classList.remove('show');
+        }
+
+        function hideAuthMessages() {
+            authError.classList.remove('show');
+            authSuccess.classList.remove('show');
+        }
+
+        // ---- Giriş / Kayıt ----
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            hideAuthMessages();
+
+            const username = authUsername.value.trim().toLowerCase();
+            const password = authPassword.value;
+
+            if (!username || username.length < 3) {
+                showAuthError('Kullanıcı adı en az 3 karakter olmalı.');
+                return;
+            }
+
+            if (!/^[a-z0-9_]+$/.test(username)) {
+                showAuthError('Kullanıcı adı sadece harf, rakam ve _ içerebilir.');
+                return;
+            }
+
+            if (!password || password.length < 4) {
+                showAuthError('Şifre en az 4 karakter olmalı.');
+                return;
+            }
+
+            const users = getUsers();
+
+            if (authMode === 'register') {
+                // Kayıt
+                const confirm = authConfirm.value;
+                if (password !== confirm) {
+                    showAuthError('Şifreler eşleşmiyor.');
+                    return;
+                }
+
+                if (users[username]) {
+                    showAuthError('Bu kullanıcı adı zaten alınmış.');
+                    return;
+                }
+
+                users[username] = {
+                    passwordHash: simpleHash(password),
+                    createdAt: Date.now()
+                };
+                saveUsers(users);
+
+                showAuthSuccess('✅ Kayıt başarılı! Giriş yapılıyor...');
+                setTimeout(() => {
+                    loginUser(username);
+                }, 700);
+            } else {
+                // Giriş
+                const user = users[username];
+                if (!user) {
+                    showAuthError('Kullanıcı bulunamadı. Kayıt olun.');
+                    return;
+                }
+
+                if (user.passwordHash !== simpleHash(password)) {
+                    showAuthError('Şifre hatalı.');
+                    return;
+                }
+
+                showAuthSuccess('✅ Giriş başarılı!');
+                setTimeout(() => {
+                    loginUser(username);
+                }, 400);
+            }
+        }
+
+        function loginUser(username) {
+            currentUser = { username };
+            saveSession(username);
+
+            // Kullanıcı verilerini yükle
+            loadUserData();
+
+            // Ekranları değiştir
+            authScreen.classList.add('hidden');
+            appScreen.classList.add('active');
+
+            // Kullanıcı barını güncelle
+            userName.textContent = username;
+            userAvatar.textContent = username.charAt(0).toUpperCase();
+
+            // Takvimi başlat
+            initCalendar();
+
+            // Formu temizle
+            authUsername.value = '';
+            authPassword.value = '';
+            authConfirm.value = '';
+            hideAuthMessages();
+        }
+
+        function logout() {
+            if (!confirm('Çıkış yapmak istediğinize emin misiniz?')) return;
+
+            saveUserData(); // son hali kaydet
+            clearSession();
+            currentUser = null;
+
+            appScreen.classList.remove('active');
+            authScreen.classList.remove('hidden');
+            setAuthMode('login');
+        }
+
+        // ---- Kullanıcı verilerini yükle/kaydet ----
+        function loadUserData() {
+            if (!currentUser) return;
+
+            try {
+                const startRaw = localStorage.getItem(userDataKey(currentUser.username, 'start'));
+                const overrideRaw = localStorage.getItem(userDataKey(currentUser.username, 'overrides'));
+
+                if (startRaw) {
+                    const data = JSON.parse(startRaw);
+                    if (data.date) {
+                        const parts = data.date.split('-');
+                        startDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+                        startPhase = data.phase || 'gece';
+                        phaseOffset = (startPhase === 'gunduz') ? GUNDUZ_START_OFFSET : 0;
+                    }
+                } else {
+                    // İlk kez: bugünü gece olarak ayarla
+                    startDate = new Date();
+                    startDate.setHours(0, 0, 0, 0);
+                    startPhase = 'gece';
+                    phaseOffset = 0;
+                }
+
+                manualOverrides = overrideRaw ? JSON.parse(overrideRaw) : {};
+            } catch(e) {
+                console.warn('Kullanıcı verisi yüklenemedi:', e);
+                startDate = new Date();
+                startDate.setHours(0, 0, 0, 0);
+                startPhase = 'gece';
+                phaseOffset = 0;
+                manualOverrides = {};
+            }
+        }
+
+        function saveUserData() {
+            if (!currentUser) return;
+
+            try {
+                if (startDate) {
+                    localStorage.setItem(userDataKey(currentUser.username, 'start'), JSON.stringify({
+                        date: formatDateToYYYYMMDD(startDate),
+                        phase: startPhase
+                    }));
+                }
+                localStorage.setItem(userDataKey(currentUser.username, 'overrides'), JSON.stringify(manualOverrides));
+            } catch(e) {}
+        }
+
+        // ---- Yardımcılar ----
         function formatDateToYYYYMMDD(date) {
             const y = date.getFullYear();
             const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -808,56 +1345,15 @@
             return Math.round((d2 - d1) / MS_PER_DAY);
         }
 
-        function saveSettings() {
-            if (!startDate) return;
-            try {
-                localStorage.setItem('vardiya_v6', JSON.stringify({
-                    startDate: formatDateToYYYYMMDD(startDate),
-                    startPhase: startPhase,
-                    manualOverrides: manualOverrides
-                }));
-                updateSaveText();
-            } catch(e) {}
-        }
-
-        function loadSettings() {
-            try {
-                const raw = localStorage.getItem('vardiya_v6');
-                if (!raw) return null;
-                const data = JSON.parse(raw);
-                if (!data.startDate) return null;
-                const parts = data.startDate.split('-');
-                return {
-                    startDate: new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2])),
-                    startPhase: data.startPhase || 'gece',
-                    manualOverrides: data.manualOverrides || {}
-                };
-            } catch(e) { return null; }
-        }
-
-        function updateSaveText() {
-            if (startDate) {
-                const phaseText = startPhase === 'gece' ? '🌙 1. Gece' : '☀️ 1. Gündüz';
-                const overrideCount = Object.keys(manualOverrides).length;
-                const manualText = overrideCount > 0 ? ` • ${overrideCount} manuel` : '';
-                saveText.textContent = `${phaseText}: ${formatDateToYYYYMMDD(startDate)}${manualText}`;
-            } else {
-                saveText.textContent = 'Başlangıç tarihi otomatik kaydedilir.';
-            }
-        }
-
-        // ---- Döngü günü bilgisi (gece başlangıcı bazlı) ----
+        // ---- Vardiya hesaplama ----
         function getCycleDayInfo(cycleDay) {
-            // Gece bloğu: 0-12
             if (cycleDay >= 0 && cycleDay <= 12) {
                 const blockDay = Math.floor(cycleDay / 2) + 1;
                 const isWork = (cycleDay % 2 === 0);
                 if (isWork) return { type: 'gece', blockDay, total: 7 };
                 return { type: 'izin', blockDay, total: 7 };
             }
-            // 24s izin
             if (cycleDay === 13) return { type: 'izin24' };
-            // Gündüz bloğu: 14-24
             if (cycleDay >= 14 && cycleDay <= 24) {
                 const dayInBlock = cycleDay - 14;
                 const blockDay = Math.floor(dayInBlock / 2) + 1;
@@ -865,7 +1361,6 @@
                 if (isWork) return { type: 'gunduz', blockDay, total: 6 };
                 return { type: 'izin', blockDay, total: 6 };
             }
-            // 96s izin: 25, 26, 27
             if (cycleDay >= 25 && cycleDay <= 27) {
                 return { type: 'izin96' };
             }
@@ -888,7 +1383,6 @@
             return getAutoShiftInfo(date);
         }
 
-        // ---- Ay başı mı? (1. gündüz günü, otomatik hesapta cycleDay=14) ----
         function isMonthStart(date) {
             if (!startDate) return false;
             const key = formatDateToYYYYMMDD(date);
@@ -898,15 +1392,13 @@
             return cycleDay === 14;
         }
 
-        // ---- İstatistik: görüntülenen ay için 1. gündüzden itibaren 28 günlük pencere ----
+        // ---- İstatistik ----
         function findMonthStartForYearMonth(year, month) {
             if (!startDate) return null;
-            // Ayın 1'inden itibaren 28 gün tara, 1. gündüz gününü bul
             for (let i = 0; i < 40; i++) {
                 const d = new Date(year, month, 1 + i);
                 if (isMonthStart(d)) return d;
             }
-            // Geriye doğru tara
             for (let i = 1; i <= 40; i++) {
                 const d = new Date(year, month, 1 - i);
                 if (isMonthStart(d)) return d;
@@ -950,12 +1442,13 @@
                 statLimitCard.classList.add('warn');
             } else {
                 const remaining = MONTHLY_LIMIT - totalHours;
-                statLimit.textContent = remaining > 0 ? `✅ ${totalHours}s / ${remaining}s kaldı` : `✅ ${totalHours}s Tam`;
+                statLimit.textContent = remaining > 0 ? `✅ ${totalHours}s / ${remaining}s` : `✅ ${totalHours}s`;
                 statLimitCard.classList.remove('warn');
                 statLimitCard.classList.add('good');
             }
         }
 
+        // ---- Render ----
         function renderCalendar() {
             if (currentYear === undefined || currentMonth === undefined) return;
 
@@ -1057,6 +1550,7 @@
             updateStats();
         }
 
+        // ---- Modal ----
         function openModal(date) {
             selectedDate = date;
             const info = getShiftInfo(date);
@@ -1082,30 +1576,28 @@
         function applyManual(type) {
             if (!selectedDate) return;
             manualOverrides[formatDateToYYYYMMDD(selectedDate)] = type;
-            saveSettings();
+            saveUserData();
             closeModal();
             renderCalendar();
-            updateSaveText();
         }
 
         function revertToAuto() {
             if (!selectedDate) return;
             delete manualOverrides[formatDateToYYYYMMDD(selectedDate)];
-            saveSettings();
+            saveUserData();
             closeModal();
             renderCalendar();
-            updateSaveText();
         }
 
         function clearDay() {
             if (!selectedDate) return;
             manualOverrides[formatDateToYYYYMMDD(selectedDate)] = 'bos';
-            saveSettings();
+            saveUserData();
             closeModal();
             renderCalendar();
-            updateSaveText();
         }
 
+        // ---- Ayarlar ----
         function setStartDate(date, save) {
             if (!date || isNaN(date.getTime())) return;
             startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -1114,9 +1606,8 @@
             currentMonth = startDate.getMonth();
             const formatted = formatDateToYYYYMMDD(startDate);
             if (startDateInput.value !== formatted) startDateInput.value = formatted;
-            if (save !== false) saveSettings();
+            if (save !== false) saveUserData();
             renderCalendar();
-            updateSaveText();
         }
 
         function setStartPhase(phase, save) {
@@ -1130,9 +1621,8 @@
             }
             phaseOffset = (phase === 'gunduz') ? GUNDUZ_START_OFFSET : 0;
             if (startDate) {
-                if (save !== false) saveSettings();
+                if (save !== false) saveUserData();
                 renderCalendar();
-                updateSaveText();
             }
         }
 
@@ -1153,8 +1643,7 @@
         }
 
         function resetAll() {
-            if (!confirm('Tüm veriler silinsin mi?')) return;
-            try { localStorage.removeItem('vardiya_v6'); } catch(e) {}
+            if (!confirm('Tüm başlangıç ve manuel düzenlemeleriniz silinsin mi?')) return;
             manualOverrides = {};
             const today = new Date();
             startDateInput.value = formatDateToYYYYMMDD(today);
@@ -1163,28 +1652,32 @@
             currentYear = today.getFullYear();
             currentMonth = today.getMonth();
             renderCalendar();
-            saveText.textContent = 'Başlangıç tarihi otomatik kaydedilir.';
         }
 
-        function init() {
-            const saved = loadSettings();
-
-            if (saved) {
-                manualOverrides = saved.manualOverrides;
-                setStartPhase(saved.startPhase, false);
-                startDateInput.value = formatDateToYYYYMMDD(saved.startDate);
-                setStartDate(saved.startDate, false);
+        // ---- Takvim başlat ----
+        function initCalendar() {
+            // Kullanıcının verilerini UI'a yansıt
+            if (startDate) {
+                startDateInput.value = formatDateToYYYYMMDD(startDate);
+                setStartPhase(startPhase, false);
                 const today = new Date();
                 currentYear = today.getFullYear();
                 currentMonth = today.getMonth();
                 renderCalendar();
-            } else {
-                const today = new Date();
-                startDateInput.value = formatDateToYYYYMMDD(today);
-                setStartPhase('gece', false);
-                setStartDate(today, true);
             }
+        }
 
+        // ---- Başlat ----
+        function init() {
+            // Auth sekmeleri
+            tabLogin.addEventListener('click', () => setAuthMode('login'));
+            tabRegister.addEventListener('click', () => setAuthMode('register'));
+            authForm.addEventListener('submit', handleAuthSubmit);
+
+            // Çıkış
+            logoutBtn.addEventListener('click', logout);
+
+            // Vardiya kontrolleri
             startDateInput.addEventListener('change', (e) => {
                 const val = e.target.value;
                 if (!val) return;
@@ -1217,6 +1710,7 @@
                 if (e.key === 'Escape') closeModal();
             });
 
+            // Swipe
             let touchStartX = 0, touchEndX = 0;
             const calendarEl = document.querySelector('.calendar');
 
@@ -1232,6 +1726,21 @@
                     else changeMonth(-1);
                 }
             }, { passive: true });
+
+            // Oturum kontrolü
+            const sessionUsername = loadSession();
+            if (sessionUsername) {
+                const users = getUsers();
+                if (users[sessionUsername]) {
+                    // Otomatik giriş
+                    loginUser(sessionUsername);
+                } else {
+                    clearSession();
+                    setAuthMode('login');
+                }
+            } else {
+                setAuthMode('login');
+            }
         }
 
         window.addEventListener('DOMContentLoaded', init);
