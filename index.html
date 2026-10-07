@@ -2,1206 +2,1240 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Çalışma Takvimi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#0f172a">
+    <title>Vardiya Çetveli • Başlangıç Seçimli</title>
     <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-            --card-bg: #ffffff;
-            --primary: #4f46e5;
-            --primary-active: #4338ca;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #cbd5e1;
-
-            /* YENİ RENK PALETİ */
-            --bos-bg: #ffffff;        --bos-color: #94a3b8;      /* BOŞ: BEYAZ */
-            --gunduz-bg: #fef3c7;     --gunduz-color: #d97706;   /* GÜNDÜZ: SARI */
-            --gece-bg: #dbeafe;       --gece-color: #1d4ed8;     /* GECE: MAVİ */
-            --izin-bg: #dcfce7;       --izin-color: #16a34a;     /* 36s İZİN: AÇIK YEŞİL */
-            --izin24-bg: #ffedd5;     --izin24-color: #ea580c;   /* 24s İZİN: AÇIK TURUNCU */
-            --izin96-bg: #fee2e2;     --izin96-color: #dc2626;   /* 96s İZİN: AÇIK KIRMIZI */
-
-            --ok: #059669; --warn: #dc2626; --info: #4f46e5;
-            --w1: #4f46e5; --w2: #0891b2; --w3: #7c3aed; --w4: #db2777;
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
         }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: var(--bg-gradient); color: var(--text-main);
-            margin: 0; padding: 12px 10px 30px 10px; min-height: 100vh;
-            display: flex; flex-direction: column; align-items: center; user-select: none;
+            background: #eef2f7;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-size: 16px;
+            color: #0b2b4b;
+            -webkit-text-size-adjust: 100%;
         }
-        .container { width: 100%; max-width: 480px; }
 
-        #authScreen {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            width: 100%; max-width: 420px;
-            padding: 30px 10px;
-            min-height: 80vh;
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0.8rem 0.7rem 3rem;
         }
-        .auth-logo { text-align: center; margin-bottom: 25px; }
-        .auth-logo .logo-icon { font-size: 60px; margin-bottom: 10px; }
-        .auth-logo h1 { font-size: 26px; font-weight: 800; color: var(--primary); margin: 0; }
-        .auth-logo .logo-sub { font-size: 12px; color: var(--text-muted); font-weight: 700; margin-top: 6px; }
-        .auth-card {
-            background: var(--card-bg); border-radius: 20px; padding: 22px;
-            width: 100%;
-            box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-        }
-        .auth-form { display: flex; flex-direction: column; gap: 14px; }
-        .auth-field { display: flex; flex-direction: column; gap: 6px; }
-        .auth-field label {
-            font-size: 11px; font-weight: 800; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: 0.3px;
-        }
-        .auth-field input {
-            height: 50px; padding: 0 16px; border-radius: 12px;
-            border: 1.5px solid var(--border-color); font-size: 15px; font-weight: 700;
-            color: var(--text-main); background: #f8fafc; outline: none;
-            transition: border-color 0.2s;
-            text-align: center;
-        }
-        .auth-field input:focus { border-color: var(--primary); background: white; }
-        .auth-btn {
-            height: 52px; background: var(--primary); color: white;
-            border: none; border-radius: 12px; font-size: 15px; font-weight: 800;
-            cursor: pointer; margin-top: 4px;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .auth-btn:active { background: var(--primary-active); transform: scale(0.98); }
-        .auth-error {
-            background: #fee2e2; color: #dc2626; padding: 10px;
-            border-radius: 10px; font-size: 12px; font-weight: 700;
-            text-align: center; display: none;
-        }
-        .auth-hint {
-            text-align: center; font-size: 11px; color: var(--text-muted);
-            margin-top: 16px; line-height: 1.5;
-        }
-        .auth-hint b { color: var(--primary); }
 
-        #appScreen { display: none; width: 100%; }
+        .app-header { text-align: center; padding: 0.8rem 0 1rem; }
+        .app-header h1 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #0b2b4b;
+            margin: 0 0 0.5rem;
+            letter-spacing: -0.3px;
+        }
 
-        .user-bar {
-            display: flex; justify-content: space-between; align-items: center;
-            background: var(--card-bg); border-radius: 14px; padding: 10px 12px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-        }
-        .user-info { display: flex; align-items: center; gap: 8px; }
-        .user-avatar {
-            width: 34px; height: 34px; border-radius: 50%;
-            background: linear-gradient(135deg, #4f46e5, #7c3aed);
-            color: white; display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 14px;
-        }
-        .user-name { font-size: 13px; font-weight: 800; color: var(--text-main); }
-        .user-sub { font-size: 9px; font-weight: 700; color: var(--text-muted); }
-        .btn-logout {
-            background: #fee2e2; color: #ef4444; border: none;
-            padding: 7px 12px; border-radius: 9px; font-size: 11px;
-            font-weight: 800; cursor: pointer;
-        }
-        .btn-logout:active { transform: scale(0.95); }
+        .badges { display: flex; justify-content: center; gap: 0.4rem; flex-wrap: wrap; }
 
-        .setup-card {
-            background: var(--card-bg); border-radius: 16px; padding: 12px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(226, 232, 240, 0.8);
+        .badge {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 0.28rem 0.7rem;
+            border-radius: 20px;
+            letter-spacing: 0.4px;
         }
-        .setup-card .sc-title {
-            font-size: 10px; font-weight: 800; color: var(--text-muted);
-            text-transform: uppercase; margin-bottom: 8px; text-align: center;
+        .badge.gece { background: linear-gradient(135deg, #1e293b, #0f172a); color: #e2e8f0; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.3); }
+        .badge.gunduz { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #78350f; box-shadow: 0 2px 6px rgba(251, 191, 36, 0.4); }
+        .badge.system { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3); }
+
+        .panel {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+            border: 1px solid #e2edf9;
+            margin-bottom: 0.9rem;
         }
-        .setup-row {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;
-        }
-        .setup-field { display: flex; flex-direction: column; gap: 3px; }
-        .setup-field label {
-            font-size: 9px; font-weight: 700; color: var(--text-muted);
+
+        .panel-row { display: flex; flex-direction: column; gap: 0.85rem; }
+
+        .field { display: flex; flex-direction: column; gap: 0.35rem; }
+        .field label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #475569;
             text-transform: uppercase;
-        }
-        .setup-field input, .setup-field select {
-            height: 36px; padding: 0 8px; border-radius: 8px;
-            border: 1px solid var(--border-color); font-size: 12px; font-weight: 700;
-            color: var(--text-main); background: #f8fafc; outline: none;
-        }
-        .setup-buttons {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px;
-        }
-        .setup-buttons .btn { font-size: 11px; min-height: 36px; padding: 6px; }
-
-        .btn {
-            background: var(--primary); color: white; border: none; padding: 10px 12px;
-            border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;
-            display: inline-flex; align-items: center; justify-content: center; min-height: 42px;
-        }
-        .btn:active { background-color: var(--primary-active); transform: scale(0.97); }
-        .btn-warn { background: #fef3c7; color: #b45309; }
-
-        .result-card {
-            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
-            border-radius: 16px; padding: 12px; margin-bottom: 12px;
-            border: 2px solid #c7d2fe;
-        }
-        .result-card .rc-title {
-            font-size: 11px; font-weight: 800; color: var(--primary);
-            text-transform: uppercase; margin-bottom: 8px; text-align: center;
-        }
-        .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-        .result-item {
-            background: white; border-radius: 10px; padding: 8px;
-            text-align: center; border: 1px solid #c7d2fe;
-        }
-        .result-item .ri-lbl {
-            font-size: 8px; font-weight: 700; color: var(--text-muted);
-            text-transform: uppercase; margin-bottom: 2px;
-        }
-        .result-item .ri-val { font-size: 15px; font-weight: 800; color: var(--primary); }
-        .result-item .ri-desc { font-size: 8px; font-weight: 600; color: var(--text-muted); margin-top: 1px; }
-        .result-dates {
-            background: white; border-radius: 10px; padding: 8px;
-            text-align: center; border: 1px solid #c7d2fe; margin-top: 6px;
-        }
-        .result-dates .rd-lbl {
-            font-size: 8px; font-weight: 700; color: var(--text-muted);
-            text-transform: uppercase; margin-bottom: 2px;
-        }
-        .result-dates .rd-val { font-size: 12px; font-weight: 800; color: var(--primary); }
-        .result-dates .rd-sub { font-size: 9px; font-weight: 600; color: var(--text-muted); margin-top: 2px; }
-
-        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-        .stat-box {
-            background: var(--card-bg); padding: 12px; border-radius: 14px; text-align: center;
-            box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.04); border: 1px solid rgba(226, 232, 240, 0.8);
-        }
-        .stat-box .title { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
-        .stat-box .number { font-size: 18px; font-weight: 800; }
-
-        .target-card {
-            background: var(--card-bg); border-radius: 16px; padding: 12px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-        }
-        .target-card .tc-title {
-            font-size: 10px; font-weight: 800; color: var(--text-muted);
-            text-transform: uppercase; margin-bottom: 8px; text-align: center;
-        }
-        .progress-wrap { margin-top: 4px; }
-        .progress-row {
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 11px; font-weight: 700; margin-bottom: 4px;
-        }
-        .progress-bar { height: 12px; background: #e2e8f0; border-radius: 6px; overflow: hidden; }
-        .progress-fill { height: 100%; border-radius: 6px; transition: width 0.3s ease; }
-        .progress-fill.ok { background: linear-gradient(90deg, #10b981, #059669); }
-        .progress-fill.over { background: linear-gradient(90deg, #f59e0b, #dc2626); }
-        .progress-fill.under { background: linear-gradient(90deg, #93c5fd, #4f46e5); }
-
-        .calendar-card {
-            background: var(--card-bg); border-radius: 18px; padding: 12px 8px;
-            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.06);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-        }
-        .calendar-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 8px; padding: 0 4px 8px 4px; border-bottom: 1px solid #f1f5f9;
-        }
-        .calendar-header .ch-title { font-weight: 800; font-size: 14px; }
-        .calendar-nav { display: flex; align-items: center; gap: 6px; }
-        .nav-btn {
-            background: #f1f5f9; color: var(--primary); border: 1px solid #e2e8f0;
-            width: 34px; height: 34px; border-radius: 9px;
-            font-size: 16px; font-weight: 800; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .nav-btn:hover { background: #e0e7ff; }
-        .nav-btn:active { transform: scale(0.92); }
-        .btn-clear-month {
-            background: #fee2e2; color: #ef4444; border: none; padding: 6px 10px;
-            border-radius: 8px; font-size: 11px; cursor: pointer; font-weight: 700;
+            letter-spacing: 0.6px;
         }
 
-        .calendar-grid {
+        .field input[type="date"] {
+            padding: 0.85rem 1rem;
+            border: 2px solid #e2edf9;
+            border-radius: 14px;
+            font-size: 1rem;
+            background: #f8fbff;
+            color: #0b2b4b;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.15s;
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            min-height: 52px;
+        }
+        .field input[type="date"]:focus {
+            border-color: #10b981;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+        }
+
+        /* Başlangıç vardiyası seçimi */
+        .start-phase {
             display: grid;
-            grid-template-columns: 22px repeat(7, 1fr);
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .start-phase button {
+            border: 2px solid #e2edf9;
+            background: #f8fbff;
+            padding: 0.9rem 0.6rem;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.18s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            min-height: 76px;
+            font-family: inherit;
+            line-height: 1.2;
+        }
+
+        .start-phase button .phase-icon {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .start-phase button .phase-label {
+            font-size: 0.82rem;
+        }
+
+        .start-phase button .phase-time {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #94a3b8;
+        }
+
+        .start-phase button.active.gece-active {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #fef3c7;
+            border-color: #0f172a;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+        }
+        .start-phase button.active.gece-active .phase-time {
+            color: #cbd5e1;
+        }
+
+        .start-phase button.active.gunduz-active {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #78350f;
+            border-color: #fbbf24;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+        }
+        .start-phase button.active.gunduz-active .phase-time {
+            color: #92400e;
+        }
+
+        .save-info {
+            margin-top: 0.7rem;
+            padding: 0.6rem 0.9rem;
+            background: #ecfdf5;
+            border-radius: 12px;
+            border: 1px solid #bbf7d0;
+            font-size: 0.72rem;
+            color: #065f46;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            line-height: 1.4;
+            flex-wrap: wrap;
+        }
+        .save-info .icon { font-size: 1rem; flex-shrink: 0; }
+
+        .reset-btn {
+            margin-left: auto;
+            background: white;
+            border: 1px solid #86efac;
+            color: #065f46;
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 0.4rem 0.7rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.15s;
+            flex-shrink: 0;
+        }
+        .reset-btn:active { background: #065f46; color: white; }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.6rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 0.85rem 0.9rem;
+            border: 1px solid #e2edf9;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .stat-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #0b2b4b;
+            line-height: 1.2;
+        }
+
+        .stat-card.gece .stat-value { color: #1e293b; }
+        .stat-card.gunduz .stat-value { color: #d97706; }
+        .stat-card.izin .stat-value { color: #059669; }
+        .stat-card.warn { background: #fef2f2; border-color: #fecaca; }
+        .stat-card.warn .stat-value { color: #dc2626; }
+        .stat-card.good { background: #ecfdf5; border-color: #bbf7d0; }
+        .stat-card.good .stat-value { color: #059669; }
+
+        .month-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            background: white;
+            border-radius: 20px;
+            padding: 0.5rem;
+            border: 1px solid #e2edf9;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+            margin-bottom: 0.9rem;
+        }
+
+        .month-nav button {
+            border: none;
+            background: #f1f5f9;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #334155;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            flex-shrink: 0;
+            user-select: none;
+        }
+        .month-nav button:active {
+            background: #10b981;
+            color: white;
+            transform: scale(0.95);
+        }
+
+        .month-nav .month-label {
+            flex: 1;
+            text-align: center;
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: #0b2b4b;
+        }
+
+        .calendar {
+            background: white;
+            border-radius: 20px;
+            padding: 0.7rem 0.5rem;
+            border: 1px solid #e2edf9;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+        }
+
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
             gap: 3px;
-            align-items: stretch;
-        }
-        .calendar-grid .cg-header {
-            text-align: center; font-size: 11px; font-weight: 700;
-            color: var(--text-muted); padding: 4px 0;
-        }
-        .calendar-grid .cg-header.cg-week-col { font-size: 9px; }
-
-        .week-selector {
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 8px; cursor: pointer;
-            background: #f1f5f9; border: 1px solid #e2e8f0;
-            color: #94a3b8; font-size: 14px; font-weight: 800;
-            transition: all 0.15s ease; min-height: 50px; position: relative;
-        }
-        .week-selector:hover { background: #e0e7ff; color: var(--primary); }
-        .week-selector:active { transform: scale(0.92); }
-        .week-selector.selected {
-            background: var(--primary); color: white; border-color: var(--primary);
-            box-shadow: 0 2px 8px -2px rgba(79, 70, 229, 0.5);
-        }
-        .week-selector.selected::after {
-            content: ""; position: absolute; left: 100%; top: 50%;
-            transform: translateY(-50%); border: 5px solid transparent;
-            border-left-color: var(--primary); margin-left: -1px;
         }
 
-        .day-cell {
-            height: 50px; border-radius: 10px; cursor: pointer;
-            padding: 2px; transition: transform 0.08s ease; position: relative;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center; text-align: center;
+        .cal-header {
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.68rem;
+            color: #64748b;
+            padding: 0.5rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .cal-header.weekend { color: #dc2626; }
+
+        .cal-day {
+            aspect-ratio: 1 / 1.2;
+            border-radius: 10px;
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0.3rem 0.15rem 0.2rem;
+            border: 1.5px solid transparent;
+            position: relative;
             overflow: hidden;
+            transition: all 0.15s;
+            cursor: pointer;
+            user-select: none;
         }
-        .day-cell:active { transform: scale(0.92); }
-        .day-cell.other-month { opacity: 0.45; }
-        .day-cell .day-number { font-size: 11px; font-weight: 800; display: block; opacity: 0.85; margin-bottom: 1px; position: relative; z-index: 2; }
-        .day-cell .shift-label { font-size: 8px; font-weight: 700; line-height: 1.05; position: relative; z-index: 2; }
-        .day-cell .shift-time { font-size: 6px; font-weight: 600; opacity: 0.75; line-height: 1; position: relative; z-index: 2; }
+        .cal-day:active { transform: scale(0.96); }
+        .cal-day.empty { background: transparent; border: none; cursor: default; }
+        .cal-day.today { border-color: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2); }
+        .cal-day.other-month { opacity: 0.55; }
+        .cal-day.other-month .day-num { color: #94a3b8; }
+        .cal-day.month-start { border-color: #f59e0b; box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25); }
 
-        .day-cell.auto-calc::before {
-            content: "⚙";
+        .cal-day.gece { background: #e2e8f0; }
+        .cal-day.gunduz { background: #fef9c3; }
+        .cal-day.izin { background: #f1f5f9; }
+        .cal-day.izin24 { background: #dbeafe; }
+        .cal-day.izin96 { background: #dcfce7; }
+        .cal-day.bos { background: #ffffff; border: 1.5px dashed #cbd5e1; }
+
+        .cal-day.manual::after {
+            content: '✎';
             position: absolute;
-            top: 1px; right: 2px;
-            font-size: 7px; opacity: 0.5;
-            z-index: 3;
+            top: 2px;
+            right: 2px;
+            font-size: 0.55rem;
+            color: #7c3aed;
+            font-weight: 900;
         }
 
-        .day-cell.w1 { box-shadow: inset 3px 0 0 0 var(--w1); }
-        .day-cell.w2 { box-shadow: inset 3px 0 0 0 var(--w2); }
-        .day-cell.w3 { box-shadow: inset 3px 0 0 0 var(--w3); }
-        .day-cell.w4 { box-shadow: inset 0 -3px 0 0 var(--w4); }
+        .day-num {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #0b2b4b;
+            line-height: 1;
+        }
+        .cal-day.today .day-num { color: #059669; }
 
-        /* YENİ RENKLER */
-        .shift-bos { 
-            background-color: var(--bos-bg); 
-            color: var(--bos-color); 
-            border: 1px solid #e2e8f0; 
-        }
-        .shift-gunduz { 
-            background-color: var(--gunduz-bg); 
-            color: var(--gunduz-color); 
-            border: 1px solid #fcd34d; 
-        }
-        .shift-gece { 
-            background-color: var(--gece-bg); 
-            color: var(--gece-color); 
-            border: 1px solid #93c5fd; 
-        }
-        .shift-izin { 
-            background-color: var(--izin-bg); 
-            color: var(--izin-color); 
-            border: 1px solid #86efac; 
-        }
-        .shift-izin24 { 
-            background-color: var(--izin24-bg); 
-            color: var(--izin24-color); 
-            border: 1px solid #fdba74; 
-        }
-        .shift-izin96 { 
-            background-color: var(--izin96-bg); 
-            color: var(--izin96-color); 
-            border: 1px solid #fca5a5; 
+        .shift-icon {
+            font-size: 1rem;
+            line-height: 1;
+            margin-top: 0.15rem;
         }
 
-        /* Yarı yarıya bölünmüş hücreler */
-        .day-cell.split-gunduz-izin96 {
-            background: linear-gradient(180deg, 
-                #fef3c7 0%, #fef3c7 50%, 
-                #fee2e2 50%, #fee2e2 100%);
-            color: #dc2626;
-            border: 1px solid #fca5a5;
+        .shift-tag {
+            font-size: 0.5rem;
+            font-weight: 800;
+            padding: 0.1rem 0.28rem;
+            border-radius: 4px;
+            margin-top: auto;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
         }
-        .day-cell.split-izin96-gece {
-            background: linear-gradient(180deg, 
-                #fee2e2 0%, #fee2e2 50%, 
-                #dbeafe 50%, #dbeafe 100%);
-            color: #1d4ed8;
-            border: 1px solid #93c5fd;
+        .shift-tag.gece { background: #1e293b; color: #fef3c7; }
+        .shift-tag.gunduz { background: #fbbf24; color: #78350f; }
+        .shift-tag.izin { background: #e2e8f0; color: #64748b; }
+        .shift-tag.izin24 { background: #93c5fd; color: #1e3a8a; }
+        .shift-tag.izin96 { background: #86efac; color: #14532d; }
+        .shift-tag.bos { background: #f1f5f9; color: #94a3b8; }
+
+        .today-dot {
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            width: 5px;
+            height: 5px;
+            background: #10b981;
+            border-radius: 50%;
         }
 
-        .day-cell.today { box-shadow: inset 0 0 0 2px #ef4444; }
-
-        .week-legend {
-            display: flex; justify-content: center; gap: 5px;
-            margin-top: 8px; padding-top: 8px;
-            border-top: 1px solid #f1f5f9; flex-wrap: wrap;
+        .block-badge {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            font-size: 0.5rem;
+            font-weight: 900;
+            background: rgba(255, 255, 255, 0.85);
+            color: #334155;
+            padding: 0.05rem 0.25rem;
+            border-radius: 4px;
+            line-height: 1.2;
         }
-        .week-legend .wl-item {
-            display: flex; align-items: center; gap: 3px;
-            font-size: 9px; font-weight: 700; color: var(--text-muted);
-        }
-        .week-legend .wl-dot { width: 8px; height: 8px; border-radius: 2px; }
 
-        .hint { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 12px; line-height: 1.4; }
-        .hint b { color: var(--primary); }
+        .month-start-badge {
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.42rem;
+            font-weight: 900;
+            background: #f59e0b;
+            color: white;
+            padding: 0.08rem 0.3rem;
+            border-radius: 3px;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.15s ease;
+        }
+        .modal-overlay.active { display: flex; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .modal {
+            background: white;
+            width: 100%;
+            max-width: 480px;
+            border-radius: 24px 24px 0 0;
+            padding: 1.2rem 1rem 1.4rem;
+            animation: slideUp 0.2s ease;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @media (min-width: 600px) {
+            .modal-overlay { align-items: center; padding: 1rem; }
+            .modal { border-radius: 24px; padding: 1.4rem 1.5rem 1.6rem; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #e2edf9;
+        }
+
+        .modal-title { font-size: 1rem; font-weight: 800; color: #0b2b4b; }
+        .modal-date { font-size: 0.78rem; color: #64748b; font-weight: 600; margin-top: 0.15rem; }
+
+        .modal-close {
+            background: #f1f5f9;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            color: #64748b;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-family: inherit;
+        }
+        .modal-close:active { background: #e2e8f0; }
+
+        .modal-options { display: grid; gap: 0.5rem; }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.9rem 1rem;
+            background: #f8fbff;
+            border: 2px solid #e2edf9;
+            border-radius: 14px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0b2b4b;
+            transition: all 0.15s;
+            text-align: left;
+        }
+        .option-btn:active { transform: scale(0.98); }
+        .option-btn.active { border-color: #10b981; background: #ecfdf5; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12); }
+
+        .option-icon { font-size: 1.3rem; width: 28px; text-align: center; flex-shrink: 0; }
+        .option-info { display: flex; flex-direction: column; gap: 0.1rem; flex: 1; }
+        .option-name { font-size: 0.9rem; font-weight: 800; }
+        .option-desc { font-size: 0.7rem; color: #64748b; font-weight: 600; }
+
+        .modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2edf9;
+        }
+
+        .modal-actions button {
+            padding: 0.85rem;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            transition: all 0.15s;
+        }
+        .modal-actions .btn-auto { background: #eef2f7; color: #475569; }
+        .modal-actions .btn-auto:active { background: #cbd5e1; }
+        .modal-actions .btn-clear { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .modal-actions .btn-clear:active { background: #fee2e2; }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.9rem;
+            padding: 0.85rem 1rem;
+            background: white;
+            border-radius: 16px;
+            margin-top: 0.9rem;
+            border: 1px solid #e2edf9;
+            font-size: 0.7rem;
+            color: #475569;
+            font-weight: 600;
+        }
+        .legend-item { display: flex; align-items: center; gap: 0.35rem; }
+        .legend-dot { width: 14px; height: 14px; border-radius: 5px; flex-shrink: 0; }
+
+        .info-box {
+            margin-top: 0.9rem;
+            padding: 0.85rem 1rem;
+            background: #f0f9ff;
+            border-radius: 16px;
+            border: 1px solid #bae6fd;
+            font-size: 0.74rem;
+            color: #0c4a6e;
+            line-height: 1.6;
+        }
+        .info-box strong { font-weight: 800; }
+        .info-box .hl { background: #e0f2fe; padding: 0.1rem 0.4rem; border-radius: 6px; font-weight: 700; }
+        .info-box .tip {
+            display: block;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed #bae6fd;
+            color: #0e7490;
+        }
+
+        @media (min-width: 600px) {
+            .container { padding: 1.5rem 1rem 4rem; }
+            .app-header h1 { font-size: 1.6rem; }
+            .panel-row { flex-direction: row; align-items: flex-end; }
+            .field { flex: 1; }
+            .stats { grid-template-columns: repeat(4, 1fr); }
+            .stat-value { font-size: 1.3rem; }
+            .cal-grid { gap: 5px; }
+            .cal-day { aspect-ratio: 1 / 1.12; }
+            .day-num { font-size: 0.95rem; }
+            .shift-icon { font-size: 1.3rem; }
+            .shift-tag { font-size: 0.6rem; padding: 0.15rem 0.4rem; }
+            .cal-header { font-size: 0.75rem; }
+            .block-badge { font-size: 0.55rem; }
+        }
+
+        @media (min-width: 900px) {
+            .container { max-width: 820px; }
+            .cal-day { aspect-ratio: 1 / 1; }
+            .shift-icon { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 360px) {
+            .shift-tag { font-size: 0.45rem; padding: 0.08rem 0.2rem; }
+            .day-num { font-size: 0.75rem; }
+            .shift-icon { font-size: 0.85rem; }
+            .block-badge { font-size: 0.45rem; }
+            .month-start-badge { font-size: 0.38rem; }
+            .start-phase button { min-height: 70px; }
+            .start-phase button .phase-icon { font-size: 1.3rem; }
+            .start-phase button .phase-label { font-size: 0.75rem; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
 
-        <!-- GİRİŞ EKRANI -->
-        <div id="authScreen">
-            <div class="auth-logo">
-                <div class="logo-icon">📅</div>
-                <h1>Çalışma Takvimi</h1>
-                <div class="logo-sub">Kişisel Vardiya Planlayıcı</div>
-            </div>
-
-            <div class="auth-card">
-                <div class="auth-form">
-                    <div class="auth-field">
-                        <label>👤 İsim Soyisim</label>
-                        <input type="text" id="fullNameInput" placeholder="örn: Ali Veli" autocomplete="name" maxlength="40">
-                    </div>
-                    <div class="auth-error" id="authError"></div>
-                    <button class="auth-btn" onclick="doLogin()">🚀 Giriş Yap / Devam Et</button>
-                </div>
-
-                <div class="auth-hint">
-                    🔒 İsim ve soyisminizi <b>boşluklu</b> yazın (örn: Ali Veli).<br>
-                    Aynı isimle giriş yapınca <b>kendi takviminize</b> dönersiniz.
-                </div>
-            </div>
-        </div>
-
-        <!-- UYGULAMA EKRANI -->
-        <div id="appScreen">
-            <div class="user-bar">
-                <div class="user-info">
-                    <div class="user-avatar" id="userAvatar">?</div>
-                    <div>
-                        <div class="user-name" id="userNameDisplay">Kullanıcı</div>
-                        <div class="user-sub" id="userSubDisplay">@kullanıcı</div>
-                    </div>
-                </div>
-                <button class="btn-logout" onclick="doLogout()">🚪 Çıkış</button>
-            </div>
-
-            <div class="setup-card">
-                <div class="sc-title">⚙️ Otomatik Takvim Oluştur</div>
-                <div class="setup-row">
-                    <div class="setup-field">
-                        <label>Başlangıç Tarihi (İlk Gece)</label>
-                        <input type="date" id="startDate" value="2026-10-03">
-                    </div>
-                    <div class="setup-field">
-                        <label>İlk Vardiya</label>
-                        <select id="firstShift">
-                            <option value="2" selected>Gece (20:00 başlar)</option>
-                            <option value="1">Gündüz (08:00 başlar)</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="setup-row">
-                    <div class="setup-field">
-                        <label>Kaç Döngü</label>
-                        <input type="number" id="cycleCount" value="1" min="1" max="12">
-                    </div>
-                    <div class="setup-field">
-                        <label>Toplam Vardiya</label>
-                        <input type="text" id="totalShifts" value="13" readonly style="background:#f1f5f9;">
-                    </div>
-                </div>
-                <div class="setup-buttons">
-                    <button class="btn" onclick="generateAutoCalendar()">🚀 Otomatik Oluştur</button>
-                    <button class="btn btn-warn" onclick="clearAllData()">🗑️ Tümünü Temizle</button>
-                </div>
-                <div style="text-align:center;font-size:9px;color:var(--text-muted);font-weight:600;margin-top:6px;">
-                    ✅ Mevcut çizelgeniz silinmez, sadece yeni günler eklenir
-                </div>
-            </div>
-
-            <div class="result-card" id="resultCard" style="display:none;">
-                <div class="rc-title">📊 Döngü Sonucu</div>
-                <div class="result-grid">
-                    <div class="result-item">
-                        <div class="ri-lbl">Toplam Vardiya</div>
-                        <div class="ri-val" id="res-shifts">13</div>
-                        <div class="ri-desc">7 Gece + 6 Gündüz</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="ri-lbl">Toplam Saat</div>
-                        <div class="ri-val" id="res-hours">156 saat</div>
-                        <div class="ri-desc">13 × 12 saat</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="ri-lbl">Takvim Günü</div>
-                        <div class="ri-val" id="res-calendar">-</div>
-                        <div class="ri-desc">izinler dahil</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="ri-lbl">Toplam İzin</div>
-                        <div class="ri-val" id="res-izin">-</div>
-                        <div class="ri-desc">36s + 24s + 96s</div>
-                    </div>
-                </div>
-                <div class="result-dates">
-                    <div class="rd-lbl">Başlangıç → Bitiş</div>
-                    <div class="rd-val" id="res-dates">-</div>
-                    <div class="rd-sub" id="res-dates-sub">-</div>
-                </div>
-            </div>
-
-            <div class="dashboard">
-                <div class="stat-box">
-                    <div class="title">Toplam Çalışma</div>
-                    <div class="number" id="stat-hours" style="color: #4f46e5;">0 saat</div>
-                </div>
-                <div class="stat-box">
-                    <div class="title">Toplam İzin</div>
-                    <div class="number" id="stat-izin" style="color: #059669;">0 gün</div>
-                </div>
-            </div>
-
-            <div class="target-card">
-                <div class="tc-title">🎯 Aylık Hedef (160 Saat Standart)</div>
-                <div class="progress-wrap">
-                    <div class="progress-row">
-                        <span>Toplam Saat</span>
-                        <span id="total-hours-label">0 / 160 saat</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill under" id="progress-fill" style="width: 0%;"></div>
-                    </div>
-                    <div class="progress-row" style="margin-top: 6px;">
-                        <span id="remaining-label" style="color: var(--text-muted);">Kalan: 160 saat</span>
-                        <span id="overtime-label" style="color: var(--text-muted);">Fazla mesai: 0 saat</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="calendar-card">
-                <div class="calendar-header">
-                    <div class="ch-title" id="calTitle">-</div>
-                    <div class="calendar-nav">
-                        <button class="nav-btn" onclick="changeMonth(-1)" title="Önceki Ay">◀</button>
-                        <button class="nav-btn" onclick="goToday()" title="Bugün" style="font-size:12px;">📍</button>
-                        <button class="nav-btn" onclick="changeMonth(1)" title="Sonraki Ay">▶</button>
-                        <button class="btn-clear-month" onclick="clearMonth()" style="margin-left:4px;">Temizle</button>
-                    </div>
-                </div>
-                <div id="calendarContainer"></div>
-                <div class="week-legend">
-                    <div class="wl-item"><div class="wl-dot" style="background: #fef3c7; border:1px solid #fcd34d;"></div>Gündüz</div>
-                    <div class="wl-item"><div class="wl-dot" style="background: #dbeafe; border:1px solid #93c5fd;"></div>Gece</div>
-                    <div class="wl-item"><div class="wl-dot" style="background: #dcfce7; border:1px solid #86efac;"></div>İzin (36s)</div>
-                    <div class="wl-item"><div class="wl-dot" style="background: #ffedd5; border:1px solid #fdba74;"></div>İzin24</div>
-                    <div class="wl-item"><div class="wl-dot" style="background: #fee2e2; border:1px solid #fca5a5;"></div>İzin96</div>
-                    <div class="wl-item"><div class="wl-dot" style="background: #ffffff; border:1px solid #e2e8f0;"></div>Boş</div>
-                </div>
-            </div>
-
-            <div class="hint">
-                ☀️ <b>Sarı:</b> Gündüz (08-20) &nbsp;|&nbsp; 🌙 <b>Mavi:</b> Gece (20-08)<br>
-                🟢 <b>Yeşil:</b> 36s izin &nbsp;|&nbsp; 🟠 <b>Turuncu:</b> 24s &nbsp;|&nbsp; 🔴 <b>Kırmızı:</b> 96s
-            </div>
+    <div class="app-header">
+        <h1>🌗 Vardiya Çetveli</h1>
+        <div class="badges">
+            <span class="badge system">1+1 SİSTEM</span>
+            <span class="badge gece">🌙 7 GECE</span>
+            <span class="badge gunduz">☀️ 6 GÜNDÜZ</span>
         </div>
     </div>
 
-    <script>
-        const monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
-        const dayNames = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
-        const shifts = [
-            { id: "bos", label: "-", class: "shift-bos", time: "" },
-            { id: "gunduz", label: "Gündüz", class: "shift-gunduz", time: "08-20" },
-            { id: "gece", label: "Gece", class: "shift-gece", time: "20-08" },
-            { id: "izin", label: "İzin", class: "shift-izin", time: "36s" },
-            { id: "izin24", label: "İzin24", class: "shift-izin24", time: "24s" },
-            { id: "izin96", label: "İzin96", class: "shift-izin96", time: "96s" }
-        ];
+    <div class="panel">
+        <div class="panel-row">
+            <div class="field">
+                <label for="startDate">📅 Başlangıç Tarihi</label>
+                <input type="date" id="startDate">
+            </div>
+        </div>
 
-        const WEEK_CLASSES = ["w1", "w2", "w3", "w4"];
-        const STANDARD_HOURS = 160;
-        const SHIFT_HOURS = 12;
+        <div class="field" style="margin-top: 0.85rem;">
+            <label>🚦 Hangi Vardiyayla Başlıyorsunuz?</label>
+            <div class="start-phase" id="startPhase">
+                <button data-phase="gece" id="btnStartGece">
+                    <span class="phase-icon">🌙</span>
+                    <span class="phase-label">Gece</span>
+                    <span class="phase-time">20:00 - 08:00</span>
+                </button>
+                <button data-phase="gunduz" id="btnStartGunduz">
+                    <span class="phase-icon">☀️</span>
+                    <span class="phase-label">Gündüz</span>
+                    <span class="phase-time">08:00 - 20:00</span>
+                </button>
+            </div>
+        </div>
 
-        const USERS_KEY = "vardiya_users_v11";
-        const SESSION_KEY = "vardiya_session_v11";
-        const DATA_KEY_PREFIX = "vardiya_data_v11_";
+        <div class="save-info" id="saveInfo">
+            <span class="icon">💾</span>
+            <span id="saveText">Başlangıç kaydedilir.</span>
+            <button class="reset-btn" id="resetBtn">SIFIRLA</button>
+        </div>
+    </div>
 
-        let currentUser = null;
-        let memoryData = {};
-        let autoCalcData = {};
-        let splitData = {};
-        let baseDate = new Date();
-        let selectedWeekMonday = null;
+    <div class="stats">
+        <div class="stat-card gece">
+            <span class="stat-label">🌙 Gece</span>
+            <span class="stat-value" id="statGece">0 gün</span>
+        </div>
+        <div class="stat-card gunduz">
+            <span class="stat-label">☀️ Gündüz</span>
+            <span class="stat-value" id="statGunduz">0 gün</span>
+        </div>
+        <div class="stat-card izin">
+            <span class="stat-label">💤 İzin</span>
+            <span class="stat-value" id="statIzin">0 gün</span>
+        </div>
+        <div class="stat-card good" id="statLimitCard">
+            <span class="stat-label">Aylık Toplam</span>
+            <span class="stat-value" id="statLimit">✅ 0s</span>
+        </div>
+    </div>
 
-        function getUsers() {
+    <div class="month-nav">
+        <button id="prevMonthBtn" aria-label="Önceki ay">‹</button>
+        <div class="month-label" id="monthLabel">—</div>
+        <button id="nextMonthBtn" aria-label="Sonraki ay">›</button>
+    </div>
+
+    <div class="calendar">
+        <div class="cal-grid" id="calendarGrid"></div>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#e2e8f0; border:1px solid #94a3b8;"></div><span>🌙 Gece</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#fef9c3; border:1px solid #fbbf24;"></div><span>☀️ Gündüz</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f1f5f9; border:1px solid #cbd5e1;"></div><span>💤 İzin</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#dbeafe; border:1px solid #93c5fd;"></div><span>⏸️ 24s</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#dcfce7; border:1px solid #86efac;"></div><span>🛌 96s</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div><span>📌 Ay Başı</span></div>
+    </div>
+
+    <div class="info-box">
+        <strong>📌 Kullanım:</strong><br>
+        • Başlangıç tarihini seçin ve <strong>hangi vardiyayla başladığınızı</strong> belirtin.<br>
+        • <strong>🌙 Gece seçilirse:</strong> Seçilen tarih <em>1. gece</em> kabul edilir → 7 gece → 24s izin → 6 gündüz → 96s izin → döngü.<br>
+        • <strong>☀️ Gündüz seçilirse:</strong> Seçilen tarih <em>1. gündüz</em> kabul edilir → 6 gündüz → 96s izin → 7 gece → 24s izin → döngü.<br>
+        • Ay başı (1. gündüz) 📌 turuncu çerçeve ile gösterilir.<br>
+        • Herhangi bir güne tıklayarak manuel düzenleyebilirsiniz (✎).
+        <span class="tip">💡 156 saat kontrolü, her 1. gündüzden itibaren 28 günlük pencere içinde hesaplanır.</span>
+    </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+        <div class="modal-header">
+            <div>
+                <div class="modal-title">Günü Düzenle</div>
+                <div class="modal-date" id="modalDate">—</div>
+            </div>
+            <button class="modal-close" id="modalClose" aria-label="Kapat">✕</button>
+        </div>
+
+        <div class="modal-options">
+            <button class="option-btn" data-type="bos">
+                <span class="option-icon">⬜</span>
+                <div class="option-info"><span class="option-name">Boş</span><span class="option-desc">Vardiya yok</span></div>
+            </button>
+            <button class="option-btn" data-type="gunduz">
+                <span class="option-icon">☀️</span>
+                <div class="option-info"><span class="option-name">Gündüz</span><span class="option-desc">08:00 - 20:00</span></div>
+            </button>
+            <button class="option-btn" data-type="gece">
+                <span class="option-icon">🌙</span>
+                <div class="option-info"><span class="option-name">Gece</span><span class="option-desc">20:00 - 08:00</span></div>
+            </button>
+            <button class="option-btn" data-type="izin">
+                <span class="option-icon">💤</span>
+                <div class="option-info"><span class="option-name">İzin</span><span class="option-desc">Normal izin</span></div>
+            </button>
+            <button class="option-btn" data-type="izin24">
+                <span class="option-icon">⏸️</span>
+                <div class="option-info"><span class="option-name">24s İzin</span><span class="option-desc">Geçiş izni</span></div>
+            </button>
+            <button class="option-btn" data-type="izin96">
+                <span class="option-icon">🛌</span>
+                <div class="option-info"><span class="option-name">96s İzin</span><span class="option-desc">Büyük izin</span></div>
+            </button>
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn-auto" id="btnAuto">🔄 Otomatiğe Dön</button>
+            <button class="btn-clear" id="btnClear">🗑️ Günü Sil</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const MS_PER_DAY = 86400000;
+        const WORK_HOURS_PER_DAY = 12;
+        const MONTHLY_LIMIT = 156;
+
+        // DÖNGÜ (28 gün) - Gece başlangıcı için:
+        // 0: 1. gece
+        // 1: izin
+        // 2: 2. gece
+        // 3: izin
+        // 4: 3. gece
+        // 5: izin
+        // 6: 4. gece
+        // 7: izin
+        // 8: 5. gece
+        // 9: izin
+        // 10: 6. gece
+        // 11: izin
+        // 12: 7. gece
+        // 13: 24s izin
+        // 14: 1. gündüz
+        // 15: izin
+        // 16: 2. gündüz
+        // 17: izin
+        // 18: 3. gündüz
+        // 19: izin
+        // 20: 4. gündüz
+        // 21: izin
+        // 22: 5. gündüz
+        // 23: izin
+        // 24: 6. gündüz
+        // 25: 96s izin
+        // 26: 96s izin
+        // 27: 96s izin (20:00'de 1. gece başlar → "gece" gösterilir)
+
+        // DÖNGÜ - Gündüz başlangıcı için (offset 14):
+        // 0: 1. gündüz (gece döngüsünün 14. gününe denk gelir)
+        // ...
+
+        const CYCLE_DAYS = 28;
+        const GUNDUZ_START_OFFSET = 14;
+
+        let currentYear, currentMonth;
+        let startDate = null;
+        let startPhase = 'gece';
+        let phaseOffset = 0;
+        let manualOverrides = {};
+        let selectedDate = null;
+
+        const calendarGrid = document.getElementById('calendarGrid');
+        const monthLabel = document.getElementById('monthLabel');
+        const startDateInput = document.getElementById('startDate');
+        const prevMonthBtn = document.getElementById('prevMonthBtn');
+        const nextMonthBtn = document.getElementById('nextMonthBtn');
+        const statGece = document.getElementById('statGece');
+        const statGunduz = document.getElementById('statGunduz');
+        const statIzin = document.getElementById('statIzin');
+        const statLimit = document.getElementById('statLimit');
+        const statLimitCard = document.getElementById('statLimitCard');
+        const btnStartGece = document.getElementById('btnStartGece');
+        const btnStartGunduz = document.getElementById('btnStartGunduz');
+        const resetBtn = document.getElementById('resetBtn');
+        const saveText = document.getElementById('saveText');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalDate = document.getElementById('modalDate');
+        const modalClose = document.getElementById('modalClose');
+        const btnAuto = document.getElementById('btnAuto');
+        const btnClear = document.getElementById('btnClear');
+
+        function formatDateToYYYYMMDD(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        function daysBetween(date1, date2) {
+            const d1 = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
+            const d2 = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
+            return Math.round((d2 - d1) / MS_PER_DAY);
+        }
+
+        function saveSettings() {
+            if (!startDate) return;
             try {
-                return JSON.parse(localStorage.getItem(USERS_KEY) || "{}");
-            } catch(e) { return {}; }
+                localStorage.setItem('vardiya_v6', JSON.stringify({
+                    startDate: formatDateToYYYYMMDD(startDate),
+                    startPhase: startPhase,
+                    manualOverrides: manualOverrides
+                }));
+                updateSaveText();
+            } catch(e) {}
         }
 
-        function saveUsers(users) {
-            localStorage.setItem(USERS_KEY, JSON.stringify(users));
-        }
-
-        function showError(msg) {
-            let el = document.getElementById("authError");
-            el.innerText = msg;
-            el.style.display = "block";
-            setTimeout(() => { el.style.display = "none"; }, 3500);
-        }
-
-        function doLogin() {
-            let fullName = document.getElementById("fullNameInput").value.trim();
-
-            if (!fullName) {
-                showError("⚠️ Lütfen isim ve soyisminizi girin!");
-                return;
-            }
-            let parts = fullName.split(/\s+/).filter(p => p.length > 0);
-            if (parts.length < 2) {
-                showError("⚠️ Lütfen isim VE soyisim girin (örn: Ali Veli)!");
-                return;
-            }
-            if (fullName.length < 4) {
-                showError("⚠️ İsim çok kısa!");
-                return;
-            }
-
-            let normalized = fullName.toLowerCase()
-                .replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ş/g, "s")
-                .replace(/ı/g, "i").replace(/ö/g, "o").replace(/ç/g, "c")
-                .replace(/\s+/g, " ")
-                .trim();
-
-            let users = getUsers();
-            let isNew = !users[normalized];
-
-            if (isNew) {
-                users[normalized] = {
-                    displayName: fullName,
-                    normalized: normalized,
-                    createdAt: new Date().toISOString()
+        function loadSettings() {
+            try {
+                const raw = localStorage.getItem('vardiya_v6');
+                if (!raw) return null;
+                const data = JSON.parse(raw);
+                if (!data.startDate) return null;
+                const parts = data.startDate.split('-');
+                return {
+                    startDate: new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2])),
+                    startPhase: data.startPhase || 'gece',
+                    manualOverrides: data.manualOverrides || {}
                 };
-                saveUsers(users);
-            }
-
-            currentUser = {
-                normalized: normalized,
-                displayName: users[normalized].displayName
-            };
-            localStorage.setItem(SESSION_KEY, JSON.stringify(currentUser));
-
-            document.getElementById("fullNameInput").value = "";
-            enterApp(isNew);
+            } catch(e) { return null; }
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            let inp = document.getElementById("fullNameInput");
-            if (inp) {
-                inp.addEventListener("keydown", function(e) {
-                    if (e.key === "Enter") doLogin();
-                });
-            }
-        });
-
-        function doLogout() {
-            if (!confirm("Çıkış yapmak istediğinize emin misiniz?")) return;
-            currentUser = null;
-            localStorage.removeItem(SESSION_KEY);
-            memoryData = {};
-            autoCalcData = {};
-            splitData = {};
-            document.getElementById("resultCard").style.display = "none";
-            document.getElementById("appScreen").style.display = "none";
-            document.getElementById("authScreen").style.display = "flex";
-        }
-
-        function enterApp(isNew) {
-            document.getElementById("authScreen").style.display = "none";
-            document.getElementById("appScreen").style.display = "block";
-
-            document.getElementById("userNameDisplay").innerText = currentUser.displayName;
-            document.getElementById("userSubDisplay").innerText = "@" + currentUser.normalized;
-            document.getElementById("userAvatar").innerText = currentUser.displayName.charAt(0).toUpperCase();
-
-            loadUserData();
-
-            let today = new Date();
-            document.getElementById("startDate").value = today.toISOString().split('T')[0];
-
-            baseDate = new Date();
-            selectedWeekMonday = getMonday(new Date());
-            renderAll();
-
-            if (isNew) {
-                setTimeout(() => {
-                    alert(`👋 Hoş geldin ${currentUser.displayName}!\n\nBu senin ilk girişin. Kendi takvimini oluşturmaya başlayabilirsin.`);
-                }, 300);
+        function updateSaveText() {
+            if (startDate) {
+                const phaseText = startPhase === 'gece' ? '🌙 1. Gece' : '☀️ 1. Gündüz';
+                const overrideCount = Object.keys(manualOverrides).length;
+                const manualText = overrideCount > 0 ? ` • ${overrideCount} manuel` : '';
+                saveText.textContent = `${phaseText}: ${formatDateToYYYYMMDD(startDate)}${manualText}`;
+            } else {
+                saveText.textContent = 'Başlangıç tarihi otomatik kaydedilir.';
             }
         }
 
-        function getUserDataKey() {
-            return DATA_KEY_PREFIX + currentUser.normalized.replace(/\s+/g, "_");
-        }
-
-        function loadUserData() {
-            try {
-                let raw = localStorage.getItem(getUserDataKey());
-                let data = raw ? JSON.parse(raw) : {};
-                memoryData = data.memoryData || {};
-                autoCalcData = data.autoCalcData || {};
-                splitData = data.splitData || {};
-            } catch(e) {
-                memoryData = {};
-                autoCalcData = {};
-                splitData = {};
+        // ---- Döngü günü bilgisi (gece başlangıcı bazlı) ----
+        function getCycleDayInfo(cycleDay) {
+            // Gece bloğu: 0-12
+            if (cycleDay >= 0 && cycleDay <= 12) {
+                const blockDay = Math.floor(cycleDay / 2) + 1;
+                const isWork = (cycleDay % 2 === 0);
+                if (isWork) return { type: 'gece', blockDay, total: 7 };
+                return { type: 'izin', blockDay, total: 7 };
             }
+            // 24s izin
+            if (cycleDay === 13) return { type: 'izin24' };
+            // Gündüz bloğu: 14-24
+            if (cycleDay >= 14 && cycleDay <= 24) {
+                const dayInBlock = cycleDay - 14;
+                const blockDay = Math.floor(dayInBlock / 2) + 1;
+                const isWork = (dayInBlock % 2 === 0);
+                if (isWork) return { type: 'gunduz', blockDay, total: 6 };
+                return { type: 'izin', blockDay, total: 6 };
+            }
+            // 96s izin: 25, 26, 27
+            if (cycleDay >= 25 && cycleDay <= 27) {
+                return { type: 'izin96' };
+            }
+            return { type: 'izin' };
         }
 
-        function saveUserData() {
-            if (!currentUser) return;
-            let data = {
-                memoryData: memoryData,
-                autoCalcData: autoCalcData,
-                splitData: splitData,
-                updatedAt: new Date().toISOString()
-            };
-            localStorage.setItem(getUserDataKey(), JSON.stringify(data));
+        function getAutoShiftInfo(date) {
+            if (!startDate) return null;
+            const diff = daysBetween(startDate, date);
+            let cycleDay = ((diff + phaseOffset) % CYCLE_DAYS + CYCLE_DAYS) % CYCLE_DAYS;
+            return getCycleDayInfo(cycleDay);
         }
 
-        function changeMonth(direction) {
-            baseDate.setMonth(baseDate.getMonth() + direction);
-            let y = baseDate.getFullYear();
-            if (y < 2026) { baseDate.setFullYear(2026); baseDate.setMonth(0); }
-            else if (y > 2035) { baseDate.setFullYear(2035); baseDate.setMonth(11); }
-            selectedWeekMonday = null;
-            renderAll();
+        function getShiftInfo(date) {
+            if (!startDate) return null;
+            const key = formatDateToYYYYMMDD(date);
+            if (manualOverrides[key]) {
+                return { type: manualOverrides[key], manual: true };
+            }
+            return getAutoShiftInfo(date);
         }
 
-        function goToday() {
-            baseDate = new Date();
-            let y = baseDate.getFullYear();
-            if (y < 2026) baseDate.setFullYear(2026);
-            else if (y > 2035) baseDate.setFullYear(2035);
-            selectedWeekMonday = getMonday(new Date());
-            renderAll();
+        // ---- Ay başı mı? (1. gündüz günü, otomatik hesapta cycleDay=14) ----
+        function isMonthStart(date) {
+            if (!startDate) return false;
+            const key = formatDateToYYYYMMDD(date);
+            if (manualOverrides[key]) return false;
+            const diff = daysBetween(startDate, date);
+            let cycleDay = ((diff + phaseOffset) % CYCLE_DAYS + CYCLE_DAYS) % CYCLE_DAYS;
+            return cycleDay === 14;
         }
 
-        function getMonday(date) {
-            let d = new Date(date);
-            let day = d.getDay();
-            let diff = (day === 0) ? 6 : day - 1;
-            d.setDate(d.getDate() - diff);
-            d.setHours(0, 0, 0, 0);
-            return d;
+        // ---- İstatistik: görüntülenen ay için 1. gündüzden itibaren 28 günlük pencere ----
+        function findMonthStartForYearMonth(year, month) {
+            if (!startDate) return null;
+            // Ayın 1'inden itibaren 28 gün tara, 1. gündüz gününü bul
+            for (let i = 0; i < 40; i++) {
+                const d = new Date(year, month, 1 + i);
+                if (isMonthStart(d)) return d;
+            }
+            // Geriye doğru tara
+            for (let i = 1; i <= 40; i++) {
+                const d = new Date(year, month, 1 - i);
+                if (isMonthStart(d)) return d;
+            }
+            return null;
         }
 
-        function dateKey(d) {
-            return `${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
-        }
+        function updateStats() {
+            if (currentYear === undefined || currentMonth === undefined) return;
 
-        // ===== DOĞRU DÖNGÜ =====
-        // Normal aralar: 36s izin (açık yeşil)
-        // Gece→Gündüz (7. geceden sonra): 24s izin (açık turuncu)
-        // Gündüz→Gece (6. gündüzden sonra): 96s izin (açık kırmızı)
-        function generateAutoCalendar() {
-            const startDateStr = document.getElementById("startDate").value;
-            const firstShift = parseInt(document.getElementById("firstShift").value);
-            const cycleCount = parseInt(document.getElementById("cycleCount").value);
+            const monthStart = findMonthStartForYearMonth(currentYear, currentMonth);
 
-            if (!startDateStr) {
-                alert("Lütfen başlangıç tarihi seçin!");
+            if (!monthStart) {
+                statGece.textContent = '0 gün';
+                statGunduz.textContent = '0 gün';
+                statIzin.textContent = '0 gün';
+                statLimit.textContent = '—';
                 return;
             }
 
-            let startDate = new Date(startDateStr + "T00:00:00");
-            let currentDate = new Date(startDate);
-            let totalShifts = 0;
-            let totalIzinHours = 0;
-            let calendarDays = 0;
-
-            let firstIsGece = (firstShift === 2);
-
-            for (let c = 0; c < cycleCount; c++) {
-                if (firstIsGece) {
-                    // === 7 GECE (her biri arası 36s izin) ===
-                    for (let i = 0; i < 7; i++) {
-                        let key = dateKey(currentDate);
-                        memoryData[key] = 2;
-                        autoCalcData[key] = true;
-                        currentDate.setDate(currentDate.getDate() + 1);
-                        totalShifts++;
-                        calendarDays++;
-
-                        if (i < 6) {
-                            let izinKey = dateKey(currentDate);
-                            memoryData[izinKey] = 3;
-                            autoCalcData[izinKey] = true;
-                            currentDate.setDate(currentDate.getDate() + 1);
-                            calendarDays++;
-                            totalIzinHours += 36;
-                        }
-                    }
-
-                    // === GECE → GÜNDÜZ: 24s İZİN ===
-                    let izin24Key = dateKey(currentDate);
-                    memoryData[izin24Key] = 4;
-                    autoCalcData[izin24Key] = true;
-                    currentDate.setDate(currentDate.getDate() + 1);
-                    calendarDays++;
-                    totalIzinHours += 24;
-
-                    // === 6 GÜNDÜZ (sonuncusu yarı yarıya) ===
-                    for (let i = 0; i < 6; i++) {
-                        let key = dateKey(currentDate);
-                        
-                        if (i === 5) {
-                            memoryData[key] = 1;
-                            autoCalcData[key] = true;
-                            splitData[key] = "gunduz-izin96";
-                        } else {
-                            memoryData[key] = 1;
-                            autoCalcData[key] = true;
-                        }
-                        
-                        currentDate.setDate(currentDate.getDate() + 1);
-                        totalShifts++;
-                        calendarDays++;
-
-                        if (i < 5) {
-                            let izinKey = dateKey(currentDate);
-                            memoryData[izinKey] = 3;
-                            autoCalcData[izinKey] = true;
-                            currentDate.setDate(currentDate.getDate() + 1);
-                            calendarDays++;
-                            totalIzinHours += 36;
-                        }
-                    }
-
-                    // === GÜNDÜZ → GECE: 96s İZİN ===
-                    for (let i = 0; i < 4; i++) {
-                        let izinKey = dateKey(currentDate);
-                        
-                        if (i === 3) {
-                            memoryData[izinKey] = 6;
-                            autoCalcData[izinKey] = true;
-                            splitData[izinKey] = "izin96-gece";
-                        } else {
-                            memoryData[izinKey] = 6;
-                            autoCalcData[izinKey] = true;
-                        }
-                        
-                        currentDate.setDate(currentDate.getDate() + 1);
-                        calendarDays++;
-                    }
-                    totalIzinHours += 96;
-                } else {
-                    // === 6 GÜNDÜZ ===
-                    for (let i = 0; i < 6; i++) {
-                        let key = dateKey(currentDate);
-                        
-                        if (i === 5) {
-                            memoryData[key] = 1;
-                            autoCalcData[key] = true;
-                            splitData[key] = "gunduz-izin96";
-                        } else {
-                            memoryData[key] = 1;
-                            autoCalcData[key] = true;
-                        }
-                        
-                        currentDate.setDate(currentDate.getDate() + 1);
-                        totalShifts++;
-                        calendarDays++;
-
-                        if (i < 5) {
-                            let izinKey = dateKey(currentDate);
-                            memoryData[izinKey] = 3;
-                            autoCalcData[izinKey] = true;
-                            currentDate.setDate(currentDate.getDate() + 1);
-                            calendarDays++;
-                            totalIzinHours += 36;
-                        }
-                    }
-
-                    // === 96s İZİN ===
-                    for (let i = 0; i < 4; i++) {
-                        let izinKey = dateKey(currentDate);
-                        
-                        if (i === 3) {
-                            memoryData[izinKey] = 6;
-                            autoCalcData[izinKey] = true;
-                            splitData[izinKey] = "izin96-gece";
-                        } else {
-                            memoryData[izinKey] = 6;
-                            autoCalcData[izinKey] = true;
-                        }
-                        
-                        currentDate.setDate(currentDate.getDate() + 1);
-                        calendarDays++;
-                    }
-                    totalIzinHours += 96;
-
-                    // === 7 GECE ===
-                    for (let i = 0; i < 7; i++) {
-                        let key = dateKey(currentDate);
-                        memoryData[key] = 2;
-                        autoCalcData[key] = true;
-                        currentDate.setDate(currentDate.getDate() + 1);
-                        totalShifts++;
-                        calendarDays++;
-
-                        if (i < 6) {
-                            let izinKey = dateKey(currentDate);
-                            memoryData[izinKey] = 3;
-                            autoCalcData[izinKey] = true;
-                            currentDate.setDate(currentDate.getDate() + 1);
-                            calendarDays++;
-                            totalIzinHours += 36;
-                        }
-                    }
-
-                    // === 24s İZİN ===
-                    let izin24Key = dateKey(currentDate);
-                    memoryData[izin24Key] = 4;
-                    autoCalcData[izin24Key] = true;
-                    currentDate.setDate(currentDate.getDate() + 1);
-                    calendarDays++;
-                    totalIzinHours += 24;
-                }
+            let gece = 0, gunduz = 0, izin = 0;
+            for (let i = 0; i < CYCLE_DAYS; i++) {
+                const d = new Date(monthStart.getFullYear(), monthStart.getMonth(), monthStart.getDate() + i);
+                const info = getShiftInfo(d);
+                if (!info) continue;
+                if (info.type === 'gece') gece++;
+                else if (info.type === 'gunduz') gunduz++;
+                else izin++;
             }
 
-            showResult(startDate, totalShifts, totalIzinHours, calendarDays);
+            const totalWork = gece + gunduz;
+            const totalHours = totalWork * WORK_HOURS_PER_DAY;
 
-            // ⭐ SON VARDİYANIN OLDUĞU AYA ATLA
-            let lastDate = new Date(currentDate);
-            lastDate.setDate(lastDate.getDate() - 1); // son gün
-            baseDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), 1);
-            selectedWeekMonday = getMonday(lastDate);
+            statGece.textContent = `${gece} gün`;
+            statGunduz.textContent = `${gunduz} gün`;
+            statIzin.textContent = `${izin} gün`;
 
-            renderAll();
-            saveUserData();
-
-            // Kullanıcıya bilgi ver
-            let lastMonthName = monthNames[lastDate.getMonth()];
-            let lastMonthYear = lastDate.getFullYear();
-            let firstMonthName = monthNames[startDate.getMonth()];
-            let firstMonthYear = startDate.getFullYear();
-
-            setTimeout(() => {
-                if (firstMonthYear === lastMonthYear && firstMonthName === lastMonthName) {
-                    alert(`✅ Takvim oluşturuldu!\n\n📅 ${firstMonthName} ${firstMonthYear}\n📊 ${totalShifts} vardiya / ${calendarDays} gün\n\nTakvim son aya atladı: ${lastMonthName} ${lastMonthYear}`);
-                } else {
-                    alert(`✅ Takvim oluşturuldu!\n\n📅 ${firstMonthName} ${firstMonthYear} → ${lastMonthName} ${lastMonthYear}\n📊 ${totalShifts} vardiya / ${calendarDays} gün\n\n▶ butonuyla aylar arası geçiş yapabilirsiniz.`);
-                }
-            }, 400);
-        }
-
-        function showResult(startDate, totalShifts, totalIzinHours, calendarDays) {
-            let endDate = new Date(startDate);
-            endDate.setDate(endDate.getDate() + calendarDays - 1);
-
-            let lastShiftEnd = new Date(endDate);
-            lastShiftEnd.setDate(lastShiftEnd.getDate() + 1);
-
-            document.getElementById("res-shifts").innerText = totalShifts;
-            document.getElementById("res-hours").innerText = (totalShifts * SHIFT_HOURS) + " saat";
-            document.getElementById("res-calendar").innerText = calendarDays + " gün";
-            document.getElementById("res-izin").innerText = totalIzinHours + " saat";
-
-            let startStr = formatDate(startDate);
-            let endStr = formatDate(endDate);
-            document.getElementById("res-dates").innerText = startStr + " → " + endStr;
-            document.getElementById("res-dates-sub").innerText = 
-                `Son vardiya bitişi: ${formatDate(lastShiftEnd)}`;
-
-            document.getElementById("resultCard").style.display = "block";
-        }
-
-        function formatDate(d) {
-            return `${d.getDate()} ${monthNames[d.getMonth()]} ${d.getFullYear()}`;
-        }
-
-        function clearAllData() {
-            if (confirm("Tüm veriler silinecek. Emin misiniz?")) {
-                memoryData = {};
-                autoCalcData = {};
-                splitData = {};
-                document.getElementById("resultCard").style.display = "none";
-                renderAll();
-                saveUserData();
-            }
-        }
-
-        function renderAll() {
-            if (!currentUser) return;
-
-            const currentYear = baseDate.getFullYear();
-            const currentMonth = baseDate.getMonth();
-
-            document.getElementById("calTitle").innerText = `${monthNames[currentMonth]} ${currentYear}`;
-
-            if (!selectedWeekMonday) {
-                let todayMonday = getMonday(new Date());
-                if (todayMonday.getFullYear() === currentYear && todayMonday.getMonth() === currentMonth) {
-                    selectedWeekMonday = todayMonday;
-                } else {
-                    selectedWeekMonday = getMonday(new Date(currentYear, currentMonth, 1));
-                }
-            }
-
-            renderCalendar(currentYear, currentMonth);
-            updateStats(currentYear, currentMonth);
-        }
-
-        function updateStats(year, month) {
-            let daysInMonth = new Date(year, month + 1, 0).getDate();
-            let vardiyaCount = 0;
-            let izinCount = 0;
-
-            for (let d = 1; d <= daysInMonth; d++) {
-                let key = `${year}_${month}_${d}`;
-                let val = memoryData[key] || 0;
-                let split = splitData[key];
-                
-                if (split === "gunduz-izin96") {
-                    vardiyaCount += 0.5;
-                    izinCount += 0.5;
-                } else if (split === "izin96-gece") {
-                    vardiyaCount += 0.5;
-                    izinCount += 0.5;
-                } else {
-                    if (val === 1 || val === 2) vardiyaCount++;
-                    if (val === 3 || val === 4 || val === 6) izinCount++;
-                }
-            }
-
-            let totalHours = vardiyaCount * SHIFT_HOURS;
-
-            document.getElementById("stat-hours").innerText = Math.round(totalHours) + " saat";
-            document.getElementById("stat-izin").innerText = Math.round(izinCount) + " gün";
-
-            let percent = Math.min((totalHours / STANDARD_HOURS) * 100, 100);
-            let fill = document.getElementById("progress-fill");
-            fill.style.width = percent + "%";
-            fill.classList.remove("ok", "over", "under");
-            if (totalHours === STANDARD_HOURS) fill.classList.add("ok");
-            else if (totalHours > STANDARD_HOURS) fill.classList.add("over");
-            else fill.classList.add("under");
-
-            let diff = STANDARD_HOURS - totalHours;
-            let remainingLabel = document.getElementById("remaining-label");
-            let overtimeLabel = document.getElementById("overtime-label");
-
-            if (diff > 0) {
-                remainingLabel.innerText = `Kalan: ${Math.round(diff)} saat`;
-                remainingLabel.style.color = "var(--info)";
-                overtimeLabel.innerText = `Fazla mesai: 0 saat`;
-                overtimeLabel.style.color = "var(--text-muted)";
-            } else if (diff < 0) {
-                remainingLabel.innerText = `Standart aşıldı`;
-                remainingLabel.style.color = "var(--warn)";
-                overtimeLabel.innerText = `Fazla mesai: ${Math.round(Math.abs(diff))} saat`;
-                overtimeLabel.style.color = "var(--warn)";
+            if (totalHours > MONTHLY_LIMIT) {
+                statLimit.textContent = `⚠️ +${totalHours - MONTHLY_LIMIT}s`;
+                statLimitCard.classList.remove('good');
+                statLimitCard.classList.add('warn');
             } else {
-                remainingLabel.innerText = `✅ Standart tamam!`;
-                remainingLabel.style.color = "var(--ok)";
-                overtimeLabel.innerText = `Fazla mesai: 0 saat`;
-                overtimeLabel.style.color = "var(--text-muted)";
+                const remaining = MONTHLY_LIMIT - totalHours;
+                statLimit.textContent = remaining > 0 ? `✅ ${totalHours}s / ${remaining}s kaldı` : `✅ ${totalHours}s Tam`;
+                statLimitCard.classList.remove('warn');
+                statLimitCard.classList.add('good');
             }
-
-            document.getElementById("total-hours-label").innerText = `${Math.round(totalHours)} / ${STANDARD_HOURS} saat`;
         }
 
-        function renderCalendar(year, month) {
-            const container = document.getElementById("calendarContainer");
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            let firstDay = new Date(year, month, 1).getDay();
-            firstDay = (firstDay === 0) ? 6 : firstDay - 1;
+        function renderCalendar() {
+            if (currentYear === undefined || currentMonth === undefined) return;
 
-            let prevMonth = month - 1, prevYear = year;
-            if (prevMonth < 0) { prevMonth = 11; prevYear--; }
-            let prevMonthDays = new Date(prevYear, prevMonth + 1, 0).getDate();
+            const monthNames = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
+                                'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+            monthLabel.textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
-            let todayObj = new Date();
-            let todayKey = `${todayObj.getFullYear()}_${todayObj.getMonth()}_${todayObj.getDate()}`;
+            calendarGrid.innerHTML = '';
 
-            let grid = document.createElement("div");
-            grid.className = "calendar-grid";
+            const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+            const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
 
-            let headerHtml = `<div class="cg-header cg-week-col">Hafta</div>`;
-            dayNames.forEach(d => headerHtml += `<div class="cg-header">${d}</div>`);
-            grid.innerHTML = headerHtml;
+            let firstDayOfWeek = firstDayOfMonth.getDay();
+            let startOffset = (firstDayOfWeek === 0) ? 6 : firstDayOfWeek - 1;
 
-            let totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
-            let totalWeeks = totalCells / 7;
+            const weekDays = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+            weekDays.forEach((day, idx) => {
+                const header = document.createElement('div');
+                header.className = 'cal-header';
+                if (idx >= 5) header.classList.add('weekend');
+                header.textContent = day;
+                calendarGrid.appendChild(header);
+            });
 
-            let cellIndex = 0;
-            for (let w = 0; w < totalWeeks; w++) {
-                let firstCellIndex = w * 7;
-                let firstCellDate = getCellDate(firstCellIndex, firstDay, year, month, prevYear, prevMonth, prevMonthDays);
-                let weekMonday = getMonday(firstCellDate);
+            const totalCellsNeeded = Math.ceil((startOffset + lastDayOfMonth.getDate()) / 7) * 7;
+            const today = new Date();
+            const todayKey = formatDateToYYYYMMDD(today);
 
-                let isSelected = selectedWeekMonday && 
-                    weekMonday.getTime() === selectedWeekMonday.getTime();
+            for (let i = 0; i < totalCellsNeeded; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cal-day';
 
-                let weekBtn = document.createElement("div");
-                weekBtn.className = "week-selector" + (isSelected ? " selected" : "");
-                weekBtn.innerHTML = isSelected ? "✓" : "▸";
-                weekBtn.onclick = (function(monday) {
-                    return function() {
-                        selectedWeekMonday = monday;
-                        renderAll();
-                    };
-                })(weekMonday);
-                grid.appendChild(weekBtn);
+                const dayOffset = i - startOffset;
+                const date = new Date(currentYear, currentMonth, 1 + dayOffset);
+                const dateKey = formatDateToYYYYMMDD(date);
+                const isCurrentMonth = (date.getMonth() === currentMonth && date.getFullYear() === currentYear);
 
-                for (let j = 0; j < 7; j++) {
-                    let cellYear, cellMonth, cellDay, isOtherMonth = false;
+                if (!isCurrentMonth) cell.classList.add('other-month');
+                if (dateKey === todayKey) cell.classList.add('today');
 
-                    if (cellIndex < firstDay) {
-                        cellDay = prevMonthDays - (firstDay - cellIndex - 1);
-                        cellYear = prevYear;
-                        cellMonth = prevMonth;
-                        isOtherMonth = true;
-                    } else if (cellIndex >= firstDay + daysInMonth) {
-                        cellDay = cellIndex - (firstDay + daysInMonth) + 1;
-                        let nextMonth = month + 1, nextYear = year;
-                        if (nextMonth > 11) { nextMonth = 0; nextYear++; }
-                        cellYear = nextYear;
-                        cellMonth = nextMonth;
-                        isOtherMonth = true;
-                    } else {
-                        cellDay = cellIndex - firstDay + 1;
-                        cellYear = year;
-                        cellMonth = month;
-                    }
-
-                    let key = `${cellYear}_${cellMonth}_${cellDay}`;
-                    let shiftIdx = memoryData[key] || 0;
-                    let shift = shifts[shiftIdx] || shifts[0];
-                    let isToday = (key === todayKey);
-                    let isAuto = autoCalcData[key] === true;
-                    let split = splitData[key];
-
-                    let classes = "day-cell " + shift.class;
-                    if (isOtherMonth) classes += " other-month";
-                    if (isToday) classes += " today";
-                    if (isAuto) classes += " auto-calc";
-                    
-                    let label = shift.label;
-                    let timeText = shift.time;
-                    
-                    if (split === "gunduz-izin96") {
-                        classes = "day-cell split-gunduz-izin96";
-                        label = "Gündüz+İzin";
-                        timeText = "08-20 → 96s";
-                    } else if (split === "izin96-gece") {
-                        classes = "day-cell split-izin96-gece";
-                        label = "İzin+Gece";
-                        timeText = "96s → 20-08";
-                    } else {
-                        if (!isOtherMonth) classes += " " + WEEK_CLASSES[getWeekIndexForDay(cellDay)];
-                    }
-                    
-                    if (isToday) classes += " today";
-
-                    let cell = document.createElement("div");
-                    cell.className = classes;
-                    cell.innerHTML = `<span class="day-number">${cellDay}</span><div class="shift-label">${label}</div>${timeText ? `<div class="shift-time">${timeText}</div>` : ''}`;
-                    cell.onclick = (function(y, m, d) {
-                        return function() {
-                            changeShift(y, m, d);
-                        };
-                    })(cellYear, cellMonth, cellDay);
-                    grid.appendChild(cell);
-
-                    cellIndex++;
+                const info = getShiftInfo(date);
+                if (info) {
+                    cell.classList.add(info.type);
+                    if (info.manual) cell.classList.add('manual');
                 }
+
+                if (isMonthStart(date)) cell.classList.add('month-start');
+
+                if (info && info.blockDay && info.total) {
+                    const block = document.createElement('div');
+                    block.className = 'block-badge';
+                    block.textContent = `${info.blockDay}/${info.total}`;
+                    cell.appendChild(block);
+                }
+
+                if (dateKey === todayKey) {
+                    const dot = document.createElement('div');
+                    dot.className = 'today-dot';
+                    cell.appendChild(dot);
+                }
+
+                const dayNum = document.createElement('div');
+                dayNum.className = 'day-num';
+                dayNum.textContent = date.getDate();
+                cell.appendChild(dayNum);
+
+                if (info) {
+                    const icon = document.createElement('div');
+                    icon.className = 'shift-icon';
+                    if (info.type === 'gece') icon.textContent = '🌙';
+                    else if (info.type === 'gunduz') icon.textContent = '☀️';
+                    else if (info.type === 'izin24') icon.textContent = '⏸️';
+                    else if (info.type === 'izin96') icon.textContent = '🛌';
+                    else if (info.type === 'bos') icon.textContent = '';
+                    else icon.textContent = '💤';
+                    cell.appendChild(icon);
+
+                    const tag = document.createElement('div');
+                    if (info.type === 'gece') { tag.className = 'shift-tag gece'; tag.textContent = '20-08'; }
+                    else if (info.type === 'gunduz') { tag.className = 'shift-tag gunduz'; tag.textContent = '08-20'; }
+                    else if (info.type === 'izin24') { tag.className = 'shift-tag izin24'; tag.textContent = '24s'; }
+                    else if (info.type === 'izin96') { tag.className = 'shift-tag izin96'; tag.textContent = '96s'; }
+                    else if (info.type === 'bos') { tag.className = 'shift-tag bos'; tag.textContent = 'Boş'; }
+                    else { tag.className = 'shift-tag izin'; tag.textContent = 'İzin'; }
+                    cell.appendChild(tag);
+                }
+
+                if (isMonthStart(date)) {
+                    const badge = document.createElement('div');
+                    badge.className = 'month-start-badge';
+                    badge.textContent = '📌 AY BAŞI';
+                    cell.appendChild(badge);
+                }
+
+                cell.addEventListener('click', () => openModal(date));
+                calendarGrid.appendChild(cell);
             }
 
-            container.innerHTML = "";
-            container.appendChild(grid);
+            updateStats();
         }
 
-        function getCellDate(cellIndex, firstDay, year, month, prevYear, prevMonth, prevMonthDays) {
-            if (cellIndex < firstDay) {
-                let cellDay = prevMonthDays - (firstDay - cellIndex - 1);
-                return new Date(prevYear, prevMonth, cellDay);
-            } else if (cellIndex >= firstDay + new Date(year, month + 1, 0).getDate()) {
-                let daysInMonth = new Date(year, month + 1, 0).getDate();
-                let cellDay = cellIndex - (firstDay + daysInMonth) + 1;
-                let nextMonth = month + 1, nextYear = year;
-                if (nextMonth > 11) { nextMonth = 0; nextYear++; }
-                return new Date(nextYear, nextMonth, cellDay);
+        function openModal(date) {
+            selectedDate = date;
+            const info = getShiftInfo(date);
+
+            const dayNames = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
+            const monthNames = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
+                                'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+
+            modalDate.textContent = `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()} • ${dayNames[date.getDay()]}`;
+
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.type === info?.type);
+            });
+
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            selectedDate = null;
+        }
+
+        function applyManual(type) {
+            if (!selectedDate) return;
+            manualOverrides[formatDateToYYYYMMDD(selectedDate)] = type;
+            saveSettings();
+            closeModal();
+            renderCalendar();
+            updateSaveText();
+        }
+
+        function revertToAuto() {
+            if (!selectedDate) return;
+            delete manualOverrides[formatDateToYYYYMMDD(selectedDate)];
+            saveSettings();
+            closeModal();
+            renderCalendar();
+            updateSaveText();
+        }
+
+        function clearDay() {
+            if (!selectedDate) return;
+            manualOverrides[formatDateToYYYYMMDD(selectedDate)] = 'bos';
+            saveSettings();
+            closeModal();
+            renderCalendar();
+            updateSaveText();
+        }
+
+        function setStartDate(date, save) {
+            if (!date || isNaN(date.getTime())) return;
+            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            phaseOffset = (startPhase === 'gunduz') ? GUNDUZ_START_OFFSET : 0;
+            currentYear = startDate.getFullYear();
+            currentMonth = startDate.getMonth();
+            const formatted = formatDateToYYYYMMDD(startDate);
+            if (startDateInput.value !== formatted) startDateInput.value = formatted;
+            if (save !== false) saveSettings();
+            renderCalendar();
+            updateSaveText();
+        }
+
+        function setStartPhase(phase, save) {
+            startPhase = phase;
+            if (phase === 'gece') {
+                btnStartGece.classList.add('active', 'gece-active');
+                btnStartGunduz.classList.remove('active', 'gunduz-active');
             } else {
-                let cellDay = cellIndex - firstDay + 1;
-                return new Date(year, month, cellDay);
+                btnStartGunduz.classList.add('active', 'gunduz-active');
+                btnStartGece.classList.remove('active', 'gece-active');
+            }
+            phaseOffset = (phase === 'gunduz') ? GUNDUZ_START_OFFSET : 0;
+            if (startDate) {
+                if (save !== false) saveSettings();
+                renderCalendar();
+                updateSaveText();
             }
         }
 
-        function getWeekIndexForDay(day) {
-            if (day >= 1 && day <= 7) return 0;
-            if (day >= 8 && day <= 14) return 1;
-            if (day >= 15 && day <= 21) return 2;
-            return 3;
+        function changeMonth(delta) {
+            if (currentYear === undefined) {
+                const today = new Date();
+                currentYear = today.getFullYear();
+                currentMonth = today.getMonth();
+            } else {
+                let newMonth = currentMonth + delta;
+                let newYear = currentYear;
+                if (newMonth < 0) { newMonth = 11; newYear--; }
+                else if (newMonth > 11) { newMonth = 0; newYear++; }
+                currentYear = newYear;
+                currentMonth = newMonth;
+            }
+            renderCalendar();
         }
 
-        function changeShift(year, month, day) {
-            let key = year + "_" + month + "_" + day;
-            memoryData[key] = ((memoryData[key] || 0) + 1) % shifts.length;
-            delete autoCalcData[key];
-            delete splitData[key];
-            renderAll();
-            saveUserData();
+        function resetAll() {
+            if (!confirm('Tüm veriler silinsin mi?')) return;
+            try { localStorage.removeItem('vardiya_v6'); } catch(e) {}
+            manualOverrides = {};
+            const today = new Date();
+            startDateInput.value = formatDateToYYYYMMDD(today);
+            setStartPhase('gece', false);
+            setStartDate(today, false);
+            currentYear = today.getFullYear();
+            currentMonth = today.getMonth();
+            renderCalendar();
+            saveText.textContent = 'Başlangıç tarihi otomatik kaydedilir.';
         }
 
-        window.clearMonth = function() {
-            const year = baseDate.getFullYear();
-            const month = baseDate.getMonth();
-            if (confirm(`${monthNames[month]} ${year} ayını sıfırlamak istiyor musunuz?`)) {
-                let daysInMonth = new Date(year, month + 1, 0).getDate();
-                for (let d = 1; d <= daysInMonth; d++) {
-                    let key = `${year}_${month}_${d}`;
-                    delete memoryData[key];
-                    delete autoCalcData[key];
-                    delete splitData[key];
+        function init() {
+            const saved = loadSettings();
+
+            if (saved) {
+                manualOverrides = saved.manualOverrides;
+                setStartPhase(saved.startPhase, false);
+                startDateInput.value = formatDateToYYYYMMDD(saved.startDate);
+                setStartDate(saved.startDate, false);
+                const today = new Date();
+                currentYear = today.getFullYear();
+                currentMonth = today.getMonth();
+                renderCalendar();
+            } else {
+                const today = new Date();
+                startDateInput.value = formatDateToYYYYMMDD(today);
+                setStartPhase('gece', false);
+                setStartDate(today, true);
+            }
+
+            startDateInput.addEventListener('change', (e) => {
+                const val = e.target.value;
+                if (!val) return;
+                const parts = val.split('-');
+                const date = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+                setStartDate(date, true);
+            });
+
+            btnStartGece.addEventListener('click', () => setStartPhase('gece', true));
+            btnStartGunduz.addEventListener('click', () => setStartPhase('gunduz', true));
+
+            prevMonthBtn.addEventListener('click', () => changeMonth(-1));
+            nextMonthBtn.addEventListener('click', () => changeMonth(1));
+
+            resetBtn.addEventListener('click', resetAll);
+
+            modalClose.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) closeModal();
+            });
+
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', () => applyManual(btn.dataset.type));
+            });
+
+            btnAuto.addEventListener('click', revertToAuto);
+            btnClear.addEventListener('click', clearDay);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
+
+            let touchStartX = 0, touchEndX = 0;
+            const calendarEl = document.querySelector('.calendar');
+
+            calendarEl.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            calendarEl.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchEndX - touchStartX;
+                if (Math.abs(diff) > 60) {
+                    if (diff < 0) changeMonth(1);
+                    else changeMonth(-1);
                 }
-                renderAll();
-                saveUserData();
-            }
+            }, { passive: true });
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            let cycleInput = document.getElementById("cycleCount");
-            if (cycleInput) {
-                cycleInput.addEventListener("input", function() {
-                    let c = parseInt(this.value) || 1;
-                    document.getElementById("totalShifts").value = c * 13;
-                });
-            }
-        });
-
-        window.onload = function() {
-            let session = localStorage.getItem(SESSION_KEY);
-            if (session) {
-                try {
-                    currentUser = JSON.parse(session);
-                    let users = getUsers();
-                    if (users[currentUser.normalized]) {
-                        currentUser.displayName = users[currentUser.normalized].displayName;
-                        enterApp(false);
-                        return;
-                    }
-                } catch(e) {}
-            }
-            document.getElementById("authScreen").style.display = "flex";
-            document.getElementById("appScreen").style.display = "none";
-        };
-    </script>
+        window.addEventListener('DOMContentLoaded', init);
+    })();
+</script>
 </body>
 </html>
