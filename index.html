@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="theme-color" content="#0f172a">
-    <title>Vardiya Çetveli • Çoklu Kullanıcı</title>
+    <title>Vardiya Çetveli</title>
     <style>
         * {
             box-sizing: border-box;
@@ -22,7 +22,6 @@
             -webkit-text-size-adjust: 100%;
         }
 
-        /* ============ GİRİŞ EKRANI ============ */
         .auth-screen {
             position: fixed;
             inset: 0;
@@ -34,7 +33,6 @@
             z-index: 2000;
             overflow-y: auto;
         }
-
         .auth-screen.hidden { display: none; }
 
         .auth-card {
@@ -46,24 +44,13 @@
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
             animation: slideUp 0.3s ease;
         }
-
         @keyframes slideUp {
             from { transform: translateY(30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
-        .auth-logo {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .auth-logo .logo-icon {
-            font-size: 3rem;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
+        .auth-logo { text-align: center; margin-bottom: 1.5rem; }
+        .auth-logo .logo-icon { font-size: 3rem; line-height: 1; margin-bottom: 0.5rem; display: block; }
         .auth-logo h1 {
             font-size: 1.5rem;
             font-weight: 800;
@@ -71,13 +58,7 @@
             margin: 0 0 0.3rem;
             letter-spacing: -0.5px;
         }
-
-        .auth-logo p {
-            font-size: 0.85rem;
-            color: #64748b;
-            margin: 0;
-            font-weight: 600;
-        }
+        .auth-logo p { font-size: 0.85rem; color: #64748b; margin: 0; font-weight: 600; }
 
         .auth-tabs {
             display: grid;
@@ -88,7 +69,6 @@
             border-radius: 14px;
             margin-bottom: 1.3rem;
         }
-
         .auth-tabs button {
             border: none;
             background: transparent;
@@ -101,25 +81,14 @@
             font-family: inherit;
             transition: all 0.18s;
         }
-
         .auth-tabs button.active {
             background: white;
             color: #0f172a;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            gap: 0.9rem;
-        }
-
-        .auth-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-        }
-
+        .auth-form { display: flex; flex-direction: column; gap: 0.9rem; }
+        .auth-field { display: flex; flex-direction: column; gap: 0.35rem; }
         .auth-field label {
             font-size: 0.75rem;
             font-weight: 700;
@@ -127,7 +96,6 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
         .auth-field input {
             padding: 0.9rem 1rem;
             border: 2px solid #e2edf9;
@@ -143,7 +111,6 @@
             appearance: none;
             font-family: inherit;
         }
-
         .auth-field input:focus {
             border-color: #10b981;
             background: white;
@@ -164,16 +131,9 @@
             transition: all 0.15s;
             box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
         }
+        .auth-submit:active { transform: scale(0.98); }
 
-        .auth-submit:active {
-            transform: scale(0.98);
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-        }
-
-        .auth-error {
-            background: #fef2f2;
-            color: #dc2626;
-            border: 1px solid #fecaca;
+        .auth-error, .auth-success {
             padding: 0.7rem 1rem;
             border-radius: 12px;
             font-size: 0.82rem;
@@ -181,22 +141,9 @@
             text-align: center;
             display: none;
         }
-
-        .auth-error.show { display: block; }
-
-        .auth-success {
-            background: #ecfdf5;
-            color: #059669;
-            border: 1px solid #bbf7d0;
-            padding: 0.7rem 1rem;
-            border-radius: 12px;
-            font-size: 0.82rem;
-            font-weight: 700;
-            text-align: center;
-            display: none;
-        }
-
-        .auth-success.show { display: block; }
+        .auth-error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .auth-success { background: #ecfdf5; color: #059669; border: 1px solid #bbf7d0; }
+        .auth-error.show, .auth-success.show { display: block; }
 
         .auth-hint {
             text-align: center;
@@ -206,14 +153,8 @@
             line-height: 1.5;
         }
 
-        /* ============ UYGULAMA ============ */
-        .app-screen {
-            display: none;
-        }
-
-        .app-screen.active {
-            display: block;
-        }
+        .app-screen { display: none; }
+        .app-screen.active { display: block; }
 
         .container {
             max-width: 700px;
@@ -221,12 +162,7 @@
             padding: 0.8rem 0.7rem 3rem;
         }
 
-        .app-header {
-            text-align: center;
-            padding: 0.8rem 0 1rem;
-            position: relative;
-        }
-
+        .app-header { text-align: center; padding: 0.8rem 0 1rem; }
         .app-header h1 {
             font-size: 1.3rem;
             font-weight: 800;
@@ -246,13 +182,7 @@
             box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
             margin-bottom: 0.9rem;
         }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
+        .user-info { display: flex; align-items: center; gap: 0.6rem; }
         .user-avatar {
             width: 38px;
             height: 38px;
@@ -266,25 +196,9 @@
             font-size: 1rem;
             flex-shrink: 0;
         }
-
-        .user-details {
-            display: flex;
-            flex-direction: column;
-            gap: 0.05rem;
-        }
-
-        .user-name {
-            font-size: 0.88rem;
-            font-weight: 800;
-            color: #0b2b4b;
-            line-height: 1.2;
-        }
-
-        .user-role {
-            font-size: 0.68rem;
-            color: #64748b;
-            font-weight: 600;
-        }
+        .user-details { display: flex; flex-direction: column; gap: 0.05rem; }
+        .user-name { font-size: 0.88rem; font-weight: 800; color: #0b2b4b; line-height: 1.2; }
+        .user-role { font-size: 0.68rem; color: #64748b; font-weight: 600; }
 
         .logout-btn {
             background: #fef2f2;
@@ -298,18 +212,9 @@
             font-family: inherit;
             transition: all 0.15s;
         }
+        .logout-btn:active { background: #fee2e2; }
 
-        .logout-btn:active {
-            background: #fee2e2;
-        }
-
-        .badges {
-            display: flex;
-            justify-content: center;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-        }
-
+        .badges { display: flex; justify-content: center; gap: 0.4rem; flex-wrap: wrap; }
         .badge {
             display: inline-block;
             font-size: 0.68rem;
@@ -318,9 +223,9 @@
             border-radius: 20px;
             letter-spacing: 0.4px;
         }
-        .badge.gece { background: linear-gradient(135deg, #1e293b, #0f172a); color: #e2e8f0; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.3); }
-        .badge.gunduz { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #78350f; box-shadow: 0 2px 6px rgba(251, 191, 36, 0.4); }
-        .badge.system { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3); }
+        .badge.gece { background: linear-gradient(135deg, #1e293b, #0f172a); color: #e2e8f0; }
+        .badge.gunduz { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #78350f; }
+        .badge.system { background: linear-gradient(135deg, #10b981, #059669); color: white; }
 
         .panel {
             background: white;
@@ -330,7 +235,6 @@
             border: 1px solid #e2edf9;
             margin-bottom: 0.9rem;
         }
-
         .panel-row { display: flex; flex-direction: column; gap: 0.85rem; }
 
         .field { display: flex; flex-direction: column; gap: 0.35rem; }
@@ -341,7 +245,6 @@
             text-transform: uppercase;
             letter-spacing: 0.6px;
         }
-
         .field input[type="date"] {
             padding: 0.85rem 1rem;
             border: 2px solid #e2edf9;
@@ -368,7 +271,6 @@
             grid-template-columns: 1fr 1fr;
             gap: 0.5rem;
         }
-
         .start-phase button {
             border: 2px solid #e2edf9;
             background: #f8fbff;
@@ -388,7 +290,6 @@
             font-family: inherit;
             line-height: 1.2;
         }
-
         .start-phase button .phase-icon { font-size: 1.5rem; line-height: 1; }
         .start-phase button .phase-label { font-size: 0.82rem; }
         .start-phase button .phase-time { font-size: 0.68rem; font-weight: 600; color: #94a3b8; }
@@ -424,6 +325,11 @@
             flex-wrap: wrap;
         }
         .save-info .icon { font-size: 1rem; flex-shrink: 0; }
+        .save-info.warning {
+            background: #fef3c7;
+            border-color: #fcd34d;
+            color: #92400e;
+        }
 
         .reset-btn {
             margin-left: auto;
@@ -441,46 +347,106 @@
         }
         .reset-btn:active { background: #065f46; color: white; }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.6rem;
+        .summary-bar {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 20px;
+            padding: 1rem 1.1rem;
             margin-bottom: 0.9rem;
+            color: white;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
+        }
+        .summary-window-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.3rem;
+            background: rgba(255,255,255,0.1);
+            padding: 0.25rem;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+        }
+        .summary-window-tabs button {
+            border: none;
+            background: transparent;
+            padding: 0.5rem;
+            border-radius: 9px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.6);
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.18s;
+        }
+        .summary-window-tabs button.active {
+            background: rgba(255,255,255,0.95);
+            color: #0f172a;
         }
 
-        .stat-card {
-            background: white;
-            border-radius: 16px;
-            padding: 0.85rem 0.9rem;
-            border: 1px solid #e2edf9;
-            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+        .summary-title {
+            font-size: 0.66rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            opacity: 0.7;
+            margin-bottom: 0.6rem;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+        .summary-item {
             display: flex;
             flex-direction: column;
-            gap: 0.15rem;
+            gap: 0.1rem;
+            text-align: center;
         }
-
-        .stat-label {
-            font-size: 0.68rem;
-            font-weight: 700;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .stat-value {
+        .summary-item .s-value {
             font-size: 1.15rem;
-            font-weight: 800;
-            color: #0b2b4b;
-            line-height: 1.2;
+            font-weight: 900;
+            line-height: 1;
         }
+        .summary-item .s-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            opacity: 0.7;
+            margin-top: 0.15rem;
+        }
+        .summary-item .s-hours {
+            font-size: 0.55rem;
+            font-weight: 700;
+            opacity: 0.6;
+            margin-top: 0.05rem;
+        }
+        .summary-item.gece .s-value { color: #cbd5e1; }
+        .summary-item.gunduz .s-value { color: #fbbf24; }
+        .summary-item.izin .s-value { color: #86efac; }
+        .summary-item.calisma .s-value { color: #93c5fd; }
 
-        .stat-card.gece .stat-value { color: #1e293b; }
-        .stat-card.gunduz .stat-value { color: #d97706; }
-        .stat-card.izin .stat-value { color: #059669; }
-        .stat-card.warn { background: #fef2f2; border-color: #fecaca; }
-        .stat-card.warn .stat-value { color: #dc2626; }
-        .stat-card.good { background: #ecfdf5; border-color: #bbf7d0; }
-        .stat-card.good .stat-value { color: #059669; }
+        .summary-hours {
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            font-size: 0.72rem;
+        }
+        .summary-hours .h-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .summary-hours .h-label {
+            opacity: 0.7;
+            font-weight: 700;
+        }
+        .summary-hours .h-value {
+            font-weight: 800;
+        }
+        .summary-hours .h-value.ok { color: #86efac; }
+        .summary-hours .h-value.warn { color: #fca5a5; }
 
         .month-nav {
             display: flex;
@@ -494,7 +460,6 @@
             box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
             margin-bottom: 0.9rem;
         }
-
         .month-nav button {
             border: none;
             background: #f1f5f9;
@@ -517,7 +482,6 @@
             color: white;
             transform: scale(0.95);
         }
-
         .month-nav .month-label {
             flex: 1;
             text-align: center;
@@ -539,7 +503,6 @@
             grid-template-columns: repeat(7, 1fr);
             gap: 3px;
         }
-
         .cal-header {
             text-align: center;
             font-weight: 700;
@@ -552,22 +515,22 @@
         .cal-header.weekend { color: #dc2626; }
 
         .cal-day {
-            aspect-ratio: 1 / 1.2;
+            aspect-ratio: 1 / 1.25;
             border-radius: 10px;
             background: #f8fafc;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            padding: 0.3rem 0.15rem 0.2rem;
+            justify-content: space-between;
+            padding: 0.35rem 0.15rem 0.25rem;
             border: 1.5px solid transparent;
             position: relative;
-            overflow: hidden;
             transition: all 0.15s;
             cursor: pointer;
             user-select: none;
+            overflow: hidden;
         }
-        .cal-day:active { transform: scale(0.96); }
+        .cal-day:active { transform: scale(0.94); }
         .cal-day.empty { background: transparent; border: none; cursor: default; }
         .cal-day.today { border-color: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2); }
         .cal-day.other-month { opacity: 0.55; }
@@ -591,6 +554,14 @@
             font-weight: 900;
         }
 
+        .day-top {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            position: relative;
+            min-height: 16px;
+        }
         .day-num {
             font-size: 0.82rem;
             font-weight: 700;
@@ -602,7 +573,7 @@
         .shift-icon {
             font-size: 1rem;
             line-height: 1;
-            margin-top: 0.15rem;
+            flex-shrink: 0;
         }
 
         .shift-tag {
@@ -610,7 +581,6 @@
             font-weight: 800;
             padding: 0.1rem 0.28rem;
             border-radius: 4px;
-            margin-top: auto;
             letter-spacing: 0.2px;
             white-space: nowrap;
         }
@@ -621,155 +591,44 @@
         .shift-tag.izin96 { background: #86efac; color: #14532d; }
         .shift-tag.bos { background: #f1f5f9; color: #94a3b8; }
 
+        .block-badge {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 0.48rem;
+            font-weight: 900;
+            background: rgba(255, 255, 255, 0.85);
+            color: #334155;
+            padding: 0.05rem 0.22rem;
+            border-radius: 4px;
+            line-height: 1.2;
+            z-index: 2;
+        }
         .today-dot {
             position: absolute;
-            top: 3px;
-            right: 3px;
+            top: 2px;
+            right: 2px;
             width: 5px;
             height: 5px;
             background: #10b981;
             border-radius: 50%;
+            z-index: 2;
         }
-
-        .block-badge {
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            font-size: 0.5rem;
-            font-weight: 900;
-            background: rgba(255, 255, 255, 0.85);
-            color: #334155;
-            padding: 0.05rem 0.25rem;
-            border-radius: 4px;
-            line-height: 1.2;
-        }
-
         .month-start-badge {
             position: absolute;
-            bottom: 2px;
+            bottom: 1px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 0.42rem;
+            font-size: 0.4rem;
             font-weight: 900;
             background: #f59e0b;
             color: white;
-            padding: 0.08rem 0.3rem;
+            padding: 0.05rem 0.25rem;
             border-radius: 3px;
             letter-spacing: 0.3px;
             white-space: nowrap;
+            z-index: 2;
         }
-
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.55);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            display: none;
-            align-items: flex-end;
-            justify-content: center;
-            z-index: 1000;
-            animation: fadeIn 0.15s ease;
-        }
-        .modal-overlay.active { display: flex; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .modal {
-            background: white;
-            width: 100%;
-            max-width: 480px;
-            border-radius: 24px 24px 0 0;
-            padding: 1.2rem 1rem 1.4rem;
-            animation: slideUp 0.2s ease;
-            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        @media (min-width: 600px) {
-            .modal-overlay { align-items: center; padding: 1rem; }
-            .modal { border-radius: 24px; padding: 1.4rem 1.5rem 1.6rem; }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px solid #e2edf9;
-        }
-
-        .modal-title { font-size: 1rem; font-weight: 800; color: #0b2b4b; }
-        .modal-date { font-size: 0.78rem; color: #64748b; font-weight: 600; margin-top: 0.15rem; }
-
-        .modal-close {
-            background: #f1f5f9;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            color: #64748b;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-family: inherit;
-        }
-        .modal-close:active { background: #e2e8f0; }
-
-        .modal-options { display: grid; gap: 0.5rem; }
-
-        .option-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 0.9rem 1rem;
-            background: #f8fbff;
-            border: 2px solid #e2edf9;
-            border-radius: 14px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #0b2b4b;
-            transition: all 0.15s;
-            text-align: left;
-        }
-        .option-btn:active { transform: scale(0.98); }
-        .option-btn.active { border-color: #10b981; background: #ecfdf5; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12); }
-
-        .option-icon { font-size: 1.3rem; width: 28px; text-align: center; flex-shrink: 0; }
-        .option-info { display: flex; flex-direction: column; gap: 0.1rem; flex: 1; }
-        .option-name { font-size: 0.9rem; font-weight: 800; }
-        .option-desc { font-size: 0.7rem; color: #64748b; font-weight: 600; }
-
-        .modal-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e2edf9;
-        }
-
-        .modal-actions button {
-            padding: 0.85rem;
-            border-radius: 14px;
-            font-size: 0.85rem;
-            font-weight: 800;
-            cursor: pointer;
-            font-family: inherit;
-            border: none;
-            transition: all 0.15s;
-        }
-        .modal-actions .btn-auto { background: #eef2f7; color: #475569; }
-        .modal-actions .btn-auto:active { background: #cbd5e1; }
-        .modal-actions .btn-clear { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-        .modal-actions .btn-clear:active { background: #fee2e2; }
 
         .legend {
             display: flex;
@@ -805,10 +664,8 @@
             .app-header h1 { font-size: 1.6rem; }
             .panel-row { flex-direction: row; align-items: flex-end; }
             .field { flex: 1; }
-            .stats { grid-template-columns: repeat(4, 1fr); }
-            .stat-value { font-size: 1.3rem; }
             .cal-grid { gap: 5px; }
-            .cal-day { aspect-ratio: 1 / 1.12; }
+            .cal-day { aspect-ratio: 1 / 1.15; }
             .day-num { font-size: 0.95rem; }
             .shift-icon { font-size: 1.3rem; }
             .shift-tag { font-size: 0.6rem; padding: 0.15rem 0.4rem; }
@@ -826,17 +683,17 @@
             .shift-tag { font-size: 0.45rem; padding: 0.08rem 0.2rem; }
             .day-num { font-size: 0.75rem; }
             .shift-icon { font-size: 0.85rem; }
-            .block-badge { font-size: 0.45rem; }
-            .month-start-badge { font-size: 0.38rem; }
+            .block-badge { font-size: 0.42rem; }
+            .month-start-badge { font-size: 0.36rem; }
             .start-phase button { min-height: 70px; }
             .start-phase button .phase-icon { font-size: 1.3rem; }
             .start-phase button .phase-label { font-size: 0.75rem; }
+            .summary-item .s-value { font-size: 0.95rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- ============ GİRİŞ EKRANI ============ -->
 <div class="auth-screen" id="authScreen">
     <div class="auth-card">
         <div class="auth-logo">
@@ -877,7 +734,6 @@
     </div>
 </div>
 
-<!-- ============ UYGULAMA ============ -->
 <div class="app-screen" id="appScreen">
 <div class="container">
 
@@ -925,29 +781,54 @@
             </div>
         </div>
 
-        <div class="save-info" id="saveInfo">
-            <span class="icon">💾</span>
-            <span id="saveText">Başlangıç kaydedilir.</span>
+        <div class="field" style="margin-top: 0.85rem;">
+            <label>📏 Döngü Penceresi</label>
+            <div class="summary-window-tabs" style="background: #f1f5f9; margin-bottom: 0;">
+                <button data-window="28" class="active" id="btnWin28" style="color: #64748b;">📊 28 Gün</button>
+                <button data-window="30" id="btnWin30" style="color: #64748b;">📅 30 Gün</button>
+            </div>
+        </div>
+
+        <div class="save-info warning" id="saveInfo">
+            <span class="icon">📅</span>
+            <span id="saveText">Başlangıç tarihini seçin.</span>
             <button class="reset-btn" id="resetBtn">SIFIRLA</button>
         </div>
     </div>
 
-    <div class="stats">
-        <div class="stat-card gece">
-            <span class="stat-label">🌙 Gece</span>
-            <span class="stat-value" id="statGece">0 gün</span>
+    <div class="summary-bar" id="summaryBar">
+        <div class="summary-title" id="summaryTitle">Özet</div>
+        <div class="summary-grid">
+            <div class="summary-item gece">
+                <span class="s-value" id="sumGece">0</span>
+                <span class="s-label">🌙 Gece</span>
+                <span class="s-hours" id="sumGeceSaat">0s</span>
+            </div>
+            <div class="summary-item gunduz">
+                <span class="s-value" id="sumGunduz">0</span>
+                <span class="s-label">☀️ Gündüz</span>
+                <span class="s-hours" id="sumGunduzSaat">0s</span>
+            </div>
+            <div class="summary-item izin">
+                <span class="s-value" id="sumIzin">0</span>
+                <span class="s-label">💤 İzin</span>
+                <span class="s-hours" id="sumIzinSaat">0s</span>
+            </div>
+            <div class="summary-item calisma">
+                <span class="s-value" id="sumCalisma">0</span>
+                <span class="s-label">⏱️ Çalışma</span>
+                <span class="s-hours" id="sumCalismaSaat">0s</span>
+            </div>
         </div>
-        <div class="stat-card gunduz">
-            <span class="stat-label">☀️ Gündüz</span>
-            <span class="stat-value" id="statGunduz">0 gün</span>
-        </div>
-        <div class="stat-card izin">
-            <span class="stat-label">💤 İzin</span>
-            <span class="stat-value" id="statIzin">0 gün</span>
-        </div>
-        <div class="stat-card good" id="statLimitCard">
-            <span class="stat-label">Aylık Toplam</span>
-            <span class="stat-value" id="statLimit">✅ 0s</span>
+        <div class="summary-hours">
+            <div class="h-item">
+                <span class="h-label">Toplam çalışma</span>
+                <span class="h-value" id="sumToplamCalisma">0s</span>
+            </div>
+            <div class="h-item">
+                <span class="h-label">Toplam izin</span>
+                <span class="h-value" id="sumToplamIzin">0s</span>
+            </div>
         </div>
     </div>
 
@@ -964,7 +845,7 @@
     <div class="legend">
         <div class="legend-item"><div class="legend-dot" style="background:#e2e8f0; border:1px solid #94a3b8;"></div><span>🌙 Gece</span></div>
         <div class="legend-item"><div class="legend-dot" style="background:#fef9c3; border:1px solid #fbbf24;"></div><span>☀️ Gündüz</span></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#f1f5f9; border:1px solid #cbd5e1;"></div><span>💤 İzin</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f1f5f9; border:1px solid #cbd5e1;"></div><span>💤 36s</span></div>
         <div class="legend-item"><div class="legend-dot" style="background:#dbeafe; border:1px solid #93c5fd;"></div><span>⏸️ 24s</span></div>
         <div class="legend-item"><div class="legend-dot" style="background:#dcfce7; border:1px solid #86efac;"></div><span>🛌 96s</span></div>
         <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div><span>📌 Ay Başı</span></div>
@@ -972,58 +853,13 @@
 
     <div class="info-box">
         <strong>📌 Kullanım:</strong><br>
-        • Başlangıç tarihini seçin ve <strong>hangi vardiyayla başladığınızı</strong> belirtin.<br>
-        • <strong>🌙 Gece seçilirse:</strong> Seçilen tarih <em>1. gece</em> kabul edilir.<br>
-        • <strong>☀️ Gündüz seçilirse:</strong> Seçilen tarih <em>1. gündüz</em> kabul edilir.<br>
-        • Herhangi bir güne tıklayarak manuel düzenleyebilirsiniz (✎ işareti görünür).
+        • Başlangıç tarihini + vardiya tipini + pencere (28/30) seçin.<br>
+        • Seçtiğiniz pencere kadar gün, başlangıç tarihinden itibaren otomatik doldurulur ve yukarıdaki özet o pencereye göre hesaplanır.<br>
+        • Bir güne <strong>dokunarak</strong> manuel değiştirebilirsiniz:<br>
+        &nbsp;&nbsp;<span class="hl">☀️ Gündüz</span> → <span class="hl">🌙 Gece</span> → <span class="hl">💤 36s</span> → <span class="hl">⏸️ 24s</span> → <span class="hl">🛌 96s</span> → <span class="hl">⬜ Boş</span>
     </div>
 
 </div>
-</div>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay">
-    <div class="modal" id="modal">
-        <div class="modal-header">
-            <div>
-                <div class="modal-title">Günü Düzenle</div>
-                <div class="modal-date" id="modalDate">—</div>
-            </div>
-            <button class="modal-close" id="modalClose" aria-label="Kapat">✕</button>
-        </div>
-
-        <div class="modal-options">
-            <button class="option-btn" data-type="bos">
-                <span class="option-icon">⬜</span>
-                <div class="option-info"><span class="option-name">Boş</span><span class="option-desc">Vardiya yok</span></div>
-            </button>
-            <button class="option-btn" data-type="gunduz">
-                <span class="option-icon">☀️</span>
-                <div class="option-info"><span class="option-name">Gündüz</span><span class="option-desc">08:00 - 20:00</span></div>
-            </button>
-            <button class="option-btn" data-type="gece">
-                <span class="option-icon">🌙</span>
-                <div class="option-info"><span class="option-name">Gece</span><span class="option-desc">20:00 - 08:00</span></div>
-            </button>
-            <button class="option-btn" data-type="izin">
-                <span class="option-icon">💤</span>
-                <div class="option-info"><span class="option-name">İzin</span><span class="option-desc">Normal izin</span></div>
-            </button>
-            <button class="option-btn" data-type="izin24">
-                <span class="option-icon">⏸️</span>
-                <div class="option-info"><span class="option-name">24s İzin</span><span class="option-desc">Geçiş izni</span></div>
-            </button>
-            <button class="option-btn" data-type="izin96">
-                <span class="option-icon">🛌</span>
-                <div class="option-info"><span class="option-name">96s İzin</span><span class="option-desc">Büyük izin</span></div>
-            </button>
-        </div>
-
-        <div class="modal-actions">
-            <button class="btn-auto" id="btnAuto">🔄 Otomatiğe Dön</button>
-            <button class="btn-clear" id="btnClear">🗑️ Günü Sil</button>
-        </div>
-    </div>
 </div>
 
 <script>
@@ -1034,19 +870,19 @@
         const CYCLE_DAYS = 28;
         const GUNDUZ_START_OFFSET = 14;
 
-        const USERS_KEY = 'vardiya_users_v1';
-        const SESSION_KEY = 'vardiya_session_v1';
+        const USERS_KEY = 'vardiya_users_v9';
+        const SESSION_KEY = 'vardiya_session_v9';
 
-        // ---- Durum ----
-        let currentUser = null;       // { username, createdAt }
+        let currentUser = null;
         let currentYear, currentMonth;
         let startDate = null;
         let startPhase = 'gece';
         let phaseOffset = 0;
         let manualOverrides = {};
-        let selectedDate = null;
+        let statsWindow = 28;
 
-        // ---- DOM ----
+        const TAP_CYCLE = ['gunduz', 'gece', 'izin', 'izin24', 'izin96', 'bos'];
+
         const authScreen = document.getElementById('authScreen');
         const appScreen = document.getElementById('appScreen');
         const authForm = document.getElementById('authForm');
@@ -1068,80 +904,67 @@
         const startDateInput = document.getElementById('startDate');
         const prevMonthBtn = document.getElementById('prevMonthBtn');
         const nextMonthBtn = document.getElementById('nextMonthBtn');
-        const statGece = document.getElementById('statGece');
-        const statGunduz = document.getElementById('statGunduz');
-        const statIzin = document.getElementById('statIzin');
-        const statLimit = document.getElementById('statLimit');
-        const statLimitCard = document.getElementById('statLimitCard');
+
+        const sumGece = document.getElementById('sumGece');
+        const sumGeceSaat = document.getElementById('sumGeceSaat');
+        const sumGunduz = document.getElementById('sumGunduz');
+        const sumGunduzSaat = document.getElementById('sumGunduzSaat');
+        const sumIzin = document.getElementById('sumIzin');
+        const sumIzinSaat = document.getElementById('sumIzinSaat');
+        const sumCalisma = document.getElementById('sumCalisma');
+        const sumCalismaSaat = document.getElementById('sumCalismaSaat');
+        const sumToplamCalisma = document.getElementById('sumToplamCalisma');
+        const sumToplamIzin = document.getElementById('sumToplamIzin');
+        const summaryTitle = document.getElementById('summaryTitle');
+
+        const btnWin28 = document.getElementById('btnWin28');
+        const btnWin30 = document.getElementById('btnWin30');
+
         const btnStartGece = document.getElementById('btnStartGece');
         const btnStartGunduz = document.getElementById('btnStartGunduz');
         const resetBtn = document.getElementById('resetBtn');
         const saveText = document.getElementById('saveText');
-        const modalOverlay = document.getElementById('modalOverlay');
-        const modalDate = document.getElementById('modalDate');
-        const modalClose = document.getElementById('modalClose');
-        const btnAuto = document.getElementById('btnAuto');
-        const btnClear = document.getElementById('btnClear');
+        const saveInfo = document.getElementById('saveInfo');
 
-        let authMode = 'login'; // 'login' | 'register'
+        let authMode = 'login';
 
-        // ---- Kullanıcı depolama ----
+        // ---------- Depolama ----------
         function getUsers() {
-            try {
-                const raw = localStorage.getItem(USERS_KEY);
-                return raw ? JSON.parse(raw) : {};
-            } catch(e) { return {}; }
+            try { const raw = localStorage.getItem(USERS_KEY); return raw ? JSON.parse(raw) : {}; }
+            catch(e) { return {}; }
         }
-
         function saveUsers(users) {
-            try {
-                localStorage.setItem(USERS_KEY, JSON.stringify(users));
-            } catch(e) {}
+            try { localStorage.setItem(USERS_KEY, JSON.stringify(users)); } catch(e) {}
         }
-
-        // Basit hash (gerçek uygulamada sunucu tarafı olmalı, ama demo için yeterli)
         function simpleHash(str) {
             let hash = 0;
             for (let i = 0; i < str.length; i++) {
-                const chr = str.charCodeAt(i);
-                hash = ((hash << 5) - hash) + chr;
+                hash = ((hash << 5) - hash) + str.charCodeAt(i);
                 hash |= 0;
             }
             return 'h' + Math.abs(hash).toString(36) + '_' + str.length;
         }
-
-        // Kullanıcıya özel veri anahtarı
         function userDataKey(username, suffix) {
             return `vardiya_data_${username}_${suffix}`;
         }
-
-        // ---- Oturum ----
         function saveSession(username) {
-            try {
-                localStorage.setItem(SESSION_KEY, JSON.stringify({ username, ts: Date.now() }));
-            } catch(e) {}
+            try { localStorage.setItem(SESSION_KEY, JSON.stringify({ username, ts: Date.now() })); } catch(e) {}
         }
-
         function loadSession() {
             try {
                 const raw = localStorage.getItem(SESSION_KEY);
                 if (!raw) return null;
                 const data = JSON.parse(raw);
                 if (!data.username) return null;
-                // 30 gün geçerli
-                if (Date.now() - data.ts > 30 * 86400000) {
-                    localStorage.removeItem(SESSION_KEY);
-                    return null;
-                }
+                if (Date.now() - data.ts > 30 * 86400000) { localStorage.removeItem(SESSION_KEY); return null; }
                 return data.username;
             } catch(e) { return null; }
         }
-
         function clearSession() {
             try { localStorage.removeItem(SESSION_KEY); } catch(e) {}
         }
 
-        // ---- Auth UI ----
+        // ---------- Auth ----------
         function setAuthMode(mode) {
             authMode = mode;
             if (mode === 'login') {
@@ -1149,121 +972,67 @@
                 tabRegister.classList.remove('active');
                 confirmField.style.display = 'none';
                 authSubmitBtn.textContent = 'Giriş Yap';
-                authPassword.setAttribute('autocomplete', 'current-password');
             } else {
                 tabRegister.classList.add('active');
                 tabLogin.classList.remove('active');
                 confirmField.style.display = 'flex';
                 authSubmitBtn.textContent = 'Kayıt Ol';
-                authPassword.setAttribute('autocomplete', 'new-password');
             }
             hideAuthMessages();
         }
-
         function showAuthError(msg) {
             authError.textContent = msg;
             authError.classList.add('show');
             authSuccess.classList.remove('show');
         }
-
         function showAuthSuccess(msg) {
             authSuccess.textContent = msg;
             authSuccess.classList.add('show');
             authError.classList.remove('show');
         }
-
         function hideAuthMessages() {
             authError.classList.remove('show');
             authSuccess.classList.remove('show');
         }
 
-        // ---- Giriş / Kayıt ----
         function handleAuthSubmit(e) {
             e.preventDefault();
             hideAuthMessages();
-
             const username = authUsername.value.trim().toLowerCase();
             const password = authPassword.value;
 
-            if (!username || username.length < 3) {
-                showAuthError('Kullanıcı adı en az 3 karakter olmalı.');
-                return;
-            }
-
-            if (!/^[a-z0-9_]+$/.test(username)) {
-                showAuthError('Kullanıcı adı sadece harf, rakam ve _ içerebilir.');
-                return;
-            }
-
-            if (!password || password.length < 4) {
-                showAuthError('Şifre en az 4 karakter olmalı.');
-                return;
-            }
+            if (!username || username.length < 3) { showAuthError('Kullanıcı adı en az 3 karakter olmalı.'); return; }
+            if (!/^[a-z0-9_]+$/.test(username)) { showAuthError('Sadece harf, rakam ve _ kullanabilirsiniz.'); return; }
+            if (!password || password.length < 4) { showAuthError('Şifre en az 4 karakter olmalı.'); return; }
 
             const users = getUsers();
 
             if (authMode === 'register') {
-                // Kayıt
-                const confirm = authConfirm.value;
-                if (password !== confirm) {
-                    showAuthError('Şifreler eşleşmiyor.');
-                    return;
-                }
-
-                if (users[username]) {
-                    showAuthError('Bu kullanıcı adı zaten alınmış.');
-                    return;
-                }
-
-                users[username] = {
-                    passwordHash: simpleHash(password),
-                    createdAt: Date.now()
-                };
+                if (password !== authConfirm.value) { showAuthError('Şifreler eşleşmiyor.'); return; }
+                if (users[username]) { showAuthError('Bu kullanıcı adı zaten alınmış.'); return; }
+                users[username] = { passwordHash: simpleHash(password), createdAt: Date.now() };
                 saveUsers(users);
-
                 showAuthSuccess('✅ Kayıt başarılı! Giriş yapılıyor...');
-                setTimeout(() => {
-                    loginUser(username);
-                }, 700);
+                setTimeout(() => loginUser(username), 700);
             } else {
-                // Giriş
                 const user = users[username];
-                if (!user) {
-                    showAuthError('Kullanıcı bulunamadı. Kayıt olun.');
-                    return;
-                }
-
-                if (user.passwordHash !== simpleHash(password)) {
-                    showAuthError('Şifre hatalı.');
-                    return;
-                }
-
+                if (!user) { showAuthError('Kullanıcı bulunamadı. Kayıt olun.'); return; }
+                if (user.passwordHash !== simpleHash(password)) { showAuthError('Şifre hatalı.'); return; }
                 showAuthSuccess('✅ Giriş başarılı!');
-                setTimeout(() => {
-                    loginUser(username);
-                }, 400);
+                setTimeout(() => loginUser(username), 400);
             }
         }
 
         function loginUser(username) {
             currentUser = { username };
             saveSession(username);
-
-            // Kullanıcı verilerini yükle
             loadUserData();
-
-            // Ekranları değiştir
             authScreen.classList.add('hidden');
             appScreen.classList.add('active');
-
-            // Kullanıcı barını güncelle
             userName.textContent = username;
             userAvatar.textContent = username.charAt(0).toUpperCase();
-
-            // Takvimi başlat
+            updateWindowButtons();
             initCalendar();
-
-            // Formu temizle
             authUsername.value = '';
             authPassword.value = '';
             authConfirm.value = '';
@@ -1272,23 +1041,21 @@
 
         function logout() {
             if (!confirm('Çıkış yapmak istediğinize emin misiniz?')) return;
-
-            saveUserData(); // son hali kaydet
+            saveUserData();
             clearSession();
             currentUser = null;
-
             appScreen.classList.remove('active');
             authScreen.classList.remove('hidden');
             setAuthMode('login');
         }
 
-        // ---- Kullanıcı verilerini yükle/kaydet ----
+        // ---------- Kullanıcı verileri ----------
         function loadUserData() {
             if (!currentUser) return;
-
             try {
                 const startRaw = localStorage.getItem(userDataKey(currentUser.username, 'start'));
                 const overrideRaw = localStorage.getItem(userDataKey(currentUser.username, 'overrides'));
+                const windowRaw = localStorage.getItem(userDataKey(currentUser.username, 'window'));
 
                 if (startRaw) {
                     const data = JSON.parse(startRaw);
@@ -1299,39 +1066,38 @@
                         phaseOffset = (startPhase === 'gunduz') ? GUNDUZ_START_OFFSET : 0;
                     }
                 } else {
-                    // İlk kez: bugünü gece olarak ayarla
-                    startDate = new Date();
-                    startDate.setHours(0, 0, 0, 0);
+                    startDate = null;
                     startPhase = 'gece';
                     phaseOffset = 0;
                 }
-
                 manualOverrides = overrideRaw ? JSON.parse(overrideRaw) : {};
+                statsWindow = parseInt(windowRaw) || 28;
             } catch(e) {
-                console.warn('Kullanıcı verisi yüklenemedi:', e);
-                startDate = new Date();
-                startDate.setHours(0, 0, 0, 0);
+                startDate = null;
                 startPhase = 'gece';
                 phaseOffset = 0;
                 manualOverrides = {};
+                statsWindow = 28;
             }
         }
 
         function saveUserData() {
             if (!currentUser) return;
-
             try {
                 if (startDate) {
                     localStorage.setItem(userDataKey(currentUser.username, 'start'), JSON.stringify({
                         date: formatDateToYYYYMMDD(startDate),
                         phase: startPhase
                     }));
+                } else {
+                    localStorage.removeItem(userDataKey(currentUser.username, 'start'));
                 }
                 localStorage.setItem(userDataKey(currentUser.username, 'overrides'), JSON.stringify(manualOverrides));
+                localStorage.setItem(userDataKey(currentUser.username, 'window'), String(statsWindow));
             } catch(e) {}
         }
 
-        // ---- Yardımcılar ----
+        // ---------- Yardımcılar ----------
         function formatDateToYYYYMMDD(date) {
             const y = date.getFullYear();
             const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -1345,7 +1111,7 @@
             return Math.round((d2 - d1) / MS_PER_DAY);
         }
 
-        // ---- Vardiya hesaplama ----
+        // ---------- Vardiya hesabı ----------
         function getCycleDayInfo(cycleDay) {
             if (cycleDay >= 0 && cycleDay <= 12) {
                 const blockDay = Math.floor(cycleDay / 2) + 1;
@@ -1361,26 +1127,25 @@
                 if (isWork) return { type: 'gunduz', blockDay, total: 6 };
                 return { type: 'izin', blockDay, total: 6 };
             }
-            if (cycleDay >= 25 && cycleDay <= 27) {
-                return { type: 'izin96' };
-            }
+            if (cycleDay >= 25 && cycleDay <= 27) return { type: 'izin96' };
             return { type: 'izin' };
         }
 
+        // Başlangıç tarihinden itibaren cycleDay = 0 (1. gece veya 1. gündüz)
         function getAutoShiftInfo(date) {
             if (!startDate) return null;
             const diff = daysBetween(startDate, date);
+            if (diff < 0) return null; // başlangıçtan önce
+            if (diff >= statsWindow) return null; // pencere dışı
             let cycleDay = ((diff + phaseOffset) % CYCLE_DAYS + CYCLE_DAYS) % CYCLE_DAYS;
             return getCycleDayInfo(cycleDay);
         }
 
         function getShiftInfo(date) {
-            if (!startDate) return null;
             const key = formatDateToYYYYMMDD(date);
-            if (manualOverrides[key]) {
-                return { type: manualOverrides[key], manual: true };
-            }
-            return getAutoShiftInfo(date);
+            if (manualOverrides[key]) return { type: manualOverrides[key], manual: true };
+            if (startDate) return getAutoShiftInfo(date);
+            return null;
         }
 
         function isMonthStart(date) {
@@ -1388,67 +1153,91 @@
             const key = formatDateToYYYYMMDD(date);
             if (manualOverrides[key]) return false;
             const diff = daysBetween(startDate, date);
+            if (diff < 0 || diff >= statsWindow) return false;
             let cycleDay = ((diff + phaseOffset) % CYCLE_DAYS + CYCLE_DAYS) % CYCLE_DAYS;
             return cycleDay === 14;
         }
 
-        // ---- İstatistik ----
-        function findMonthStartForYearMonth(year, month) {
-            if (!startDate) return null;
-            for (let i = 0; i < 40; i++) {
-                const d = new Date(year, month, 1 + i);
-                if (isMonthStart(d)) return d;
+        // Başlangıç tarihinin döngüdeki pencere içinde olup olmadığını kontrol
+        function isInActiveWindow(date) {
+            if (!startDate) return false;
+            const diff = daysBetween(startDate, date);
+            return diff >= 0 && diff < statsWindow;
+        }
+
+        // ---------- İstatistik ----------
+        function calculateRange(startDay, dayCount) {
+            let geceDays = 0, gunduzDays = 0, izinDays = 0;
+            let izinSaat36 = 0, izinSaat24 = 0, izinSaat96 = 0;
+
+            for (let i = 0; i < dayCount; i++) {
+                const date = new Date(startDay.getFullYear(), startDay.getMonth(), startDay.getDate() + i);
+                const info = getShiftInfo(date);
+                if (!info) continue;
+                if (info.type === 'gece') geceDays++;
+                else if (info.type === 'gunduz') gunduzDays++;
+                else {
+                    izinDays++;
+                    if (info.type === 'izin24') izinSaat24 += 24;
+                    else if (info.type === 'izin96') izinSaat96 += 96;
+                    else izinSaat36 += 36;
+                }
             }
-            for (let i = 1; i <= 40; i++) {
-                const d = new Date(year, month, 1 - i);
-                if (isMonthStart(d)) return d;
-            }
-            return null;
+
+            return {
+                geceDays, gunduzDays, izinDays,
+                izinSaat36, izinSaat24, izinSaat96,
+                geceSaat: geceDays * WORK_HOURS_PER_DAY,
+                gunduzSaat: gunduzDays * WORK_HOURS_PER_DAY,
+                toplamIzinSaat: izinSaat36 + izinSaat24 + izinSaat96,
+                totalWork: geceDays + gunduzDays,
+                totalHours: (geceDays + gunduzDays) * WORK_HOURS_PER_DAY
+            };
         }
 
         function updateStats() {
-            if (currentYear === undefined || currentMonth === undefined) return;
-
-            const monthStart = findMonthStartForYearMonth(currentYear, currentMonth);
-
-            if (!monthStart) {
-                statGece.textContent = '0 gün';
-                statGunduz.textContent = '0 gün';
-                statIzin.textContent = '0 gün';
-                statLimit.textContent = '—';
+            if (!startDate) {
+                // Boş durum
+                sumGece.textContent = '0';
+                sumGeceSaat.textContent = '0s';
+                sumGunduz.textContent = '0';
+                sumGunduzSaat.textContent = '0s';
+                sumIzin.textContent = '0';
+                sumIzinSaat.textContent = '0s';
+                sumCalisma.textContent = '0';
+                sumCalismaSaat.textContent = '0s';
+                sumToplamCalisma.textContent = '0s';
+                sumToplamCalisma.className = 'h-value';
+                sumToplamIzin.textContent = '0s';
+                summaryTitle.textContent = 'Başlangıç tarihi seçin';
                 return;
             }
 
-            let gece = 0, gunduz = 0, izin = 0;
-            for (let i = 0; i < CYCLE_DAYS; i++) {
-                const d = new Date(monthStart.getFullYear(), monthStart.getMonth(), monthStart.getDate() + i);
-                const info = getShiftInfo(d);
-                if (!info) continue;
-                if (info.type === 'gece') gece++;
-                else if (info.type === 'gunduz') gunduz++;
-                else izin++;
-            }
+            const r = calculateRange(startDate, statsWindow);
 
-            const totalWork = gece + gunduz;
-            const totalHours = totalWork * WORK_HOURS_PER_DAY;
+            sumGece.textContent = r.geceDays;
+            sumGunduz.textContent = r.gunduzDays;
+            sumIzin.textContent = r.izinDays;
+            sumCalisma.textContent = r.totalWork;
+            sumGeceSaat.textContent = `${r.geceSaat}s`;
+            sumGunduzSaat.textContent = `${r.gunduzSaat}s`;
+            sumIzinSaat.textContent = `${r.toplamIzinSaat}s`;
+            sumCalismaSaat.textContent = `${r.totalHours}s`;
 
-            statGece.textContent = `${gece} gün`;
-            statGunduz.textContent = `${gunduz} gün`;
-            statIzin.textContent = `${izin} gün`;
-
-            if (totalHours > MONTHLY_LIMIT) {
-                statLimit.textContent = `⚠️ +${totalHours - MONTHLY_LIMIT}s`;
-                statLimitCard.classList.remove('good');
-                statLimitCard.classList.add('warn');
+            sumToplamCalisma.textContent = `${r.totalHours}s / 156s`;
+            if (r.totalHours > MONTHLY_LIMIT) {
+                sumToplamCalisma.className = 'h-value warn';
             } else {
-                const remaining = MONTHLY_LIMIT - totalHours;
-                statLimit.textContent = remaining > 0 ? `✅ ${totalHours}s / ${remaining}s` : `✅ ${totalHours}s`;
-                statLimitCard.classList.remove('warn');
-                statLimitCard.classList.add('good');
+                sumToplamCalisma.className = 'h-value ok';
             }
+
+            sumToplamIzin.textContent = `${r.toplamIzinSaat}s`;
+
+            const phaseText = startPhase === 'gece' ? '1. Gece' : '1. Gündüz';
+            summaryTitle.textContent = `${phaseText}den İtibaren ${statsWindow} Gün`;
         }
 
-        // ---- Render ----
+        // ---------- Render ----------
         function renderCalendar() {
             if (currentYear === undefined || currentMonth === undefined) return;
 
@@ -1493,27 +1282,34 @@
                 if (info) {
                     cell.classList.add(info.type);
                     if (info.manual) cell.classList.add('manual');
+                } else {
+                    cell.classList.add('bos');
                 }
 
                 if (isMonthStart(date)) cell.classList.add('month-start');
+
+                const dayTop = document.createElement('div');
+                dayTop.className = 'day-top';
 
                 if (info && info.blockDay && info.total) {
                     const block = document.createElement('div');
                     block.className = 'block-badge';
                     block.textContent = `${info.blockDay}/${info.total}`;
-                    cell.appendChild(block);
+                    dayTop.appendChild(block);
                 }
+
+                const dayNum = document.createElement('div');
+                dayNum.className = 'day-num';
+                dayNum.textContent = date.getDate();
+                dayTop.appendChild(dayNum);
+
+                cell.appendChild(dayTop);
 
                 if (dateKey === todayKey) {
                     const dot = document.createElement('div');
                     dot.className = 'today-dot';
                     cell.appendChild(dot);
                 }
-
-                const dayNum = document.createElement('div');
-                dayNum.className = 'day-num';
-                dayNum.textContent = date.getDate();
-                cell.appendChild(dayNum);
 
                 if (info) {
                     const icon = document.createElement('div');
@@ -1522,7 +1318,6 @@
                     else if (info.type === 'gunduz') icon.textContent = '☀️';
                     else if (info.type === 'izin24') icon.textContent = '⏸️';
                     else if (info.type === 'izin96') icon.textContent = '🛌';
-                    else if (info.type === 'bos') icon.textContent = '';
                     else icon.textContent = '💤';
                     cell.appendChild(icon);
 
@@ -1531,73 +1326,100 @@
                     else if (info.type === 'gunduz') { tag.className = 'shift-tag gunduz'; tag.textContent = '08-20'; }
                     else if (info.type === 'izin24') { tag.className = 'shift-tag izin24'; tag.textContent = '24s'; }
                     else if (info.type === 'izin96') { tag.className = 'shift-tag izin96'; tag.textContent = '96s'; }
-                    else if (info.type === 'bos') { tag.className = 'shift-tag bos'; tag.textContent = 'Boş'; }
-                    else { tag.className = 'shift-tag izin'; tag.textContent = 'İzin'; }
+                    else { tag.className = 'shift-tag izin'; tag.textContent = '36s'; }
+                    cell.appendChild(tag);
+                } else {
+                    const icon = document.createElement('div');
+                    icon.className = 'shift-icon';
+                    icon.textContent = '';
+                    cell.appendChild(icon);
+
+                    const tag = document.createElement('div');
+                    tag.className = 'shift-tag bos';
+                    tag.textContent = '—';
                     cell.appendChild(tag);
                 }
 
                 if (isMonthStart(date)) {
                     const badge = document.createElement('div');
                     badge.className = 'month-start-badge';
-                    badge.textContent = '📌 AY BAŞI';
+                    badge.textContent = 'AY BAŞI';
                     cell.appendChild(badge);
                 }
 
-                cell.addEventListener('click', () => openModal(date));
+                cell.addEventListener('click', () => handleDayTap(date, dateKey));
                 calendarGrid.appendChild(cell);
             }
 
             updateStats();
+            updateSaveInfo();
         }
 
-        // ---- Modal ----
-        function openModal(date) {
-            selectedDate = date;
-            const info = getShiftInfo(date);
+        // ---------- Tek dokunuş döngüsel değişim ----------
+        function handleDayTap(date, dateKey) {
+            const current = getShiftInfo(date);
+            let currentType = current ? current.type : null;
 
-            const dayNames = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
-            const monthNames = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
-                                'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+            let nextType;
+            if (!currentType || currentType === 'bos') {
+                nextType = TAP_CYCLE[0];
+            } else {
+                const idx = TAP_CYCLE.indexOf(currentType);
+                if (idx === -1) {
+                    nextType = TAP_CYCLE[0];
+                } else {
+                    nextType = TAP_CYCLE[(idx + 1) % TAP_CYCLE.length];
+                }
+            }
 
-            modalDate.textContent = `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()} • ${dayNames[date.getDay()]}`;
+            if (nextType === 'bos') {
+                manualOverrides[dateKey] = 'bos';
+            } else {
+                manualOverrides[dateKey] = nextType;
+            }
 
-            document.querySelectorAll('.option-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.type === info?.type);
-            });
-
-            modalOverlay.classList.add('active');
-        }
-
-        function closeModal() {
-            modalOverlay.classList.remove('active');
-            selectedDate = null;
-        }
-
-        function applyManual(type) {
-            if (!selectedDate) return;
-            manualOverrides[formatDateToYYYYMMDD(selectedDate)] = type;
             saveUserData();
-            closeModal();
             renderCalendar();
         }
 
-        function revertToAuto() {
-            if (!selectedDate) return;
-            delete manualOverrides[formatDateToYYYYMMDD(selectedDate)];
-            saveUserData();
-            closeModal();
+        function updateSaveInfo() {
+            if (startDate) {
+                const phaseText = startPhase === 'gece' ? '🌙 1. Gece' : '☀️ 1. Gündüz';
+                const overrideCount = Object.keys(manualOverrides).length;
+                const manualText = overrideCount > 0 ? ` • ${overrideCount} manuel düzenleme` : '';
+                saveText.textContent = `${phaseText}: ${formatDateToYYYYMMDD(startDate)} • ${statsWindow} gün${manualText}`;
+                saveInfo.classList.remove('warning');
+            } else {
+                saveText.textContent = 'Başlangıç tarihini seçin.';
+                saveInfo.classList.add('warning');
+            }
+        }
+
+        function updateWindowButtons() {
+            if (statsWindow === 28) {
+                btnWin28.classList.add('active');
+                btnWin28.style.color = '#0f172a';
+                btnWin28.style.background = 'white';
+                btnWin30.classList.remove('active');
+                btnWin30.style.color = '#64748b';
+                btnWin30.style.background = 'transparent';
+            } else {
+                btnWin30.classList.add('active');
+                btnWin30.style.color = '#0f172a';
+                btnWin30.style.background = 'white';
+                btnWin28.classList.remove('active');
+                btnWin28.style.color = '#64748b';
+                btnWin28.style.background = 'transparent';
+            }
+        }
+
+        function setStatsWindow(win, save) {
+            statsWindow = win;
+            updateWindowButtons();
+            if (save !== false) saveUserData();
             renderCalendar();
         }
 
-        function clearDay() {
-            if (!selectedDate) return;
-            manualOverrides[formatDateToYYYYMMDD(selectedDate)] = 'bos';
-            saveUserData();
-            closeModal();
-            renderCalendar();
-        }
-
-        // ---- Ayarlar ----
         function setStartDate(date, save) {
             if (!date || isNaN(date.getTime())) return;
             startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -1645,42 +1467,55 @@
         function resetAll() {
             if (!confirm('Tüm başlangıç ve manuel düzenlemeleriniz silinsin mi?')) return;
             manualOverrides = {};
-            const today = new Date();
-            startDateInput.value = formatDateToYYYYMMDD(today);
+            startDate = null;
+            startDateInput.value = '';
             setStartPhase('gece', false);
-            setStartDate(today, false);
+            const today = new Date();
             currentYear = today.getFullYear();
             currentMonth = today.getMonth();
+            if (currentUser) {
+                try {
+                    localStorage.removeItem(userDataKey(currentUser.username, 'start'));
+                    localStorage.removeItem(userDataKey(currentUser.username, 'overrides'));
+                } catch(e) {}
+            }
             renderCalendar();
         }
 
-        // ---- Takvim başlat ----
         function initCalendar() {
-            // Kullanıcının verilerini UI'a yansıt
             if (startDate) {
                 startDateInput.value = formatDateToYYYYMMDD(startDate);
                 setStartPhase(startPhase, false);
                 const today = new Date();
                 currentYear = today.getFullYear();
                 currentMonth = today.getMonth();
-                renderCalendar();
+            } else {
+                const today = new Date();
+                currentYear = today.getFullYear();
+                currentMonth = today.getMonth();
+                startDateInput.value = '';
+                setStartPhase('gece', false);
             }
+            renderCalendar();
         }
 
-        // ---- Başlat ----
         function init() {
-            // Auth sekmeleri
             tabLogin.addEventListener('click', () => setAuthMode('login'));
             tabRegister.addEventListener('click', () => setAuthMode('register'));
             authForm.addEventListener('submit', handleAuthSubmit);
-
-            // Çıkış
             logoutBtn.addEventListener('click', logout);
 
-            // Vardiya kontrolleri
+            btnWin28.addEventListener('click', () => setStatsWindow(28, true));
+            btnWin30.addEventListener('click', () => setStatsWindow(30, true));
+
             startDateInput.addEventListener('change', (e) => {
                 const val = e.target.value;
-                if (!val) return;
+                if (!val) {
+                    startDate = null;
+                    saveUserData();
+                    renderCalendar();
+                    return;
+                }
                 const parts = val.split('-');
                 const date = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
                 setStartDate(date, true);
@@ -1694,23 +1529,6 @@
 
             resetBtn.addEventListener('click', resetAll);
 
-            modalClose.addEventListener('click', closeModal);
-            modalOverlay.addEventListener('click', (e) => {
-                if (e.target === modalOverlay) closeModal();
-            });
-
-            document.querySelectorAll('.option-btn').forEach(btn => {
-                btn.addEventListener('click', () => applyManual(btn.dataset.type));
-            });
-
-            btnAuto.addEventListener('click', revertToAuto);
-            btnClear.addEventListener('click', clearDay);
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeModal();
-            });
-
-            // Swipe
             let touchStartX = 0, touchEndX = 0;
             const calendarEl = document.querySelector('.calendar');
 
@@ -1727,12 +1545,10 @@
                 }
             }, { passive: true });
 
-            // Oturum kontrolü
             const sessionUsername = loadSession();
             if (sessionUsername) {
                 const users = getUsers();
                 if (users[sessionUsername]) {
-                    // Otomatik giriş
                     loginUser(sessionUsername);
                 } else {
                     clearSession();
